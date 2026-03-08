@@ -42,78 +42,203 @@ function loadArtworks() {
     const artworks = [
         {
             image: '0f12e295770ae362c53ffe7601f4bad0.jpg',
-            title: '艺术作品 1'
+            title: '生日派對'
         },
         {
             image: '301ed367d7e2b3b5d4d5146eae5423cd.jpg',
-            title: '艺术作品 2'
-        },
-        {
-            image: '614e62d84900b8eb7dca8202349345f2.jpg',
-            title: '艺术作品 3'
-        },
-        {
-            image: '7830aaa70eb63159111e59d17e318d23.jpg',
-            title: '艺术作品 4'
-        },
-        {
-            image: '7ebb92e5ed9a54e786dcb8e2b47b818a.jpg',
-            title: '艺术作品 5'
+            title: '抱貓少女'
         },
         {
             image: '9dec5c5f28b2e89a744260e78242945f.jpg',
-            title: '艺术作品 6'
+            title: '向日葵少女'
+        },
+        {
+            image: '614e62d84900b8eb7dca8202349345f2.jpg',
+            title: 'Penguin King'
+        },
+        {
+            image: 'Image_20250805153619_70.jpg',
+            title: 'Dora King'
+        },
+        {
+            image: '7ebb92e5ed9a54e786dcb8e2b47b818a.jpg',
+            title: '畢業紀念'
+        },
+        {
+            image: 'Image_20250805153619_68.jpg',
+            title: '漢堡少女'
+        },
+        {
+            image: 'Image_20250805153619_69.jpg',
+            title: 'Makima'
+        },
+        {
+            image: 'a45dd89d0ebdb4f53fbf3ac99c8e019d.jpg',
+            title: '殺手女僕'
+        },
+        {
+            image: 'Image_20250805153619_67.jpg',
+            title: '一月壽星'
+        },
+        {
+            image: 'Image_20250805153619_71.jpg',
+            title: '墨鏡少女'
+        },
+        {
+            image: '7830aaa70eb63159111e59d17e318d23.jpg',
+            title: '牛角少女'
         }
     ];
 
     // 生成艺术作品HTML
-    artworks.forEach(artwork => {
+    artworks.forEach((artwork, index) => {
         const artworkItem = document.createElement('div');
         artworkItem.className = 'artwork-item';
         artworkItem.innerHTML = `
-            <img src="${artwork.image}" alt="${artwork.title}">
+            <img src="${artwork.image}" alt="${artwork.title}" data-index="${index}">
             <div class="artwork-overlay">
                 <div class="artwork-title">${artwork.title}</div>
             </div>
         `;
         artworkGrid.appendChild(artworkItem);
     });
-}
 
-// 动态加载游戏作品
-function loadGames() {
-    const gameContainer = document.querySelector('.game-container');
-    if (!gameContainer) return;
-
-    // 游戏数据
-    const games = [
-        {
-            title: '小鸟跳跃',
-            url: 'game/小鸟跳跃.html',
-            image: 'gamecover/小鸟跳跃.png'
-        },
-        {
-            title: '小鸡过马路',
-            url: 'game/小鸡过马路.html',
-            image: 'gamecover/小鸡过马路.jpg'
-        }
-    ];
-
-    // 生成游戏HTML
-    games.forEach(game => {
-        const gameItem = document.createElement('div');
-        gameItem.className = 'game-item';
-        gameItem.innerHTML = `
-            <div class="game-image">
-                <img src="${game.image}" alt="${game.title}游戏封面" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-            <div class="game-content">
-                <div class="game-title">${game.title}</div>
-                <a href="${game.url}" class="game-link" target="_blank">开始游戏</a>
-            </div>
-        `;
-        gameContainer.appendChild(gameItem);
+    // 添加点击事件，打开lightbox
+    document.querySelectorAll('.artwork-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const img = this.querySelector('img');
+            const index = parseInt(img.dataset.index);
+            openLightbox(index);
+        });
     });
+
+    // 创建lightbox
+    function openLightbox(index) {
+        // 移除已存在的lightbox
+        const existingLightbox = document.getElementById('lightbox');
+        if (existingLightbox) {
+            existingLightbox.remove();
+        }
+
+        // 创建lightbox元素
+        const lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        `;
+
+        // 创建lightbox内容
+        const lightboxContent = document.createElement('div');
+        lightboxContent.style.cssText = `
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        `;
+
+        // 创建图片元素
+        const lightboxImg = document.createElement('img');
+        lightboxImg.src = artworks[index].image;
+        lightboxImg.alt = artworks[index].title;
+        lightboxImg.style.cssText = `
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        `;
+
+        // 创建标题
+        const lightboxTitle = document.createElement('div');
+        lightboxTitle.textContent = artworks[index].title;
+        lightboxTitle.style.cssText = `
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+        `;
+
+        // 创建关闭按钮
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '×';
+        closeBtn.style.cssText = `
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        `;
+        closeBtn.addEventListener('click', function() {
+            lightbox.remove();
+        });
+
+        // 创建上一张按钮
+        const prevBtn = document.createElement('button');
+        prevBtn.textContent = '‹';
+        prevBtn.style.cssText = `
+            position: absolute;
+            top: 50%;
+            left: -50px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        `;
+        prevBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const newIndex = (index - 1 + artworks.length) % artworks.length;
+            openLightbox(newIndex);
+        });
+
+        // 创建下一张按钮
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = '›';
+        nextBtn.style.cssText = `
+            position: absolute;
+            top: 50%;
+            right: -50px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        `;
+        nextBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const newIndex = (index + 1) % artworks.length;
+            openLightbox(newIndex);
+        });
+
+        // 组装lightbox
+        lightboxContent.appendChild(lightboxImg);
+        lightboxContent.appendChild(lightboxTitle);
+        lightboxContent.appendChild(closeBtn);
+        lightboxContent.appendChild(prevBtn);
+        lightboxContent.appendChild(nextBtn);
+        lightbox.appendChild(lightboxContent);
+
+        // 点击lightbox背景关闭
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lightbox.remove();
+            }
+        });
+
+        // 添加到页面
+        document.body.appendChild(lightbox);
+    }
 }
 
 // 动态加载视频
@@ -122,16 +247,12 @@ function loadVideos() {
     if (!videoContainer) return;
 
     // 视频数据
-        const videos = [
-            {
-                video: 'V/腾讯混元3D and 3 more pages - Personal - Microsoft​ Edge 2025-08-04 10-21-16.mp4',
-                title: '3D模型设计'
-            },
-            {
-                video: 'V/3D design Exquisite Blad - Tinkercad and 3 more pages - Personal - Microsoft​ Edge 2025-08-04 18-54-42.mp4',
-                title: '3D名牌设计'
-            }
-        ];
+    const videos = [
+        {
+            video: 'V/腾讯混元3D and 3 more pages - Personal - Microsoft​ Edge 2025-08-04 10-21-16.mp4',
+            title: '角色模型展示'
+        }
+    ];
 
     // 生成视频HTML
     videos.forEach(video => {
@@ -142,123 +263,10 @@ function loadVideos() {
                 <source src="${video.video}" type="video/mp4">
                 您的浏览器不支持视频播放
             </video>
-            <div style="padding: 1rem; text-align: center;">${video.title}</div>
+            <h3>${video.title}</h3>
         `;
         videoContainer.appendChild(videoItem);
     });
-}
-
-// 创建艺术作品页面
-function createArtworksPage() {
-    const artworksPage = document.createElement('html');
-    artworksPage.innerHTML = `
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>艺术作品 | 个人艺术作品集</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.jpg" alt="Logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html#home">首页</a></li>
-            <li><a href="index.html#about">关于我</a></li>
-            <li><a href="#artworks">艺术作品</a></li>
-            <li><a href="videos.html">3D 打印</a></li>
-            <li><a href="index.html#contact">联系方式</a></li>
-        </ul>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-    </nav>
-
-    <!-- 艺术作品部分 -->
-    <section id="artworks" class="artworks-page">
-        <h2>绘画作品</h2>
-        <div class="artwork-grid">
-            <!-- 艺术作品将通过JavaScript动态加载 -->
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 艺术作品集. 保留所有权利.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
-    `;
-    return artworksPage.outerHTML;
-}
-
-// 创建视频页面
-function createVideosPage() {
-    const videosPage = document.createElement('html');
-    videosPage.innerHTML = `
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D 打印 | 个人作品集</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.jpg" alt="Logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html#home">首页</a></li>
-            <li><a href="index.html#about">关于我</a></li>
-            <li><a href="artworks.html">艺术作品</a></li>
-            <li><a href="videos.html">视频展示</a></li>
-            <li><a href="games.html">游戏作品</a></li>
-            <li><a href="index.html#contact">联系方式</a></li>
-        </ul>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-    </nav>
-
-    <!-- 视频部分 -->
-    <section id="videos" class="videos-page">
-        <h2>3D 打印</h2>
-        <div class="video-container">
-            <!-- 视频将通过JavaScript动态加载 -->
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 艺术作品集. 保留所有权利.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
-    `;
-    return videosPage.outerHTML;
 }
 
 // 页面加载完成后执行
@@ -267,86 +275,6 @@ window.addEventListener('DOMContentLoaded', () => {
     loadArtworks();
     // 加载视频
     loadVideos();
-    // 加载游戏作品
-    loadGames();
-
-    // 如果是艺术作品页面，加载所有艺术作品
-    if (document.body.classList.contains('artworks-page')) {
-        const artworkGrid = document.querySelector('.artwork-grid');
-        artworkGrid.innerHTML = '';
-        // 艺术作品数据
-        const artworks = [
-            {
-                image: '0f12e295770ae362c53ffe7601f4bad0.jpg',
-                title: '艺术作品 1'
-            },
-            {
-                image: '301ed367d7e2b3b5d4d5146eae5423cd.jpg',
-                title: '艺术作品 2'
-            },
-            {
-                image: '614e62d84900b8eb7dca8202349345f2.jpg',
-                title: '艺术作品 3'
-            },
-            {
-                image: '7830aaa70eb63159111e59d17e318d23.jpg',
-                title: '艺术作品 4'
-            },
-            {
-                image: '7ebb92e5ed9a54e786dcb8e2b47b818a.jpg',
-                title: '艺术作品 5'
-            },
-            {
-                image: '9dec5c5f28b2e89a744260e78242945f.jpg',
-                title: '艺术作品 6'
-            },
-            {
-                image: 'Image_20250805153619_67.jpg',
-                title: '艺术作品 7'
-            },
-            {
-                image: 'Image_20250805153619_68.jpg',
-                title: '艺术作品 8'
-            },
-            {
-                image: 'Image_20250805153619_69.jpg',
-                title: '艺术作品 9'
-            },
-            {
-                image: 'Image_20250805153619_70.jpg',
-                title: '艺术作品 10'
-            },
-            {
-                image: 'Image_20250805153619_71.jpg',
-                title: '艺术作品 11'
-            },
-            {
-                image: 'a45dd89d0ebdb4f53fbf3ac99c8e019d.jpg',
-                title: '艺术作品 12'
-            },
-            {
-                image: 'logo.jpg',
-                title: 'Logo'
-            },
-            {
-                image: 'profilepicture.jpg',
-                title: '个人头像'
-            }
-        ];
-
-        // 生成艺术作品HTML
-        artworks.forEach(artwork => {
-            const artworkItem = document.createElement('div');
-            artworkItem.className = 'artwork-item';
-            artworkItem.innerHTML = `
-                <img src="${artwork.image}" alt="${artwork.title}">
-                <div class="artwork-overlay">
-                    <div class="artwork-title">${artwork.title}</div>
-                </div>
-            `;
-            artworkGrid.appendChild(artworkItem);
-        });
-    }
 });
 
 // 添加移动端菜单样式
@@ -414,10 +342,3 @@ style.textContent = `
 `;
 
 document.head.appendChild(style);
-
-// 创建艺术作品页面和视频页面
-if (window.location.pathname.endsWith('artworks.html')) {
-    document.write(createArtworksPage());
-} else if (window.location.pathname.endsWith('videos.html')) {
-    document.write(createVideosPage());
-}

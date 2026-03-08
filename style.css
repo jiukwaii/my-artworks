@@ -208,7 +208,7 @@ h2::after {
 
 .artwork-item img {
     width: 100%;
-    height: 350px;
+    aspect-ratio: 1/1;
     object-fit: cover;
     transition: transform 0.5s ease;
 }
