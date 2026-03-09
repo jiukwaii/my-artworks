@@ -249,7 +249,7 @@ function loadVideos() {
     // 视频数据
     const videos = [
         {
-            video: 'V/腾讯混元3D and 3 more pages - Personal - Microsoft​ Edge 2025-08-04 10-21-16.mp4',
+            video: '3dmodel.mp4',
             title: '角色模型展示'
         }
     ];
@@ -259,11 +259,10 @@ function loadVideos() {
         const videoItem = document.createElement('div');
         videoItem.className = 'video-item';
         videoItem.innerHTML = `
-            <video controls muted width="100%" height="auto">
+            <video controls muted width="100%" height="auto" poster="modelcover.jpg">
                 <source src="${video.video}" type="video/mp4">
                 您的浏览器不支持视频播放
             </video>
-            <h3>${video.title}</h3>
         `;
         videoContainer.appendChild(videoItem);
     });
