@@ -90,8 +90,14 @@ function loadArtworks() {
         }
     ];
 
+    // 检查当前页面是否为全部作品页面
+    const isAllArtworksPage = window.location.pathname.includes('all-artworks');
+    
+    // 确定要显示的作品数量
+    const displayCount = isAllArtworksPage ? artworks.length : 9;
+    
     // 生成艺术作品HTML
-    artworks.forEach((artwork, index) => {
+    artworks.slice(0, displayCount).forEach((artwork, index) => {
         const artworkItem = document.createElement('div');
         artworkItem.className = 'artwork-item';
         artworkItem.innerHTML = `
@@ -111,6 +117,13 @@ function loadArtworks() {
             openLightbox(index);
         });
     });
+
+    // 非全部作品页面时添加查看全部按钮
+    if (!isAllArtworksPage) {
+        const viewAllBtn = document.createElement('div');
+        viewAllBtn.innerHTML = `<a href="all-artworks.html" class="btn view-more">查看全部作品</a>`;
+        artworkGrid.parentNode.appendChild(viewAllBtn);
+    }
 
     // 创建lightbox
     function openLightbox(index) {

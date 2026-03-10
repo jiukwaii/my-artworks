@@ -75,13 +75,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15rem 5% 10rem;
+    padding: 15rem 10% 10rem;
     min-height: 100vh;
 }
 
 .hero-content {
     flex: 1;
     max-width: 600px;
+    margin-left: 10%;
 }
 
 .hero-content h1 {
@@ -155,8 +156,6 @@ body {
     width: 100%;
     max-width: 450px;
     height: auto;
-    border-radius: 2px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .about-content {
@@ -311,11 +310,6 @@ h2::after {
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
-}
-
-.model-image-item:hover img {
-    transform: scale(1.05);
 }
 
 .video-item video {
@@ -507,12 +501,13 @@ footer {
     .hero {
         flex-direction: column;
         text-align: center;
-        padding: 12rem 5% 8rem;
+        padding: 12rem 10% 8rem;
     }
     .hero-content {
         order: 2;
         max-width: 100%;
         margin-top: 3rem;
+        margin-left: 0;
     }
     .hero-content p {
         max-width: 100%;
@@ -521,17 +516,16 @@ footer {
         order: 1;
         justify-content: center;
     }
-    .about-container,
-    .contact-container {
+    .about-container {
         flex-direction: column;
         text-align: center;
     }
-    .about-content, .contact-info {
+    .about-content {
         order: 2;
         max-width: 100%;
         margin-top: 3rem;
     }
-    h2::after {
+    .about-container h2::after {
         left: 50%;
         transform: translateX(-50%);
     }
@@ -551,7 +545,46 @@ footer {
         grid-template-columns: 1fr;
     }
     .model-images {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr;
+    }
+    .hero,
+    .about,
+    .artworks,
+    .videos,
+    .games,
+    .contact,
+    .artworks-page,
+    .videos-page,
+    .games-page {
+        padding: 4rem 5% 3rem;
+    }
+    .hero {
+        padding: 4rem 10% 3rem;
+    }
+    .hero-content,
+    .about-content,
+    .contact-info {
+        margin-top: 2.5rem;
+    }
+    .hero-content {
+        margin-left: 0;
+    }
+    .contact-container {
+        flex-direction: column;
+        text-align: left;
+    }
+    .contact-info {
+        order: 1;
+        max-width: 100%;
+        margin-top: 0;
+    }
+    .contact-image {
+        order: 2;
+        margin-top: 2.5rem;
+    }
+    .contact-container h2::after {
+        left: 0;
+        transform: none;
     }
 }
 
