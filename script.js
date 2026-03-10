@@ -123,6 +123,11 @@ function loadArtworks() {
         const viewAllBtn = document.createElement('div');
         viewAllBtn.innerHTML = `<a href="all-artworks.html" class="btn view-more">查看全部作品</a>`;
         artworkGrid.parentNode.appendChild(viewAllBtn);
+        
+        // 记录当前滚动位置
+        viewAllBtn.querySelector('a').addEventListener('click', function(e) {
+            localStorage.setItem('artworksScrollPosition', window.scrollY);
+        });
     }
 
     // 创建lightbox
@@ -287,6 +292,18 @@ window.addEventListener('DOMContentLoaded', () => {
     loadArtworks();
     // 加载视频
     loadVideos();
+    
+    // 检查是否从全部作品页面返回
+    const scrollPosition = localStorage.getItem('artworksScrollPosition');
+    if (scrollPosition && window.location.hash === '#artworks') {
+        setTimeout(() => {
+            window.scrollTo({
+                top: parseInt(scrollPosition),
+                behavior: 'auto'
+            });
+            localStorage.removeItem('artworksScrollPosition');
+        }, 100);
+    }
 });
 
 // 添加移动端菜单样式
