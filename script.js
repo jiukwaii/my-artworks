@@ -165,9 +165,10 @@ function loadArtworks() {
         const img = document.createElement('img');
         img.src = artworks[index].image;
         img.alt = artworks[index].title;
+        const isMobile = window.innerWidth <= 768;
         img.style.cssText = `
-            max-width: 80%;
-            max-height: 80%;
+            max-width: ${isMobile ? '70%' : '80%'};
+            max-height: ${isMobile ? '60%' : '80%'};
             object-fit: contain;
         `;
 
@@ -176,13 +177,13 @@ function loadArtworks() {
         prevBtn.innerHTML = '&#10094;';
         prevBtn.style.cssText = `
             position: absolute;
-            left: 20px;
+            left: ${isMobile ? '5px' : '20px'};
             top: 50%;
             transform: translateY(-50%);
             color: white;
-            font-size: 3rem;
+            font-size: ${isMobile ? '2rem' : '3rem'};
             cursor: pointer;
-            padding: 20px;
+            padding: ${isMobile ? '10px' : '20px'};
             user-select: none;
             z-index: 2001;
         `;
@@ -192,13 +193,13 @@ function loadArtworks() {
         nextBtn.innerHTML = '&#10095;';
         nextBtn.style.cssText = `
             position: absolute;
-            right: 20px;
+            right: ${isMobile ? '5px' : '20px'};
             top: 50%;
             transform: translateY(-50%);
             color: white;
-            font-size: 3rem;
+            font-size: ${isMobile ? '2rem' : '3rem'};
             cursor: pointer;
-            padding: 20px;
+            padding: ${isMobile ? '10px' : '20px'};
             user-select: none;
             z-index: 2001;
         `;
@@ -246,21 +247,23 @@ function loadArtworks() {
 
         // 点击背景关闭lightbox
         lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox) {
-                this.remove();
+            if (e.target === lightbox || e.target === imgContainer) {
+                lightbox.remove();
             }
         });
 
         // 键盘导航
-        document.addEventListener('keydown', function(e) {
+        function handleKeydown(e) {
             if (e.key === 'Escape') {
                 lightbox.remove();
+                document.removeEventListener('keydown', handleKeydown);
             } else if (e.key === 'ArrowLeft') {
                 showPrev(e);
             } else if (e.key === 'ArrowRight') {
                 showNext(e);
             }
-        });
+        }
+        document.addEventListener('keydown', handleKeydown);
     }
 }
 
