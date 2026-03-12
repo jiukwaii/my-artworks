@@ -1,36 +1,33 @@
-// 导航栏响应式功能
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-const links = document.querySelectorAll('.nav-links li');
+document.addEventListener('DOMContentLoaded', function() {
+    // 移动端菜单切换
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('toggle');
+        });
+    }
 
-// 切换移动端菜单
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    links.forEach(link => {
-        link.classList.toggle('fade');
+    // 点击导航链接后关闭菜单
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('toggle');
+            }
+        });
     });
-    // 切换汉堡菜单图标
-    hamburger.classList.toggle('toggle');
-});
 
-// 平滑滚动
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop - 80,
-                behavior: 'smooth'
-            });
-            // 关闭移动端菜单
-            navLinks.classList.remove('open');
-            links.forEach(link => {
-                link.classList.remove('fade');
-            });
-            hamburger.classList.remove('toggle');
-        }
-    });
+    // 加载艺术作品
+    loadArtworks();
+    
+    // 加载3D打印视频
+    load3DPrintVideos();
+    
+    // 恢复滚动位置
+    restoreScrollPosition();
 });
 
 // 动态加载艺术作品
@@ -41,48 +38,48 @@ function loadArtworks() {
     // 艺术作品数据
     const artworks = [
         {
-            image: '0f12e295770ae362c53ffe7601f4bad0.jpg',
-            title: '生日派對'
-        },
-        {
-            image: '301ed367d7e2b3b5d4d5146eae5423cd.jpg',
-            title: '抱貓少女'
-        },
-        {
-            image: '9dec5c5f28b2e89a744260e78242945f.jpg',
-            title: '向日葵少女'
-        },
-        {
-            image: '614e62d84900b8eb7dca8202349345f2.jpg',
-            title: 'Penguin King'
+            image: 'Image_20250806171201_168.jpg',
+            title: '海邊少女'
         },
         {
             image: 'Image_20250805153619_70.jpg',
             title: 'Dora King'
         },
         {
-            image: '7ebb92e5ed9a54e786dcb8e2b47b818a.jpg',
-            title: '畢業紀念'
+            image: 'd2795fb66ab3a4cb868b15915f0822e0.jpg',
+            title: '飛鳥與少女'
         },
         {
-            image: 'Image_20250805153619_68.jpg',
-            title: '漢堡少女'
+            image: '614e62d84900b8eb7dca8202349345f2.jpg',
+            title: 'Penguin King'
         },
         {
             image: 'Image_20250805153619_69.jpg',
             title: 'Makima'
         },
         {
+            image: 'Image_20250805153619_68.jpg',
+            title: '漢堡少女'
+        },
+        {
+            image: '7ebb92e5ed9a54e786dcb8e2b47b818a.jpg',
+            title: '畢業紀念'
+        },
+        {
+            image: '301ed367d7e2b3b5d4d5146eae5423cd.jpg',
+            title: '抱貓少女'
+        },
+        {
             image: 'a45dd89d0ebdb4f53fbf3ac99c8e019d.jpg',
             title: '殺手女僕'
         },
         {
-            image: 'Image_20250805153619_67.jpg',
-            title: '一月壽星'
+            image: '9dec5c5f28b2e89a744260e78242945f.jpg',
+            title: '向日葵少女'
         },
         {
-            image: 'Image_20250805153619_71.jpg',
-            title: '墨鏡少女'
+            image: '0f12e295770ae362c53ffe7601f4bad0.jpg',
+            title: '生日派對'
         },
         {
             image: '7830aaa70eb63159111e59d17e318d23.jpg',
@@ -148,226 +145,152 @@ function loadArtworks() {
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 2000;
         `;
 
-        // 创建lightbox内容
-        const lightboxContent = document.createElement('div');
-        lightboxContent.style.cssText = `
+        // 创建图片容器
+        const imgContainer = document.createElement('div');
+        imgContainer.style.cssText = `
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         `;
 
-        // 创建图片元素
-        const lightboxImg = document.createElement('img');
-        lightboxImg.src = artworks[index].image;
-        lightboxImg.alt = artworks[index].title;
-        lightboxImg.style.cssText = `
-            max-width: 100%;
-            max-height: 80vh;
+        const img = document.createElement('img');
+        img.src = artworks[index].image;
+        img.alt = artworks[index].title;
+        img.style.cssText = `
+            max-width: 80%;
+            max-height: 80%;
             object-fit: contain;
         `;
 
-        // 创建标题
-        const lightboxTitle = document.createElement('div');
-        lightboxTitle.textContent = artworks[index].title;
-        lightboxTitle.style.cssText = `
+        // 左箭头
+        const prevBtn = document.createElement('div');
+        prevBtn.innerHTML = '&#10094;';
+        prevBtn.style.cssText = `
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
             color: white;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1.2rem;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            z-index: 2001;
         `;
 
-        // 创建关闭按钮
-        const closeBtn = document.createElement('button');
-        closeBtn.textContent = '×';
+        // 右箭头
+        const nextBtn = document.createElement('div');
+        nextBtn.innerHTML = '&#10095;';
+        nextBtn.style.cssText = `
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            z-index: 2001;
+        `;
+
+        // 关闭按钮
+        const closeBtn = document.createElement('div');
+        closeBtn.innerHTML = '&times;';
         closeBtn.style.cssText = `
             position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
-            border: none;
+            top: 20px;
+            right: 40px;
             color: white;
-            font-size: 2rem;
+            font-size: 3rem;
             cursor: pointer;
+            z-index: 2001;
         `;
-        closeBtn.addEventListener('click', function() {
+
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(prevBtn);
+        imgContainer.appendChild(nextBtn);
+        imgContainer.appendChild(closeBtn);
+        lightbox.appendChild(imgContainer);
+        document.body.appendChild(lightbox);
+
+        // 切换到上一个作品
+        function showPrev(e) {
+            e.stopPropagation();
+            const newIndex = index === 0 ? artworks.length - 1 : index - 1;
+            openLightbox(newIndex);
+        }
+
+        // 切换到下一个作品
+        function showNext(e) {
+            e.stopPropagation();
+            const newIndex = index === artworks.length - 1 ? 0 : index + 1;
+            openLightbox(newIndex);
+        }
+
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
             lightbox.remove();
         });
 
-        // 创建上一张按钮
-        const prevBtn = document.createElement('button');
-        prevBtn.textContent = '‹';
-        prevBtn.style.cssText = `
-            position: absolute;
-            top: 50%;
-            left: -50px;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        `;
-        prevBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const newIndex = (index - 1 + artworks.length) % artworks.length;
-            openLightbox(newIndex);
-        });
-
-        // 创建下一张按钮
-        const nextBtn = document.createElement('button');
-        nextBtn.textContent = '›';
-        nextBtn.style.cssText = `
-            position: absolute;
-            top: 50%;
-            right: -50px;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-        `;
-        nextBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const newIndex = (index + 1) % artworks.length;
-            openLightbox(newIndex);
-        });
-
-        // 组装lightbox
-        lightboxContent.appendChild(lightboxImg);
-        lightboxContent.appendChild(lightboxTitle);
-        lightboxContent.appendChild(closeBtn);
-        lightboxContent.appendChild(prevBtn);
-        lightboxContent.appendChild(nextBtn);
-        lightbox.appendChild(lightboxContent);
-
-        // 点击lightbox背景关闭
+        // 点击背景关闭lightbox
         lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox) {
-                lightbox.remove();
+                this.remove();
             }
         });
 
-        // 添加到页面
-        document.body.appendChild(lightbox);
+        // 键盘导航
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                lightbox.remove();
+            } else if (e.key === 'ArrowLeft') {
+                showPrev(e);
+            } else if (e.key === 'ArrowRight') {
+                showNext(e);
+            }
+        });
     }
 }
 
-// 动态加载视频
-function loadVideos() {
+// 动态加载3D打印视频
+function load3DPrintVideos() {
     const videoContainer = document.querySelector('.video-container');
     if (!videoContainer) return;
 
-    // 视频数据
-    const videos = [
-        {
-            video: '3dmodel.mp4',
-            title: '角色模型展示'
-        }
-    ];
-
-    // 生成视频HTML
-    videos.forEach(video => {
-        const videoItem = document.createElement('div');
-        videoItem.className = 'video-item';
-        videoItem.innerHTML = `
-            <video controls muted width="100%" height="auto" poster="modelcover.jpg">
-                <source src="${video.video}" type="video/mp4">
-                您的浏览器不支持视频播放
-            </video>
-        `;
-        videoContainer.appendChild(videoItem);
-    });
+    const videoItem = document.createElement('div');
+    videoItem.className = 'video-item';
+    videoItem.innerHTML = `
+        <video controls poster="modelcover.jpg" style="aspect-ratio: 16/9; object-fit: cover;">
+            <source src="3dmodel.mp4" type="video/mp4">
+            您的浏览器不支持视频标签。
+        </video>
+    `;
+    videoContainer.appendChild(videoItem);
 }
 
-// 页面加载完成后执行
-window.addEventListener('DOMContentLoaded', () => {
-    // 加载艺术作品
-    loadArtworks();
-    // 加载视频
-    loadVideos();
-    
-    // 检查是否从全部作品页面返回
-    const scrollPosition = localStorage.getItem('artworksScrollPosition');
-    if (scrollPosition && window.location.hash === '#artworks') {
-        setTimeout(() => {
-            window.scrollTo({
-                top: parseInt(scrollPosition),
-                behavior: 'auto'
-            });
+// 恢复滚动位置
+function restoreScrollPosition() {
+    // 只有在首页才恢复滚动位置，all-artworks页面强制在顶部
+    if (!window.location.pathname.includes('all-artworks')) {
+        const savedPosition = localStorage.getItem('artworksScrollPosition');
+        if (savedPosition) {
+            window.scrollTo(0, parseInt(savedPosition));
             localStorage.removeItem('artworksScrollPosition');
-        }, 100);
-    }
-});
-
-// 添加移动端菜单样式
-const style = document.createElement('style');
-style.textContent = `
-.nav-links.open {
-    display: flex;
-}
-
-.nav-links {
-    position: absolute;
-    right: 0;
-    top: 80px;
-    height: calc(100vh - 80px);
-    background-color: #fff;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
-}
-
-.nav-links.open {
-    transform: translateX(0%);
-}
-
-.nav-links li {
-    opacity: 0;
-    margin: 1.5rem 0;
-}
-
-.nav-links li.fade {
-    opacity: 1;
-    transition: opacity 0.5s ease-in;
-}
-
-.hamburger.toggle .line:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.toggle .line:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.toggle .line:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-}
-
-@media screen and (min-width: 769px) {
-    .nav-links {
-        position: relative;
-        top: 0;
-        height: auto;
-        flex-direction: row;
-        width: auto;
-        transform: translateX(0);
-        box-shadow: none;
-    }
-    .nav-links li {
-        opacity: 1;
-        margin: 0 0 0 2.5rem;
+        }
+    } else {
+        // 在all-artworks页面强制滚动到顶部
+        window.scrollTo(0, 0);
     }
 }
-`;
-
-document.head.appendChild(style);
