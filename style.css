@@ -1,3 +1,6 @@
+/* 字体引入 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+
 /* 基础样式重置 */
 * {
     margin: 0;
@@ -562,11 +565,44 @@ footer {
 
 @media screen and (max-width: 768px) {
     .nav-links {
-        display: none;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255,255, 255, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 999;
     }
+    
+    .nav-links.active {
+        transform: translateY(0);
+    }
+    
+    .nav-links li {
+        margin: 1rem 0;
+    }
+    
+    .hamburger.toggle .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .hamburger.toggle .line:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.toggle .line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
     .hamburger {
         display: block;
     }
+    
     .hero-content h1 {
         font-size: 2.5rem;
     }
@@ -575,6 +611,15 @@ footer {
     }
     .model-images {
         grid-template-columns:1fr;
+        gap: 1.5rem;
+    }
+    
+    .model-image-item {
+        max-width: 100%;
+    }
+    
+    .game-item {
+        margin-bottom: 2rem;
     }
     .hero,
     .about,
@@ -623,7 +668,145 @@ footer {
     }
 }
 
+/* 创作探索页面样式 */
+.explore-page {
+    padding-top: 8rem;
+}
+
+/* 3D列印視頻區域 */
+.videos-section {
+    padding: 4rem 5%;
+}
+
+.videos-section h2 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.video-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.video-item {
+    margin-bottom: 3rem;
+}
+
+.video-item video {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.video-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    color: #333;
+}
+
+/* 遊戲作品區域 */
+.games-section {
+    padding: 4rem 5%;
+    background-color: #f9f9f9;
+}
+
+.games-section h2 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.game-item {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.game-item:hover {
+    transform: translateY(-10px);
+}
+
+.game-image {
+    height: 200px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-content {
+    padding: 1.5rem;
+}
+
+.game-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.game-content p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.game-link {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.game-link:hover {
+    background-color: #555;
+}
+
+/* 分隔線 */
+.section-divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+    margin: 2rem 0;
+}
+
+@media screen and (max-width: 768px) {
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media screen and (max-width: 576px) {
+    .model-images {
+        gap: 1rem;
+    }
+    
+    .game-content h3 {
+        font-size: 1.2rem;
+    }
+    
     .hero-content h1 {
         font-size: 2rem;
     }
