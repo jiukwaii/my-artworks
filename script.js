@@ -38,51 +38,51 @@ function loadArtworks() {
     // 艺术作品数据
     const artworks = [
         {
-            image: 'Image_20250806171201_168.jpg',
+            image: 'webphoto/Image_20250806171201_168.webp',
             title: '海邊少女'
         },
         {
-            image: 'Image_20250805153619_70.jpg',
+            image: 'webphoto/Image_20250805153619_70.webp',
             title: 'Dora King'
         },
         {
-            image: 'd2795fb66ab3a4cb868b15915f0822e0.jpg',
+            image: 'webphoto/d2795fb66ab3a4cb868b15915f0822e0.webp',
             title: '飛鳥與少女'
         },
         {
-            image: '614e62d84900b8eb7dca8202349345f2.jpg',
+            image: 'webphoto/614e62d84900b8eb7dca8202349345f2.webp',
             title: 'Penguin King'
         },
         {
-            image: 'Image_20250805153619_69.jpg',
+            image: 'webphoto/Image_20250805153619_69.webp',
             title: 'Makima'
         },
         {
-            image: 'Image_20250805153619_68.jpg',
+            image: 'webphoto/Image_20250805153619_68.webp',
             title: '漢堡少女'
         },
         {
-            image: '7ebb92e5ed9a54e786dcb8e2b47b818a.jpg',
+            image: 'webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a.webp',
             title: '畢業紀念'
         },
         {
-            image: '301ed367d7e2b3b5d4d5146eae5423cd.jpg',
+            image: 'webphoto/301ed367d7e2b3b5d4d5146eae5423cd.webp',
             title: '抱貓少女'
         },
         {
-            image: 'a45dd89d0ebdb4f53fbf3ac99c8e019d.jpg',
+            image: 'webphoto/a45dd89d0ebdb4f53fbf3ac99c8e019d.webp',
             title: '殺手女僕'
         },
         {
-            image: '9dec5c5f28b2e89a744260e78242945f.jpg',
+            image: 'webphoto/9dec5c5f28b2e89a744260e78242945f.webp',
             title: '向日葵少女'
         },
         {
-            image: '0f12e295770ae362c53ffe7601f4bad0.jpg',
+            image: 'webphoto/0f12e295770ae362c53ffe7601f4bad0.webp',
             title: '生日派對'
         },
         {
-            image: '7830aaa70eb63159111e59d17e318d23.jpg',
+            image: 'webphoto/7830aaa70eb63159111e59d17e318d23.webp',
             title: '牛角少女'
         }
     ];
@@ -275,7 +275,7 @@ function load3DPrintVideos() {
     const videoItem = document.createElement('div');
     videoItem.className = 'video-item';
     videoItem.innerHTML = `
-        <video controls poster="modelcover.jpg" style="aspect-ratio: 16/9; object-fit: cover;">
+        <video controls poster="webphoto/modelcover.webp" style="aspect-ratio: 16/9; object-fit: cover;">
             <source src="3dmodel.mp4" type="video/mp4">
             您的浏览器不支持视频标签。
         </video>
