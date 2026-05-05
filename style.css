@@ -12,6 +12,32 @@ html {
     scroll-behavior: smooth;
 }
 
+/* 全局文字选取高亮效果：暖灰米色，符合极简作品集的杂志感 */
+::selection {
+    background: rgba(170, 160, 145, 0.28);
+    color: #222;
+}
+
+::-moz-selection {
+    background: rgba(170, 160, 145, 0.28);
+    color: #222;
+}
+
+/* 防止图片、视频、SVG icon 和作品卡片被误选中或拖动 */
+img,
+video,
+svg,
+.artwork-item,
+.model-image-item,
+.game-image,
+.hero-image,
+.about-image,
+.contact-image {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -815,5 +841,55 @@ footer {
     }
     .btn {
         padding: 0.7rem 1.5rem;
+    }
+}
+
+/* 返回顶部按钮：默认隐藏，电脑端不显示 */
+.back-to-top {
+    display: none;
+}
+
+.back-to-top-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+    .back-to-top {
+        position: fixed;
+        right: 1.2rem;
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(51, 51, 51, 0.18);
+        background-color: rgba(255, 255, 255, 0.82);
+        color: #333;
+        font-size: 1.1rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1200;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .back-to-top:active {
+        transform: translateY(0) scale(0.96);
     }
 }

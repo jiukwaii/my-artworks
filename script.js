@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 恢复滚动位置
     restoreScrollPosition();
+
+    // 初始化返回顶部按钮
+    initBackToTop();
 });
 
 // 动态加载艺术作品
@@ -297,3 +300,89 @@ function restoreScrollPosition() {
         window.scrollTo(0, 0);
     }
 }
+
+// 返回顶部按钮：手机端显示，电脑端隐藏
+function initBackToTop() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    const logo = document.querySelector('.logo');
+
+    if (!backToTopBtn) return;
+
+    let lastScrollY = window.scrollY;
+    let hideTimer = null;
+
+    function isMobileView() {
+        return window.innerWidth <= 768;
+    }
+
+    function showBackToTopButton() {
+        backToTopBtn.classList.add('show');
+
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => {
+            backToTopBtn.classList.remove('show');
+        }, 1800);
+    }
+
+    function hideBackToTopButton() {
+        backToTopBtn.classList.remove('show');
+        clearTimeout(hideTimer);
+    }
+
+    function toggleBackToTopButton() {
+        const currentScrollY = window.scrollY;
+        const triggerPoint = Math.max(window.innerHeight * 0.3, 300);
+        const scrollDifference = currentScrollY - lastScrollY;
+
+        // 电脑端隐藏；页面顶部附近隐藏
+        if (!isMobileView() || currentScrollY <= triggerPoint) {
+            hideBackToTopButton();
+            lastScrollY = currentScrollY;
+            return;
+        }
+
+        // 避免手机滚动惯性或轻微抖动造成按钮闪烁
+        if (Math.abs(scrollDifference) < 8) {
+            return;
+        }
+
+        if (scrollDifference < 0) {
+            // 往上滑：显示按钮
+            showBackToTopButton();
+        } else {
+            // 往下滑：隐藏按钮
+            hideBackToTopButton();
+        }
+
+        lastScrollY = currentScrollY;
+    }
+
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Logo 点击返回顶部；电脑端和手机端都可用
+    if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.addEventListener('click', function() {
+            const isAllArtworksPage = window.location.pathname.includes('all-artworks') || window.location.pathname.includes('artwork');
+
+            if (isAllArtworksPage) {
+                window.location.href = 'index.html#home';
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
+    window.addEventListener('scroll', toggleBackToTopButton);
+    window.addEventListener('resize', toggleBackToTopButton);
+    toggleBackToTopButton();
+}
+
