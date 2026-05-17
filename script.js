@@ -358,7 +358,7 @@ function loadArtworks() {
     }
 }
 
-// 动态加载3D打印视频
+// 动态加载3D渲染展示视频
 function load3DPrintVideos() {
     const videoContainer = document.querySelector('.video-container');
     if (!videoContainer) return;
@@ -366,12 +366,33 @@ function load3DPrintVideos() {
     const videoItem = document.createElement('div');
     videoItem.className = 'video-item';
     videoItem.innerHTML = `
-        <video controls poster="webphoto/modelcover.webp" style="aspect-ratio: 16/9; object-fit: cover;">
-            <source src="3dmodel.mp4" type="video/mp4">
+        <video
+            class="model-preview-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="webphoto/modelcover.webp"
+            aria-label="3D rendered model preview"
+        >
+            <source src="3dmodel-loop.mp4" type="video/mp4">
             您的浏览器不支持视频标签。
         </video>
     `;
     videoContainer.appendChild(videoItem);
+
+    const previewVideo = videoItem.querySelector('video');
+    if (previewVideo) {
+        previewVideo.muted = true;
+        previewVideo.defaultMuted = true;
+        const playPromise = previewVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // 如果浏览器暂时阻止自动播放，就保留 poster，不影响页面浏览。
+            });
+        }
+    }
 }
 
 // 恢复滚动位置

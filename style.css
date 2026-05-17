@@ -283,6 +283,16 @@ h2::after {
     display: block;
 }
 
+.model-preview-video {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 2px;
+    pointer-events: none;
+    user-select: none;
+}
+
 /* 联系方式部分样式 */
 .contact {
     padding: 12rem 5% 8rem;
