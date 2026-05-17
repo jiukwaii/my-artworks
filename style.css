@@ -43,6 +43,13 @@ svg,
     -webkit-user-drag: none;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;

@@ -166,6 +166,82 @@ function loadArtworks() {
         }
     ];
 
+    const imageMeta = {
+            "webphoto/Image_20250806171201_168.webp": {
+                    "src": "webphoto/Image_20250806171201_168-800.webp",
+                    "srcset": "webphoto/Image_20250806171201_168-480.webp 480w, webphoto/Image_20250806171201_168-800.webp 800w, webphoto/Image_20250806171201_168-1200.webp 1200w",
+                    "width": 800,
+                    "height": 663
+            },
+            "webphoto/Image_20250805153619_70.webp": {
+                    "src": "webphoto/Image_20250805153619_70-800.webp",
+                    "srcset": "webphoto/Image_20250805153619_70-480.webp 480w, webphoto/Image_20250805153619_70-800.webp 800w",
+                    "width": 800,
+                    "height": 1001
+            },
+            "webphoto/d2795fb66ab3a4cb868b15915f0822e0.webp": {
+                    "src": "webphoto/d2795fb66ab3a4cb868b15915f0822e0-800.webp",
+                    "srcset": "webphoto/d2795fb66ab3a4cb868b15915f0822e0-480.webp 480w, webphoto/d2795fb66ab3a4cb868b15915f0822e0-800.webp 800w",
+                    "width": 800,
+                    "height": 600
+            },
+            "webphoto/614e62d84900b8eb7dca8202349345f2.webp": {
+                    "src": "webphoto/614e62d84900b8eb7dca8202349345f2-800.webp",
+                    "srcset": "webphoto/614e62d84900b8eb7dca8202349345f2-480.webp 480w, webphoto/614e62d84900b8eb7dca8202349345f2-800.webp 800w, webphoto/614e62d84900b8eb7dca8202349345f2-1200.webp 1200w",
+                    "width": 800,
+                    "height": 999
+            },
+            "webphoto/Image_20250805153619_69.webp": {
+                    "src": "webphoto/Image_20250805153619_69-800.webp",
+                    "srcset": "webphoto/Image_20250805153619_69-480.webp 480w, webphoto/Image_20250805153619_69-800.webp 800w",
+                    "width": 800,
+                    "height": 999
+            },
+            "webphoto/Image_20250805153619_68.webp": {
+                    "src": "webphoto/Image_20250805153619_68-800.webp",
+                    "srcset": "webphoto/Image_20250805153619_68-480.webp 480w, webphoto/Image_20250805153619_68-800.webp 800w",
+                    "width": 800,
+                    "height": 1000
+            },
+            "webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a.webp": {
+                    "src": "webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a-800.webp",
+                    "srcset": "webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a-480.webp 480w, webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a-800.webp 800w, webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a-1200.webp 1200w",
+                    "width": 800,
+                    "height": 537
+            },
+            "webphoto/301ed367d7e2b3b5d4d5146eae5423cd.webp": {
+                    "src": "webphoto/301ed367d7e2b3b5d4d5146eae5423cd-800.webp",
+                    "srcset": "webphoto/301ed367d7e2b3b5d4d5146eae5423cd-480.webp 480w, webphoto/301ed367d7e2b3b5d4d5146eae5423cd-800.webp 800w, webphoto/301ed367d7e2b3b5d4d5146eae5423cd-1200.webp 1200w",
+                    "width": 800,
+                    "height": 1041
+            },
+            "webphoto/a45dd89d0ebdb4f53fbf3ac99c8e019d.webp": {
+                    "src": "webphoto/a45dd89d0ebdb4f53fbf3ac99c8e019d-800.webp",
+                    "srcset": "webphoto/a45dd89d0ebdb4f53fbf3ac99c8e019d-480.webp 480w, webphoto/a45dd89d0ebdb4f53fbf3ac99c8e019d-800.webp 800w",
+                    "width": 800,
+                    "height": 1068
+            },
+            "webphoto/9dec5c5f28b2e89a744260e78242945f.webp": {
+                    "src": "webphoto/9dec5c5f28b2e89a744260e78242945f-800.webp",
+                    "srcset": "webphoto/9dec5c5f28b2e89a744260e78242945f-480.webp 480w, webphoto/9dec5c5f28b2e89a744260e78242945f-800.webp 800w, webphoto/9dec5c5f28b2e89a744260e78242945f-1200.webp 1200w",
+                    "width": 800,
+                    "height": 986
+            },
+            "webphoto/0f12e295770ae362c53ffe7601f4bad0.webp": {
+                    "src": "webphoto/0f12e295770ae362c53ffe7601f4bad0-800.webp",
+                    "srcset": "webphoto/0f12e295770ae362c53ffe7601f4bad0-480.webp 480w, webphoto/0f12e295770ae362c53ffe7601f4bad0-800.webp 800w, webphoto/0f12e295770ae362c53ffe7601f4bad0-1200.webp 1200w",
+                    "width": 800,
+                    "height": 488
+            },
+            "webphoto/7830aaa70eb63159111e59d17e318d23.webp": {
+                    "src": "webphoto/7830aaa70eb63159111e59d17e318d23-480.webp",
+                    "srcset": "webphoto/7830aaa70eb63159111e59d17e318d23-480.webp 480w",
+                    "width": 480,
+                    "height": 709
+            }
+    };
+
+
     // 检查当前页面是否为全部作品页面
     const isAllArtworksPage = window.location.pathname.includes('all-artworks');
     
@@ -174,16 +250,23 @@ function loadArtworks() {
     
     // 生成艺术作品HTML
     // Loading strategy:
-    // - 首頁只顯示 9 張作品，全部 eager，避免滑到作品區時才開始下載。
-    // - 全部作品頁前 12 張 eager，後面保留 lazy。
-    // - 後段 lazy 圖片會由 warmUpLazyArtworkImages() 提前約 1200px 觸發，避免滑到時還是空白。
+    // - 首頁與全部作品頁只讓前 4 張作品 eager，避免首屏與作品區等待太久。
+    // - 後面的作品保留 lazy，並由 warmUpLazyArtworkImages() 提前約 1200px 觸發。
+    // - 只有全部作品頁第一張作品加 high priority，避免首頁主視覺被作品圖搶資源。
     artworks.slice(0, displayCount).forEach((artwork, index) => {
         const artworkItem = document.createElement('div');
         artworkItem.className = 'artwork-item';
-        const loadingMode = isAllArtworksPage ? (index < 12 ? 'eager' : 'lazy') : 'eager';
-        const fetchPriority = index < 3 ? ' fetchpriority="high"' : '';
+
+        const meta = imageMeta[artwork.image] || {};
+        const imageSrc = meta.src || artwork.image;
+        const srcsetAttr = meta.srcset ? ` srcset="${meta.srcset}" sizes="(max-width: 768px) 90vw, 33vw"` : '';
+        const widthAttr = meta.width ? ` width="${meta.width}"` : '';
+        const heightAttr = meta.height ? ` height="${meta.height}"` : '';
+        const loadingMode = index < 4 ? 'eager' : 'lazy';
+        const fetchPriority = isAllArtworksPage && index === 0 ? ' fetchpriority="high"' : '';
+
         artworkItem.innerHTML = `
-            <img src="${artwork.image}" alt="${artwork.title}" data-index="${index}" loading="${loadingMode}" decoding="async"${fetchPriority}>
+            <img src="${imageSrc}"${srcsetAttr} alt="${artwork.title}" data-index="${index}" loading="${loadingMode}" decoding="async"${widthAttr}${heightAttr}${fetchPriority}>
             <div class="artwork-overlay">
                 <div class="artwork-title">${artwork.title}</div>
             </div>
@@ -259,8 +342,12 @@ function loadArtworks() {
         `;
 
         const img = document.createElement('img');
+        const lightboxMeta = imageMeta[artworks[index].image] || {};
         img.src = artworks[index].image;
         img.alt = artworks[index].title;
+        img.decoding = 'async';
+        if (lightboxMeta.width) img.width = lightboxMeta.width;
+        if (lightboxMeta.height) img.height = lightboxMeta.height;
         const isMobile = window.innerWidth <= 768;
         img.style.cssText = `
             max-width: ${isMobile ? '70%' : '80%'};
@@ -426,7 +513,10 @@ function load3DPrintVideos() {
             playsinline
             webkit-playsinline
             preload="metadata"
-            poster="webphoto/modelcover.webp"
+            poster="webphoto/modelcover-800.webp"
+            data-poster-mobile="webphoto/modelcover-480.webp"
+            data-poster-tablet="webphoto/modelcover-800.webp"
+            data-poster-desktop="webphoto/modelcover-1200.webp"
             aria-label="3D rendered model preview"
         >
             <source src="3dmodel-mobile-safe.mp4" type="video/mp4">
@@ -437,6 +527,15 @@ function load3DPrintVideos() {
 
     const previewVideo = videoItem.querySelector('video');
     if (!previewVideo) return;
+
+    const posterMobile = previewVideo.dataset.posterMobile;
+    const posterTablet = previewVideo.dataset.posterTablet;
+    const posterDesktop = previewVideo.dataset.posterDesktop;
+    if (posterMobile && posterTablet && posterDesktop) {
+        const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+        const preferredPoster = viewportWidth <= 600 ? posterMobile : (viewportWidth <= 1024 ? posterTablet : posterDesktop);
+        previewVideo.setAttribute('poster', preferredPoster);
+    }
 
     // 让视频保持“网页里的动态展示模块”，不要触发 Lightbox，也不要打开原生 controls。
     previewVideo.controls = false;
