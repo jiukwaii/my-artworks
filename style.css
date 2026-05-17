@@ -1,0 +1,1097 @@
+/* 字体引入 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 85px;
+}
+
+section {
+    scroll-margin-top: 0;
+}
+
+/* 全局文字选取高亮效果：暖灰米色，符合极简作品集的杂志感 */
+::selection {
+    background: rgba(170, 160, 145, 0.28);
+    color: #222;
+}
+
+::-moz-selection {
+    background: rgba(170, 160, 145, 0.28);
+    color: #222;
+}
+
+/* 防止图片、视频、SVG icon 和作品卡片被误选中或拖动 */
+img,
+video,
+svg,
+.artwork-item,
+.model-image-item,
+.game-image,
+.hero-image,
+.about-image,
+.contact-image {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+/* 导航栏样式 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    transform: translateY(0);
+    transition: transform 0.35s ease, background-color 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+}
+
+.navbar.navbar-hidden {
+    transform: translateY(-105%);
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #888;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* 英雄区域样式 */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15rem 10% 10rem;
+    min-height: 100vh;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+    margin-left: 10%;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content h1 span {
+    color: #888;
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+    max-width: 400px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-image img {
+    width: 80%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    object-fit: cover;
+}
+
+/* 关于我部分样式 */
+.about {
+    padding: 12rem 5% 8rem;
+    background-color: #fff;
+}
+
+.about-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+}
+
+.about-image {
+    flex: 1;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+}
+
+.about-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 60px;
+    height: 2px;
+    background-color: #333;
+}
+
+.about-content p {
+    margin-bottom: 1.5rem;
+    color: #666;
+    line-height: 1.8;
+}
+
+/* 游戏部分样式 */
+.game-note {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.video-item {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.model-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.model-image-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 1/1;
+}
+
+.model-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 联系方式部分样式 */
+.contact {
+    padding: 12rem 5% 8rem;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+}
+
+.contact-info {
+    flex: 1;
+    max-width: 500px;
+}
+
+.contact-details {
+    list-style: none;
+    margin-top: 2rem;
+}
+
+.contact-details li {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.contact-details li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.contact-details li a:hover {
+    text-decoration: underline;
+}
+
+.contact-details li a img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.contact-details li a:hover img {
+    transform: scale(1.05);
+}
+
+.contact-details span {
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.contact-image {
+    flex: 1;
+}
+
+.contact-image img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* 页脚样式 */
+footer {
+    padding: 3rem 5%;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.footer-content p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* 艺术作品页面样式 */
+.artworks-page {
+    padding: 12rem 5% 8rem;
+}
+
+/* Unified artwork grids: home 3x3, all works 3x4 */
+.artworks-page .artwork-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.4rem;
+}
+
+.artworks-page .artwork-item:first-child {
+    grid-column: auto;
+    grid-row: auto;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 1200px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .navbar {
+        padding: 1.05rem 5%;
+    }
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 12rem 10% 8rem;
+    }
+    .hero-content {
+        order: 2;
+        max-width: 100%;
+        margin-top: 3rem;
+        margin-left: 0;
+    }
+    .hero-content p {
+        max-width: 100%;
+    }
+    .hero-image {
+        order: 1;
+        justify-content: center;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        max-width: 300px;
+        max-height: 300px;
+        object-fit: cover;
+    }
+    .about-container,
+    .contact-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-content,
+    .contact-info {
+        order: 2;
+        max-width: 100%;
+        margin-top: 3rem;
+    }
+    .about-container h2::after,
+    .contact-container h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 5.25rem;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255,255, 255, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-150%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+    }
+    
+    .nav-links li {
+        margin: 1rem 0;
+    }
+    
+    .hamburger.toggle .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .hamburger.toggle .line:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.toggle .line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    .hamburger {
+        display: block;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .artwork-grid {
+        grid-template-columns: 1fr;
+    }
+    .model-images {
+        grid-template-columns:1fr;
+        gap: 1.5rem;
+    }
+    
+    .model-image-item {
+        max-width: 100%;
+    }
+    
+    .game-item {
+        margin-bottom: 2rem;
+    }
+    .hero,
+    .about,
+    .artworks,
+    .contact,
+    .artworks-page {
+        padding: 6rem 5% 4rem;
+    }
+    .hero {
+        padding: 12rem 10% 4rem;
+    }
+    .artworks {
+        padding: 3rem 5% 4rem;
+    }
+    .artworks-page {
+        padding: 8rem 5% 4rem;
+    }
+    .artworks .view-more {
+        display: block;
+        width: fit-content;
+        margin: 1.5rem auto 0;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
+    }
+    .about-content,
+    .contact-info {
+        margin-top: 0.5rem;
+    }
+    .hero-content {
+        margin-top: 3rem;
+        margin-left: 0;
+    }
+    .contact-container {
+        text-align: left;
+    }
+    .contact-container h2::after {
+        left: 0;
+        transform: none;
+    }
+}
+
+/* 3D列印視頻區域 */
+.video-item {
+    margin-bottom: 3rem;
+}
+
+.video-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    color: #333;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 576px) {
+    .model-images {
+        gap: 1rem;
+    }
+    
+    .game-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .btn {
+        padding: 0.7rem 1.5rem;
+    }
+}
+
+/* 返回顶部按钮：默认隐藏，电脑端不显示 */
+.back-to-top {
+    display: none;
+}
+
+.back-to-top-icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+    .back-to-top {
+        position: fixed;
+        right: 1.2rem;
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        border: 1px solid rgba(51, 51, 51, 0.18);
+        background-color: rgba(255, 255, 255, 0.82);
+        color: #333;
+        font-size: 1.1rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1200;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .back-to-top:active {
+        transform: translateY(0) scale(0.96);
+    }
+}
+
+/* Portfolio hierarchy refinement */
+body {
+    color: #333;
+    background-color: #f8f8f8;
+}
+
+.navbar {
+    padding: 0.85rem 5%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: transform 0.35s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-links a {
+    color: #333;
+    font-size: 0.88rem;
+    letter-spacing: 1.6px;
+}
+
+.nav-links a:hover {
+    color: #888;
+}
+
+.hero {
+    padding: 13rem 10% 6rem;
+    min-height: 88vh;
+    background-color: #f8f8f8;
+}
+
+.hero-content {
+    margin-left: 4%;
+}
+
+.hero-content h1 {
+    color: #333;
+    letter-spacing: 0.4px;
+}
+
+.hero-content h1 span {
+    color: #888;
+}
+
+.hero-content p {
+    color: #666;
+}
+
+.btn {
+    background-color: #333;
+    border: 1px solid #333;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.hero-image img {
+    width: 68%;
+    max-width: 390px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.artworks {
+    padding: 9rem 6% 11rem;
+    background-color: #f8f8f8;
+}
+
+.artworks h2 {
+    display: block;
+    max-width: 1180px;
+    margin: 0 auto 4.5rem;
+    font-size: 3.1rem;
+    color: #333;
+}
+
+.artworks h2::after {
+    width: 82px;
+    background-color: #333;
+}
+
+.artwork-grid {
+    display: grid;
+    max-width: 1180px;
+    margin: 0 auto 4.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.4rem;
+}
+
+.artwork-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.artwork-item:first-child {
+    grid-column: auto;
+    grid-row: auto;
+}
+
+.artwork-item:first-child img {
+    aspect-ratio: 1 / 1;
+}
+
+.artwork-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 0.8s ease, filter 0.8s ease;
+}
+
+.artwork-item:hover img {
+    transform: scale(1.025);
+    filter: saturate(1) brightness(1);
+}
+
+.artwork-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.artwork-item:hover .artwork-overlay {
+    opacity: 1;
+}
+
+.artwork-title {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.artworks .view-more {
+    display: block;
+    width: fit-content;
+    margin: 2.5rem auto 0;
+    color: #333;
+    border-color: #333;
+    background-color: transparent;
+}
+
+.artworks .view-more:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.about {
+    padding: 9rem 8% 8rem;
+    background-color: #fff;
+}
+
+.about-container {
+    max-width: 980px;
+    margin: 0 auto;
+    gap: 4rem;
+}
+
+.about-image img {
+    max-width: 360px;
+    box-shadow: none;
+}
+
+.about-content h2 {
+    font-size: 2.1rem;
+    color: #333;
+}
+
+.about-content p {
+    color: #666;
+}
+
+.explore-section {
+    padding: 9rem 6% 8rem;
+    background-color: #f8f8f8;
+    border-top: none;
+    border-bottom: none;
+}
+
+.explore-intro {
+    max-width: 1040px;
+    margin: 0 auto 4rem;
+}
+
+.explore-intro h2 {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 2.55rem;
+    color: #333;
+}
+
+.videos-section {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 0 5rem;
+}
+
+.videos-section h2,
+.games-section h2 {
+    display: block;
+    text-align: left;
+    font-size: 1.55rem;
+    color: #333;
+    margin: 0 0 2rem;
+}
+
+.videos-section h2::after,
+.games-section h2::after {
+    width: 44px;
+    height: 1px;
+    background-color: #333;
+}
+
+.video-container {
+    max-width: 760px;
+    margin: 0 auto 4rem;
+}
+
+.video-item {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.video-item video {
+    border-radius: 2px;
+    box-shadow: none;
+}
+
+.model-images {
+    max-width: 760px;
+    gap: 1.4rem;
+}
+
+.model-image-item {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.section-divider {
+    max-width: 760px;
+    height: 1px;
+    margin: 1rem auto 4rem;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+}
+
+.games-section {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: transparent;
+}
+
+.game-grid {
+    max-width: 760px;
+    gap: 1.2rem;
+}
+
+.game-item {
+    border: 1px solid rgba(51, 51, 51, 0.18);
+    background-color: #fff;
+    box-shadow: none;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: border-color 0.35s ease, transform 0.35s ease, background-color 0.35s ease;
+}
+
+.game-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(51, 51, 51, 0.18);
+    background-color: #f9f9f9;
+    box-shadow: none;
+}
+
+.game-image {
+    height: 150px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.game-content {
+    padding: 1.2rem;
+    text-align: left;
+}
+
+.game-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+    color: #333;
+}
+
+.game-content p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.game-link {
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    color: #333;
+    background-color: transparent;
+    border: 1px solid #333;
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.game-link:hover {
+    color: #fff;
+    background-color: #333;
+}
+
+.contact {
+    padding: 9rem 8% 7rem;
+    background-color: #fff;
+}
+
+.contact-container {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.contact-info p,
+.contact-details li a {
+    color: #666;
+}
+
+.contact-image img {
+    max-width: 360px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+footer {
+    background-color: #333;
+}
+
+@media screen and (max-width: 1200px) {
+    .artwork-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    html {
+        scroll-padding-top: 83px;
+    }
+
+    .navbar {
+        padding: 0.8rem 5%;
+    }
+
+    .hero {
+        padding: 11rem 10% 5rem;
+    }
+
+    .hero-image img {
+        width: 100%;
+    }
+
+    .artwork-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .artwork-item:first-child {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .artworks h2,
+    .explore-intro {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        scroll-padding-top: 82px;
+    }
+
+    .navbar {
+        padding: 0.8rem 5%;
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .logo img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .nav-links {
+        top: 4.75rem;
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 10rem 8% 4.5rem;
+    }
+
+    .hero-content {
+        margin-top: 2.2rem;
+    }
+
+    .artworks {
+        padding: 5.5rem 5% 6rem;
+    }
+
+    .artworks h2 {
+        font-size: 2.25rem;
+        margin-bottom: 2.8rem;
+    }
+
+    .artwork-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .artwork-item:first-child {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .about,
+    .explore-section,
+    .contact {
+        padding: 5.5rem 6% 5rem;
+    }
+
+    .explore-intro {
+        margin-bottom: 3rem;
+    }
+
+    .explore-intro h2 {
+        font-size: 2rem;
+    }
+
+    .videos-section h2,
+    .games-section h2 {
+        font-size: 1.35rem;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .game-image {
+        height: 140px;
+    }
+}

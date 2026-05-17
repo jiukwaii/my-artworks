@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>小鸟跳跃 - Mobile Optimized</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell" aria-label="小鸟跳跃游戏">
+    <section class="game-card" id="gameCard">
+      <canvas id="gameCanvas" aria-label="游戏画面"></canvas>
+
+      <div class="hud">
+        <div class="top-bar">
+          <div class="score-pill" id="scorePill">
+            <span class="label">Score</span>
+            <span class="value" id="score">0</span>
+          </div>
+          <div class="best-pill">
+            <span class="label">Best</span>
+            <span class="value" id="bestScore">0</span>
+          </div>
+        </div>
+        <div class="center-tip" id="playTip">点击 / 触碰屏幕让小鸟跳跃</div>
+      </div>
+
+      <div class="flash" id="hitFlash"></div>
+
+      <div class="overlay" id="overlay">
+        <div class="panel" id="panel">
+          <h1 class="title" id="panelTitle">小鸟跳跃</h1>
+          <p class="subtitle" id="panelText">避开水管，穿过空隙得分。手机端可直接点击屏幕或按住节奏轻点。</p>
+
+          <div class="stats">
+            <div class="stat-card">
+              <span class="label">Score</span>
+              <b id="finalScore">0</b>
+            </div>
+            <div class="stat-card">
+              <span class="label">Best</span>
+              <b id="finalBest">0</b>
+            </div>
+          </div>
+
+          <button class="primary-btn" id="mainButton">开始游戏</button>
+          <div class="small-note" id="panelNote">电脑：Space / 鼠标点击　手机：轻点屏幕</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
