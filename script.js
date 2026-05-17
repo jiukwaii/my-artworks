@@ -174,13 +174,13 @@ function loadArtworks() {
     
     // 生成艺术作品HTML
     // Loading strategy:
-    // - 前 6 张 eager，避免手机端滑到作品区时还空白
-    // - 第 7 张开始 lazy，避免一次加载太多后段图片
-    // - 保留 decoding="async"，减少图片解码阻塞页面
+    // - 首頁只顯示 9 張作品，全部 eager，避免滑到作品區時才開始下載。
+    // - 全部作品頁前 12 張 eager，後面保留 lazy。
+    // - 後段 lazy 圖片會由 warmUpLazyArtworkImages() 提前約 1200px 觸發，避免滑到時還是空白。
     artworks.slice(0, displayCount).forEach((artwork, index) => {
         const artworkItem = document.createElement('div');
         artworkItem.className = 'artwork-item';
-        const loadingMode = index < 6 ? 'eager' : 'lazy';
+        const loadingMode = isAllArtworksPage ? (index < 12 ? 'eager' : 'lazy') : 'eager';
         const fetchPriority = index < 3 ? ' fetchpriority="high"' : '';
         artworkItem.innerHTML = `
             <img src="${artwork.image}" alt="${artwork.title}" data-index="${index}" loading="${loadingMode}" decoding="async"${fetchPriority}>
@@ -190,6 +190,9 @@ function loadArtworks() {
         `;
         artworkGrid.appendChild(artworkItem);
     });
+
+    warmUpLazyArtworkImages(artworkGrid);
+
 
     // 只让插画作品打开 Lightbox；3D 视频、video 元素和带 data-no-lightbox 的元素全部排除。
     artworkGrid.querySelectorAll('.artwork-item').forEach(item => {
@@ -366,6 +369,43 @@ function loadArtworks() {
         activeLightboxKeyHandler = handleKeydown;
         document.addEventListener('keydown', handleKeydown);
     }
+}
+
+
+// 提前唤醒后段 lazy 图片，解决手机端滑到图片区域后才开始加载的问题。
+// 这不会新增压缩图，也不会改变图片路径；只是让 lazy 图片更早进入浏览器下载队列。
+function warmUpLazyArtworkImages(artworkGrid) {
+    const lazyImages = artworkGrid.querySelectorAll('img[loading="lazy"]');
+    if (!lazyImages.length) return;
+
+    function makeEager(img) {
+        if (!img || img.dataset.lazyWarmed === 'true') return;
+        img.dataset.lazyWarmed = 'true';
+        img.loading = 'eager';
+    }
+
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const img = entry.target.querySelector('img[loading="lazy"]');
+                makeEager(img);
+                observer.unobserve(entry.target);
+            });
+        }, {
+            rootMargin: '1200px 0px',
+            threshold: 0.01
+        });
+
+        lazyImages.forEach((img) => {
+            const item = img.closest('.artwork-item');
+            if (item) observer.observe(item);
+        });
+        return;
+    }
+
+    // 旧浏览器 fallback：没有 IntersectionObserver 时，直接取消作品图 lazy，优先保证图片会出现。
+    lazyImages.forEach(makeEager);
 }
 
 // 动态加载3D渲染展示视频
