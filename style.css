@@ -289,53 +289,28 @@ h2::after {
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 2px;
-    user-select: none;
-}
-
-.model-video-shell {
-    position: relative;
-    background: #f7f7f7;
-}
-
-.model-video-play-fallback {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 64px;
-    height: 64px;
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.72);
-    color: #111;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease, background 0.25s ease;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.model-video-shell.is-autoplay-blocked .model-video-play-fallback {
-    opacity: 1;
+    background-color: #f1f1f1;
     pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
-.model-video-shell.is-native-fallback .model-video-play-fallback {
-    opacity: 0;
-    pointer-events: none;
+/* Keep the 3D preview looking like an embedded visual module, not a native video player. */
+.model-preview-video::-webkit-media-controls,
+.model-preview-video::-webkit-media-controls-enclosure,
+.model-preview-video::-webkit-media-controls-panel,
+.model-preview-video::-webkit-media-controls-play-button,
+.model-preview-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+    -webkit-appearance: none;
 }
 
-.model-video-shell.is-native-fallback .model-preview-video {
-    cursor: pointer;
+.model-preview-video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
 }
-
-.model-video-play-fallback:active {
-    background: rgba(255, 255, 255, 0.9);
-}
-
 
 /* 联系方式部分样式 */
 .contact {
@@ -1179,4 +1154,16 @@ footer {
     .explore-section .videos-section .video-container {
         margin-bottom: 1.25rem;
     }
+}
+
+/* 3D video should remain a native video, not a lightbox trigger */
+.explore-section .video-item,
+.explore-section .model-preview-video {
+    cursor: default;
+}
+
+.explore-section .model-preview-video {
+    width: 100%;
+    display: block;
+    object-fit: cover;
 }

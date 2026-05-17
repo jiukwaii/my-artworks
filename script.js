@@ -173,11 +173,17 @@ function loadArtworks() {
     const displayCount = isAllArtworksPage ? artworks.length : 9;
     
     // 生成艺术作品HTML
+    // Loading strategy:
+    // - 前 6 张 eager，避免手机端滑到作品区时还空白
+    // - 第 7 张开始 lazy，避免一次加载太多后段图片
+    // - 保留 decoding="async"，减少图片解码阻塞页面
     artworks.slice(0, displayCount).forEach((artwork, index) => {
         const artworkItem = document.createElement('div');
         artworkItem.className = 'artwork-item';
+        const loadingMode = index < 6 ? 'eager' : 'lazy';
+        const fetchPriority = index < 3 ? ' fetchpriority="high"' : '';
         artworkItem.innerHTML = `
-            <img src="${artwork.image}" alt="${artwork.title}" data-index="${index}">
+            <img src="${artwork.image}" alt="${artwork.title}" data-index="${index}" loading="${loadingMode}" decoding="async"${fetchPriority}>
             <div class="artwork-overlay">
                 <div class="artwork-title">${artwork.title}</div>
             </div>
@@ -185,11 +191,15 @@ function loadArtworks() {
         artworkGrid.appendChild(artworkItem);
     });
 
-    // 添加点击事件，打开lightbox
-    document.querySelectorAll('.artwork-item').forEach(item => {
-        item.addEventListener('click', function() {
+    // 只让插画作品打开 Lightbox；3D 视频、video 元素和带 data-no-lightbox 的元素全部排除。
+    artworkGrid.querySelectorAll('.artwork-item').forEach(item => {
+        item.addEventListener('click', function(event) {
+            if (event.target.closest('video, .video-item, [data-no-lightbox="true"]')) return;
+
             const img = this.querySelector('img');
-            const index = parseInt(img.dataset.index);
+            if (!img || !img.dataset.index) return;
+
+            const index = parseInt(img.dataset.index, 10);
             openLightbox(index);
         });
     });
@@ -364,10 +374,12 @@ function load3DPrintVideos() {
     if (!videoContainer) return;
 
     const videoItem = document.createElement('div');
-    videoItem.className = 'video-item model-video-shell';
+    videoItem.className = 'video-item';
+    videoItem.setAttribute('data-no-lightbox', 'true');
     videoItem.innerHTML = `
         <video
             class="model-preview-video"
+            data-no-lightbox="true"
             autoplay
             muted
             loop
@@ -376,112 +388,69 @@ function load3DPrintVideos() {
             preload="metadata"
             poster="webphoto/modelcover.webp"
             aria-label="3D rendered model preview"
-            controlslist="nodownload noplaybackrate"
-            disablepictureinpicture
         >
             <source src="3dmodel-mobile-safe.mp4" type="video/mp4">
             您的浏览器不支持视频标签。
         </video>
-        <button class="model-video-play-fallback" type="button" aria-label="Play 3D rendered model preview">
-            <span>Play</span>
-        </button>
     `;
     videoContainer.appendChild(videoItem);
 
     const previewVideo = videoItem.querySelector('video');
-    const fallbackButton = videoItem.querySelector('.model-video-play-fallback');
-    if (!previewVideo || !fallbackButton) return;
+    if (!previewVideo) return;
 
-    const isMobileLike = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 768px)').matches;
+    // 让视频保持“网页里的动态展示模块”，不要触发 Lightbox，也不要打开原生 controls。
+    previewVideo.controls = false;
+    previewVideo.muted = true;
+    previewVideo.defaultMuted = true;
+    previewVideo.loop = true;
+    previewVideo.playsInline = true;
+    previewVideo.disablePictureInPicture = true;
+    previewVideo.setAttribute('muted', '');
+    previewVideo.setAttribute('playsinline', '');
+    previewVideo.setAttribute('webkit-playsinline', '');
+    previewVideo.setAttribute('x-webkit-airplay', 'deny');
+    previewVideo.setAttribute('controlslist', 'nofullscreen nodownload noremoteplayback');
 
-    const ensureSilentInlineVideo = () => {
+    function stopVideoEvent(event) {
+        event.stopPropagation();
+    }
+
+    function playInlineVideo(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        previewVideo.controls = false;
         previewVideo.muted = true;
-        previewVideo.defaultMuted = true;
-        previewVideo.volume = 0;
         previewVideo.playsInline = true;
-        previewVideo.setAttribute('muted', '');
         previewVideo.setAttribute('playsinline', '');
         previewVideo.setAttribute('webkit-playsinline', '');
-    };
 
-    const showFallback = () => {
-        videoItem.classList.add('is-autoplay-blocked');
-    };
-
-    const hideFallback = () => {
-        videoItem.classList.remove('is-autoplay-blocked');
-        videoItem.classList.remove('is-native-fallback');
-    };
-
-    const exposeNativeControls = () => {
-        previewVideo.controls = true;
-        videoItem.classList.add('is-native-fallback');
-    };
-
-    const playPreview = async (event) => {
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        ensureSilentInlineVideo();
-
-        // 手机 Safari 如果不接受自定义按钮触发播放，就先打开原生 controls 作为兜底。
-        if (isMobileLike) {
-            previewVideo.controls = true;
-        }
-
-        try {
-            await previewVideo.play();
-            hideFallback();
-
-            // 播放成功后，桌面保持无控件；手机播放成功也尽量保持干净。
-            if (!isMobileLike) {
+        const playPromise = previewVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // Safari 若阻止 autoplay，就保留 poster，等待下一次用户点击；不要 fallback 到 controls。
                 previewVideo.controls = false;
-            }
-        } catch (error) {
-            exposeNativeControls();
-            showFallback();
+            });
         }
-    };
+    }
 
-    const handleUserStart = (event) => {
-        playPreview(event);
-    };
-
-    fallbackButton.addEventListener('click', handleUserStart);
-    fallbackButton.addEventListener('touchend', handleUserStart, { passive: false });
-
-    videoItem.addEventListener('click', (event) => {
-        if (event.target === fallbackButton || fallbackButton.contains(event.target)) return;
-        if (previewVideo.paused) {
-            playPreview(event);
-        }
+    videoItem.addEventListener('click', playInlineVideo);
+    videoItem.addEventListener('touchend', playInlineVideo, { passive: false });
+    previewVideo.addEventListener('click', playInlineVideo);
+    previewVideo.addEventListener('touchend', playInlineVideo, { passive: false });
+    previewVideo.addEventListener('webkitbeginfullscreen', function(event) {
+        event.preventDefault();
+        previewVideo.pause();
+        previewVideo.controls = false;
     });
+    previewVideo.addEventListener('contextmenu', stopVideoEvent);
 
-    previewVideo.addEventListener('playing', hideFallback);
-    previewVideo.addEventListener('canplay', () => {
-        if (!previewVideo.paused) hideFallback();
-    });
-    previewVideo.addEventListener('error', () => {
-        exposeNativeControls();
-        showFallback();
-    });
-
-    ensureSilentInlineVideo();
-
-    if (isMobileLike) {
-        // 手机端优先保证可播放：先显示 Play，不强求 autoplay。
-        previewVideo.removeAttribute('autoplay');
-        previewVideo.autoplay = false;
-        showFallback();
-    } else {
-        playPreview();
-        window.setTimeout(() => {
-            if (previewVideo.paused || previewVideo.readyState < 2) {
-                showFallback();
-            }
-        }, 1400);
+    // 电脑端与允许静音 autoplay 的手机浏览器会自动循环播放；失败时不显示 controls。
+    const autoplayPromise = previewVideo.play();
+    if (autoplayPromise !== undefined) {
+        autoplayPromise.catch(() => {
+            previewVideo.controls = false;
+        });
     }
 }
 
