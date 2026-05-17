@@ -1095,3 +1095,34 @@ footer {
         height: 140px;
     }
 }
+
+/* all-artworks mobile: restore single vertical artwork display */
+@media screen and (max-width: 768px) {
+    .artworks-page .artwork-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        gap: 1.6rem;
+    }
+
+    .artworks-page .artwork-item img,
+    .artworks-page .artwork-item:first-child img {
+        aspect-ratio: auto;
+        height: auto;
+        object-fit: contain;
+    }
+}
+
+/* explore section: tighten 3D video-to-image spacing */
+.explore-section .videos-section .video-container {
+    margin-bottom: 2rem;
+}
+
+.explore-section .videos-section .video-item {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .explore-section .videos-section .video-container {
+        margin-bottom: 1.25rem;
+    }
+}
