@@ -289,9 +289,53 @@ h2::after {
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 2px;
-    pointer-events: none;
     user-select: none;
 }
+
+.model-video-shell {
+    position: relative;
+    background: #f7f7f7;
+}
+
+.model-video-play-fallback {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: #111;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, background 0.25s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.model-video-shell.is-autoplay-blocked .model-video-play-fallback {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.model-video-shell.is-native-fallback .model-video-play-fallback {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.model-video-shell.is-native-fallback .model-preview-video {
+    cursor: pointer;
+}
+
+.model-video-play-fallback:active {
+    background: rgba(255, 255, 255, 0.9);
+}
+
 
 /* 联系方式部分样式 */
 .contact {

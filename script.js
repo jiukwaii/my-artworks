@@ -364,7 +364,7 @@ function load3DPrintVideos() {
     if (!videoContainer) return;
 
     const videoItem = document.createElement('div');
-    videoItem.className = 'video-item';
+    videoItem.className = 'video-item model-video-shell';
     videoItem.innerHTML = `
         <video
             class="model-preview-video"
@@ -372,26 +372,116 @@ function load3DPrintVideos() {
             muted
             loop
             playsinline
+            webkit-playsinline
             preload="metadata"
             poster="webphoto/modelcover.webp"
             aria-label="3D rendered model preview"
+            controlslist="nodownload noplaybackrate"
+            disablepictureinpicture
         >
-            <source src="3dmodel-loop.mp4" type="video/mp4">
+            <source src="3dmodel-mobile-safe.mp4" type="video/mp4">
             您的浏览器不支持视频标签。
         </video>
+        <button class="model-video-play-fallback" type="button" aria-label="Play 3D rendered model preview">
+            <span>Play</span>
+        </button>
     `;
     videoContainer.appendChild(videoItem);
 
     const previewVideo = videoItem.querySelector('video');
-    if (previewVideo) {
+    const fallbackButton = videoItem.querySelector('.model-video-play-fallback');
+    if (!previewVideo || !fallbackButton) return;
+
+    const isMobileLike = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 768px)').matches;
+
+    const ensureSilentInlineVideo = () => {
         previewVideo.muted = true;
         previewVideo.defaultMuted = true;
-        const playPromise = previewVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // 如果浏览器暂时阻止自动播放，就保留 poster，不影响页面浏览。
-            });
+        previewVideo.volume = 0;
+        previewVideo.playsInline = true;
+        previewVideo.setAttribute('muted', '');
+        previewVideo.setAttribute('playsinline', '');
+        previewVideo.setAttribute('webkit-playsinline', '');
+    };
+
+    const showFallback = () => {
+        videoItem.classList.add('is-autoplay-blocked');
+    };
+
+    const hideFallback = () => {
+        videoItem.classList.remove('is-autoplay-blocked');
+        videoItem.classList.remove('is-native-fallback');
+    };
+
+    const exposeNativeControls = () => {
+        previewVideo.controls = true;
+        videoItem.classList.add('is-native-fallback');
+    };
+
+    const playPreview = async (event) => {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
         }
+
+        ensureSilentInlineVideo();
+
+        // 手机 Safari 如果不接受自定义按钮触发播放，就先打开原生 controls 作为兜底。
+        if (isMobileLike) {
+            previewVideo.controls = true;
+        }
+
+        try {
+            await previewVideo.play();
+            hideFallback();
+
+            // 播放成功后，桌面保持无控件；手机播放成功也尽量保持干净。
+            if (!isMobileLike) {
+                previewVideo.controls = false;
+            }
+        } catch (error) {
+            exposeNativeControls();
+            showFallback();
+        }
+    };
+
+    const handleUserStart = (event) => {
+        playPreview(event);
+    };
+
+    fallbackButton.addEventListener('click', handleUserStart);
+    fallbackButton.addEventListener('touchend', handleUserStart, { passive: false });
+
+    videoItem.addEventListener('click', (event) => {
+        if (event.target === fallbackButton || fallbackButton.contains(event.target)) return;
+        if (previewVideo.paused) {
+            playPreview(event);
+        }
+    });
+
+    previewVideo.addEventListener('playing', hideFallback);
+    previewVideo.addEventListener('canplay', () => {
+        if (!previewVideo.paused) hideFallback();
+    });
+    previewVideo.addEventListener('error', () => {
+        exposeNativeControls();
+        showFallback();
+    });
+
+    ensureSilentInlineVideo();
+
+    if (isMobileLike) {
+        // 手机端优先保证可播放：先显示 Play，不强求 autoplay。
+        previewVideo.removeAttribute('autoplay');
+        previewVideo.autoplay = false;
+        showFallback();
+    } else {
+        playPreview();
+        window.setTimeout(() => {
+            if (previewVideo.paused || previewVideo.readyState < 2) {
+                showFallback();
+            }
+        }, 1400);
     }
 }
 
