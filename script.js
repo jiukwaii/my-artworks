@@ -246,7 +246,7 @@ function loadArtworks() {
     const isAllArtworksPage = window.location.pathname.includes('all-artworks');
     
     // 确定要显示的作品数量
-    const displayCount = isAllArtworksPage ? artworks.length : 9;
+    const displayCount = isAllArtworksPage ? artworks.length : 6;
     
     // 生成艺术作品HTML
     // Loading strategy:

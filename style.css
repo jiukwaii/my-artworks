@@ -994,7 +994,7 @@ body {
 }
 
 .contact {
-    padding: 9rem 8% 7rem;
+    padding: 6rem 8% 6rem;
     background-color: #fff;
 }
 
@@ -1103,10 +1103,23 @@ footer {
         grid-row: auto;
     }
 
-    .about,
-    .explore-section,
-    .contact {
+    .explore-section {
         padding: 5.5rem 6% 5rem;
+    }
+
+    .about {
+        padding: 4.5rem 6% 4rem;
+    }
+
+    .about-image img {
+        max-width: min(76vw, 300px);
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .contact {
+        padding: 4.2rem 6% 4rem;
     }
 
     .explore-intro {
@@ -1180,4 +1193,45 @@ footer {
     width: 100%;
     display: block;
     object-fit: cover;
+}
+
+/* 首页创作探索入口卡片 */
+.explore-entry {
+    padding: 0 6% 5.5rem;
+    background-color: #fff;
+}
+
+.explore-entry-card {
+    max-width: 980px;
+    margin: 0 auto;
+    border: 1px solid rgba(51, 51, 51, 0.18);
+    border-radius: 2px;
+    padding: 3.5rem 4rem;
+}
+
+.explore-entry-content h2 {
+    font-size: 2.1rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.explore-entry-content p {
+    color: #666;
+    margin-bottom: 2rem;
+    max-width: 480px;
+    line-height: 1.8;
+}
+
+@media screen and (max-width: 768px) {
+    .explore-entry {
+        padding: 0 6% 3.8rem;
+    }
+
+    .explore-entry-card {
+        padding: 2.2rem 1.6rem;
+    }
+
+    .explore-entry-content h2 {
+        font-size: 1.8rem;
+    }
 }
