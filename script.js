@@ -293,7 +293,7 @@ function loadArtworks() {
     // 非全部作品页面时添加查看全部按钮
     if (!isAllArtworksPage) {
         const viewAllBtn = document.createElement('div');
-        viewAllBtn.innerHTML = `<a href="all-artworks.html" class="btn view-more">查看全部作品</a>`;
+        viewAllBtn.innerHTML = `<a href="all-artworks.html" class="btn view-more">查看更多作品</a>`;
         artworkGrid.parentNode.appendChild(viewAllBtn);
         
         // 记录当前滚动位置
