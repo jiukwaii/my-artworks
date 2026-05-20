@@ -28,6 +28,12 @@ section {
     color: #222;
 }
 
+
+/* Utility: keep short phrases from breaking awkwardly */
+.no-break {
+    white-space: nowrap;
+}
+
 /* 防止图片、视频、SVG icon 和作品卡片被误选中或拖动 */
 img,
 video,
@@ -1215,11 +1221,11 @@ footer {
 }
 
 .explore-entry-card {
-    max-width: 980px;
+    max-width: 860px;
     margin: 0 auto;
     border: 1px solid rgba(51, 51, 51, 0.18);
     border-radius: 2px;
-    padding: 3.5rem 4rem;
+    padding: 3rem 3.5rem;
 }
 
 .explore-entry-content h2 {
@@ -1230,7 +1236,7 @@ footer {
 
 .explore-entry-content p {
     color: #666;
-    margin-bottom: 2rem;
+    margin-bottom: 1.7rem;
     max-width: 480px;
     line-height: 1.8;
 }
@@ -1275,52 +1281,6 @@ footer {
         aspect-ratio: 1 / 1;
         object-fit: cover;
         display: block;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .artwork-grid,
-    .artworks-page .artwork-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        max-width: 520px;
-        gap: 1.15rem;
-    }
-
-    .artwork-item,
-    .artworks-page .artwork-item,
-    .artwork-item:first-child,
-    .artworks-page .artwork-item:first-child {
-        grid-column: auto;
-        grid-row: auto;
-        min-height: 0;
-        display: block;
-    }
-
-    .artwork-item:nth-child(3n + 1),
-    .artworks-page .artwork-item:nth-child(3n + 1) {
-        grid-column: 1 / -1;
-    }
-
-    .artwork-item:last-child:nth-child(3n + 2),
-    .artworks-page .artwork-item:last-child:nth-child(3n + 2) {
-        grid-column: 1 / -1;
-    }
-
-    .artwork-item img,
-    .artwork-item:first-child img,
-    .artworks-page .artwork-item img,
-    .artworks-page .artwork-item:first-child img {
-        width: 100%;
-        height: auto;
-        max-height: 72vh;
-        aspect-ratio: auto;
-        object-fit: contain;
-        display: block;
-    }
-
-    .artwork-item,
-    .artworks-page .artwork-item {
-        background-color: transparent;
     }
 }
 
