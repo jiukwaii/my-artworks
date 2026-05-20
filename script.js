@@ -36,7 +36,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化固定导航栏滚动显示/隐藏
     initNavbarAutoHide(hamburger, navLinks);
+
+    // 自动更新页脚年份
+    updateFooterYear();
 });
+
+
+// 自动更新页脚年份
+function updateFooterYear() {
+    const yearElements = document.querySelectorAll('.current-year');
+    const currentYear = new Date().getFullYear();
+
+    yearElements.forEach(element => {
+        element.textContent = currentYear;
+    });
+}
 
 // 固定导航栏：向下滚动隐藏，向上滚动显示
 function initNavbarAutoHide(hamburger, navLinks) {
@@ -245,17 +259,36 @@ function loadArtworks() {
     // 检查当前页面是否为全部作品页面
     const isAllArtworksPage = window.location.pathname.includes('all-artworks');
     
+    // 确定当前页面要使用的作品顺序
+    // 首页保留前 6 张原顺序；All Works 调整最后几张为 1,2,3,4,5,6,7,8,9,11,10,12。
+    const displayedArtworks = isAllArtworksPage
+        ? [...artworks.slice(0, 9), artworks[10], artworks[9], artworks[11]]
+        : artworks.slice(0, 6);
+
     // 确定要显示的作品数量
-    const displayCount = isAllArtworksPage ? artworks.length : 6;
+    const displayCount = displayedArtworks.length;
+
+    // 手机端大图比例：小图统一 4:5；大图根据作品原比例做轻裁切。
+    // 这些 class 只影响手机端页面内展示，Lightbox / Carousel 仍然显示完整原比例。
+    function getMobileRatioClass(artwork) {
+        const mobileFeatureRatioMap = {
+            'webphoto/Image_20250806171201_168.webp': ' mobile-feature mobile-feature-soft-wide',
+            'webphoto/614e62d84900b8eb7dca8202349345f2.webp': ' mobile-feature mobile-feature-portrait',
+            'webphoto/7ebb92e5ed9a54e786dcb8e2b47b818a.webp': ' mobile-feature mobile-feature-landscape',
+            'webphoto/0f12e295770ae362c53ffe7601f4bad0.webp': ' mobile-feature mobile-feature-wide'
+        };
+
+        return mobileFeatureRatioMap[artwork.image] || '';
+    }
     
     // 生成艺术作品HTML
     // Loading strategy:
     // - 首頁與全部作品頁只讓前 4 張作品 eager，避免首屏與作品區等待太久。
     // - 後面的作品保留 lazy，並由 warmUpLazyArtworkImages() 提前約 1200px 觸發。
     // - 只有全部作品頁第一張作品加 high priority，避免首頁主視覺被作品圖搶資源。
-    artworks.slice(0, displayCount).forEach((artwork, index) => {
+    displayedArtworks.slice(0, displayCount).forEach((artwork, index) => {
         const artworkItem = document.createElement('div');
-        artworkItem.className = 'artwork-item';
+        artworkItem.className = `artwork-item${getMobileRatioClass(artwork)}`;
 
         const meta = imageMeta[artwork.image] || {};
         const imageSrc = meta.src || artwork.image;
@@ -302,35 +335,37 @@ function loadArtworks() {
         });
     }
 
-    // 创建lightbox
-    function openLightbox(index) {
-        // 移除已存在的lightbox
+    // 创建 Lightbox / Carousel Viewer
+    function openLightbox(startIndex) {
+        const lightboxItems = displayedArtworks;
+        if (!lightboxItems.length) return;
+
+        let currentIndex = ((startIndex % lightboxItems.length) + lightboxItems.length) % lightboxItems.length;
+        const isMobileViewer = window.matchMedia('(max-width: 768px)').matches;
+
         const existingLightbox = document.getElementById('lightbox');
-        if (existingLightbox) {
-            existingLightbox.remove();
-        }
+        if (existingLightbox) existingLightbox.remove();
         if (activeLightboxKeyHandler) {
             document.removeEventListener('keydown', activeLightboxKeyHandler);
             activeLightboxKeyHandler = null;
         }
 
-        // 创建lightbox元素
         const lightbox = document.createElement('div');
         lightbox.id = 'lightbox';
+        lightbox.className = isMobileViewer ? 'is-mobile-carousel' : 'is-desktop-lightbox';
         lightbox.style.cssText = `
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.92);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            overflow: hidden;
         `;
 
-        // 创建图片容器
         const imgContainer = document.createElement('div');
         imgContainer.style.cssText = `
             position: relative;
@@ -339,123 +374,283 @@ function loadArtworks() {
             justify-content: center;
             width: 100%;
             height: 100%;
+            overflow: hidden;
+            touch-action: pan-y;
         `;
 
-        const img = document.createElement('img');
-        const lightboxMeta = imageMeta[artworks[index].image] || {};
-        img.src = artworks[index].image;
-        img.alt = artworks[index].title;
-        img.decoding = 'async';
-        if (lightboxMeta.width) img.width = lightboxMeta.width;
-        if (lightboxMeta.height) img.height = lightboxMeta.height;
-        const isMobile = window.innerWidth <= 768;
-        img.style.cssText = `
-            max-width: ${isMobile ? '70%' : '80%'};
-            max-height: ${isMobile ? '60%' : '80%'};
-            object-fit: contain;
-        `;
-
-        // 左箭头
-        const prevBtn = document.createElement('div');
-        prevBtn.innerHTML = '&#10094;';
-        prevBtn.style.cssText = `
-            position: absolute;
-            left: ${isMobile ? '5px' : '20px'};
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: ${isMobile ? '2rem' : '3rem'};
-            cursor: pointer;
-            padding: ${isMobile ? '10px' : '20px'};
-            user-select: none;
-            z-index: 2001;
-        `;
-
-        // 右箭头
-        const nextBtn = document.createElement('div');
-        nextBtn.innerHTML = '&#10095;';
-        nextBtn.style.cssText = `
-            position: absolute;
-            right: ${isMobile ? '5px' : '20px'};
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: ${isMobile ? '2rem' : '3rem'};
-            cursor: pointer;
-            padding: ${isMobile ? '10px' : '20px'};
-            user-select: none;
-            z-index: 2001;
-        `;
-
-        // 关闭按钮
-        const closeBtn = document.createElement('div');
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.setAttribute('aria-label', '关闭图片浏览');
         closeBtn.innerHTML = '&times;';
         closeBtn.style.cssText = `
             position: absolute;
-            top: 20px;
-            right: 40px;
+            top: ${isMobileViewer ? '14px' : '20px'};
+            right: ${isMobileViewer ? '18px' : '40px'};
             color: white;
-            font-size: 3rem;
+            background: transparent;
+            border: 0;
+            font-size: ${isMobileViewer ? '2.3rem' : '3rem'};
+            line-height: 1;
             cursor: pointer;
-            z-index: 2001;
+            z-index: 2003;
+            padding: 0.35rem;
         `;
 
-        imgContainer.appendChild(img);
-        imgContainer.appendChild(prevBtn);
-        imgContainer.appendChild(nextBtn);
-        imgContainer.appendChild(closeBtn);
-        lightbox.appendChild(imgContainer);
-        document.body.appendChild(lightbox);
+        function getLoopIndex(index) {
+            return (index + lightboxItems.length) % lightboxItems.length;
+        }
+
+        function getFullImage(index) {
+            const artwork = lightboxItems[getLoopIndex(index)];
+            const meta = imageMeta[artwork.image] || {};
+            const img = document.createElement('img');
+            img.src = artwork.image;
+            img.alt = artwork.title;
+            img.decoding = 'async';
+            if (meta.width) img.width = meta.width;
+            if (meta.height) img.height = meta.height;
+            img.draggable = false;
+            img.style.cssText = `
+                max-width: ${isMobileViewer ? '94vw' : '80vw'};
+                max-height: ${isMobileViewer ? '86svh' : '80vh'};
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                user-select: none;
+                -webkit-user-drag: none;
+            `;
+            return img;
+        }
 
         function closeLightbox() {
             lightbox.remove();
+            document.body.style.overflow = '';
             if (activeLightboxKeyHandler) {
                 document.removeEventListener('keydown', activeLightboxKeyHandler);
                 activeLightboxKeyHandler = null;
             }
         }
 
-        // 切换到上一个作品
-        function showPrev(e) {
-            e.stopPropagation();
-            const newIndex = index === 0 ? artworks.length - 1 : index - 1;
-            openLightbox(newIndex);
+        function showDesktopImage() {
+            imgContainer.querySelectorAll('img.lightbox-desktop-img').forEach(node => node.remove());
+            const img = getFullImage(currentIndex);
+            img.className = 'lightbox-desktop-img';
+            imgContainer.insertBefore(img, imgContainer.firstChild);
         }
 
-        // 切换到下一个作品
-        function showNext(e) {
-            e.stopPropagation();
-            const newIndex = index === artworks.length - 1 ? 0 : index + 1;
-            openLightbox(newIndex);
+        function goPrev() {
+            currentIndex = getLoopIndex(currentIndex - 1);
+            if (isMobileViewer) {
+                renderMobileSlides(false);
+            } else {
+                showDesktopImage();
+            }
         }
 
-        prevBtn.addEventListener('click', showPrev);
-        nextBtn.addEventListener('click', showNext);
-        closeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
+        function goNext() {
+            currentIndex = getLoopIndex(currentIndex + 1);
+            if (isMobileViewer) {
+                renderMobileSlides(false);
+            } else {
+                showDesktopImage();
+            }
+        }
+
+        if (isMobileViewer) {
+            const track = document.createElement('div');
+            track.className = 'lightbox-track';
+            track.style.cssText = `
+                display: flex;
+                width: 100%;
+                height: 100%;
+                transform: translate3d(-100%, 0, 0);
+                transition: none;
+                will-change: transform;
+            `;
+
+            function createSlide(index) {
+                const slide = document.createElement('div');
+                slide.className = 'lightbox-slide';
+                slide.style.cssText = `
+                    flex: 0 0 100%;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 3.5rem 1rem 2.5rem;
+                    box-sizing: border-box;
+                `;
+                slide.appendChild(getFullImage(index));
+                return slide;
+            }
+
+            function renderMobileSlides(animateReset = false) {
+                track.innerHTML = '';
+                track.appendChild(createSlide(currentIndex - 1));
+                track.appendChild(createSlide(currentIndex));
+                track.appendChild(createSlide(currentIndex + 1));
+                track.style.transition = animateReset ? 'transform 240ms ease' : 'none';
+                track.style.transform = 'translate3d(-100%, 0, 0)';
+            }
+
+            function snapTo(position, afterTransition) {
+                track.style.transition = 'transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+                track.style.transform = `translate3d(${position}px, 0, 0)`;
+                if (afterTransition) {
+                    const handleTransitionEnd = () => {
+                        track.removeEventListener('transitionend', handleTransitionEnd);
+                        afterTransition();
+                    };
+                    track.addEventListener('transitionend', handleTransitionEnd);
+                }
+            }
+
+            let startX = 0;
+            let startY = 0;
+            let deltaX = 0;
+            let isDragging = false;
+            let isHorizontalSwipe = false;
+            let containerWidth = 0;
+
+            track.addEventListener('touchstart', (event) => {
+                if (!event.touches.length) return;
+                startX = event.touches[0].clientX;
+                startY = event.touches[0].clientY;
+                deltaX = 0;
+                isDragging = true;
+                isHorizontalSwipe = false;
+                containerWidth = imgContainer.clientWidth || window.innerWidth;
+                track.style.transition = 'none';
+            }, { passive: true });
+
+            track.addEventListener('touchmove', (event) => {
+                if (!isDragging || !event.touches.length) return;
+                const currentX = event.touches[0].clientX;
+                const currentY = event.touches[0].clientY;
+                deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+
+                if (!isHorizontalSwipe) {
+                    isHorizontalSwipe = Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY);
+                }
+
+                if (isHorizontalSwipe) {
+                    event.preventDefault();
+                    track.style.transform = `translate3d(${-containerWidth + deltaX}px, 0, 0)`;
+                }
+            }, { passive: false });
+
+            track.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                containerWidth = imgContainer.clientWidth || window.innerWidth;
+                const threshold = Math.min(90, containerWidth * 0.22);
+
+                if (Math.abs(deltaX) > threshold) {
+                    if (deltaX < 0) {
+                        snapTo(-containerWidth * 2, () => {
+                            currentIndex = getLoopIndex(currentIndex + 1);
+                            renderMobileSlides(false);
+                        });
+                    } else {
+                        snapTo(0, () => {
+                            currentIndex = getLoopIndex(currentIndex - 1);
+                            renderMobileSlides(false);
+                        });
+                    }
+                } else {
+                    snapTo(-containerWidth, null);
+                }
+                deltaX = 0;
+            });
+
+            imgContainer.appendChild(track);
+            renderMobileSlides(false);
+        } else {
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.setAttribute('aria-label', '上一张作品');
+            prevBtn.innerHTML = '&#10094;';
+            prevBtn.style.cssText = `
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                background: transparent;
+                border: 0;
+                font-size: 3rem;
+                cursor: pointer;
+                padding: 20px;
+                user-select: none;
+                z-index: 2002;
+            `;
+
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.setAttribute('aria-label', '下一张作品');
+            nextBtn.innerHTML = '&#10095;';
+            nextBtn.style.cssText = `
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                background: transparent;
+                border: 0;
+                font-size: 3rem;
+                cursor: pointer;
+                padding: 20px;
+                user-select: none;
+                z-index: 2002;
+            `;
+
+            prevBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                goPrev();
+            });
+            nextBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                goNext();
+            });
+
+            imgContainer.appendChild(prevBtn);
+            imgContainer.appendChild(nextBtn);
+            showDesktopImage();
+        }
+
+        closeBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
             closeLightbox();
         });
 
-        // 点击背景关闭lightbox
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === lightbox || e.target === imgContainer) {
+        lightbox.addEventListener('click', (event) => {
+            if (event.target === lightbox || event.target === imgContainer) {
                 closeLightbox();
             }
         });
 
-        // 键盘导航
-        function handleKeydown(e) {
-            if (e.key === 'Escape') {
+        function handleKeydown(event) {
+            if (event.key === 'Escape') {
                 closeLightbox();
-            } else if (e.key === 'ArrowLeft') {
-                showPrev(e);
-            } else if (e.key === 'ArrowRight') {
-                showNext(e);
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                goPrev();
+            } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                goNext();
             }
         }
+
         activeLightboxKeyHandler = handleKeydown;
         document.addEventListener('keydown', handleKeydown);
+        document.body.style.overflow = 'hidden';
+        imgContainer.appendChild(closeBtn);
+        lightbox.appendChild(imgContainer);
+        document.body.appendChild(lightbox);
     }
+
 }
 
 
