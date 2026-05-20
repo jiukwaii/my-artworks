@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 自己控制返回首页后的滚动位置，避免浏览器自动恢复 + smooth scroll 造成滑动感。
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
     // 移动端菜单切换
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -40,6 +45,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // 自动更新页脚年份
     updateFooterYear();
 });
+
+
+// 即时滚动辅助：用于“返回首页原位置 / 页面初始化 / Lightbox 关闭”等场景。
+// 全局 CSS 有 scroll-behavior: smooth；如果直接 window.scrollTo，浏览器可能会用动画滚回去，
+// 造成“从上往下滑回来”的感觉。这里会临时关闭 smooth scroll，再恢复。
+function scrollToInstantly(top = 0, left = 0) {
+    const html = document.documentElement;
+    const body = document.body;
+    const previousHtmlBehavior = html.style.scrollBehavior;
+    const previousBodyBehavior = body.style.scrollBehavior;
+
+    html.style.scrollBehavior = 'auto';
+    body.style.scrollBehavior = 'auto';
+
+    window.scrollTo({ top, left, behavior: 'auto' });
+    html.scrollTop = top;
+    body.scrollTop = top;
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            html.style.scrollBehavior = previousHtmlBehavior;
+            body.style.scrollBehavior = previousBodyBehavior;
+        });
+    });
+}
 
 
 // 自动更新页脚年份
@@ -329,13 +359,26 @@ function loadArtworks() {
         viewAllBtn.innerHTML = `<a href="all-artworks.html" class="btn view-more">查看更多作品</a>`;
         artworkGrid.parentNode.appendChild(viewAllBtn);
         
-        // 记录当前滚动位置
+        // 记录当前滚动位置，返回首页时可以瞬间回到原本位置。
         viewAllBtn.querySelector('a').addEventListener('click', function() {
             localStorage.setItem('artworksScrollPosition', window.scrollY);
         });
     }
 
+    // 进入「创作探索」前记录当前首页位置。
+    // 这样从 explore.html 按返回箭头回到 index.html 时，不会回到首页最上方。
+    document.querySelectorAll('a[href="explore.html"]').forEach(link => {
+        link.addEventListener('click', function() {
+            if (isHomePage()) {
+                localStorage.setItem('exploreScrollPosition', window.scrollY);
+            }
+        });
+    });
+
     // 创建 Lightbox / Carousel Viewer
+    // v15: mobile-first Lightbox rebuild.
+    // Mobile uses native horizontal scrolling + scroll-snap instead of JS-driven touch dragging.
+    // This is more stable on iPhone Safari and reduces flicker/jump caused by transform + touchmove.
     function openLightbox(startIndex) {
         const lightboxItems = displayedArtworks;
         if (!lightboxItems.length) return;
@@ -350,81 +393,119 @@ function loadArtworks() {
             activeLightboxKeyHandler = null;
         }
 
+        const savedScrollY = window.scrollY || window.pageYOffset || 0;
+
+        function lockBodyScroll() {
+            document.documentElement.classList.add('lightbox-open');
+            document.body.classList.add('lightbox-open');
+            document.body.dataset.lightboxScrollY = String(savedScrollY);
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${savedScrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function restoreScrollInstantly(restoreY) {
+            scrollToInstantly(restoreY, 0);
+        }
+
+        function unlockBodyScroll() {
+            const restoreY = parseInt(document.body.dataset.lightboxScrollY || '0', 10);
+            const html = document.documentElement;
+            const body = document.body;
+            const previousHtmlBehavior = html.style.scrollBehavior;
+            const previousBodyBehavior = body.style.scrollBehavior;
+
+            // Prevent the global `html { scroll-behavior: smooth; }` from animating
+            // the return position when the desktop Lightbox is closed.
+            html.style.scrollBehavior = 'auto';
+            body.style.scrollBehavior = 'auto';
+
+            document.documentElement.classList.remove('lightbox-open');
+            document.body.classList.remove('lightbox-open');
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            delete document.body.dataset.lightboxScrollY;
+
+            // Restore immediately, then repeat on the next frame to neutralize
+            // browser scroll restoration quirks after releasing fixed body lock.
+            window.scrollTo(0, restoreY);
+            html.scrollTop = restoreY;
+            body.scrollTop = restoreY;
+            requestAnimationFrame(() => {
+                window.scrollTo(0, restoreY);
+                html.scrollTop = restoreY;
+                body.scrollTop = restoreY;
+                requestAnimationFrame(() => {
+                    html.style.scrollBehavior = previousHtmlBehavior;
+                    body.style.scrollBehavior = previousBodyBehavior;
+                });
+            });
+        }
+
         const lightbox = document.createElement('div');
         lightbox.id = 'lightbox';
-        lightbox.className = isMobileViewer ? 'is-mobile-carousel' : 'is-desktop-lightbox';
-        lightbox.style.cssText = `
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.92);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            overflow: hidden;
-        `;
+        lightbox.className = isMobileViewer ? 'is-mobile-gallery' : 'is-desktop-lightbox';
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-modal', 'true');
+        lightbox.setAttribute('aria-label', '作品图片浏览');
 
         const imgContainer = document.createElement('div');
-        imgContainer.style.cssText = `
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            touch-action: pan-y;
-        `;
+        imgContainer.className = 'lightbox-container';
 
         const closeBtn = document.createElement('button');
         closeBtn.type = 'button';
+        closeBtn.className = 'lightbox-close';
         closeBtn.setAttribute('aria-label', '关闭图片浏览');
         closeBtn.innerHTML = '&times;';
-        closeBtn.style.cssText = `
-            position: absolute;
-            top: ${isMobileViewer ? '14px' : '20px'};
-            right: ${isMobileViewer ? '18px' : '40px'};
-            color: white;
-            background: transparent;
-            border: 0;
-            font-size: ${isMobileViewer ? '2.3rem' : '3rem'};
-            line-height: 1;
-            cursor: pointer;
-            z-index: 2003;
-            padding: 0.35rem;
-        `;
 
         function getLoopIndex(index) {
             return (index + lightboxItems.length) % lightboxItems.length;
         }
 
-        function getFullImage(index) {
+        function getImageSrc(index) {
             const artwork = lightboxItems[getLoopIndex(index)];
             const meta = imageMeta[artwork.image] || {};
+            return {
+                artwork,
+                src: artwork.image,
+                previewSrc: meta.src || artwork.image,
+                srcset: meta.srcset || '',
+                width: meta.width || '',
+                height: meta.height || ''
+            };
+        }
+
+        function getFullImage(index) {
+            const info = getImageSrc(index);
             const img = document.createElement('img');
-            img.src = artwork.image;
-            img.alt = artwork.title;
+            img.src = info.src;
+            img.alt = info.artwork.title;
             img.decoding = 'async';
-            if (meta.width) img.width = meta.width;
-            if (meta.height) img.height = meta.height;
+            img.loading = 'eager';
+            if (info.width) img.width = info.width;
+            if (info.height) img.height = info.height;
             img.draggable = false;
-            img.style.cssText = `
-                max-width: ${isMobileViewer ? '94vw' : '80vw'};
-                max-height: ${isMobileViewer ? '86svh' : '80vh'};
-                width: auto;
-                height: auto;
-                object-fit: contain;
-                user-select: none;
-                -webkit-user-drag: none;
-            `;
+            img.className = 'lightbox-image';
             return img;
         }
 
         function closeLightbox() {
-            lightbox.remove();
-            document.body.style.overflow = '';
+            // Keep the Lightbox covering the viewport until the scroll position is restored.
+            // This removes the visible “scrolling back down” feeling on desktop.
+            lightbox.classList.add('is-closing');
+            unlockBodyScroll();
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    if (lightbox.isConnected) lightbox.remove();
+                });
+            });
             if (activeLightboxKeyHandler) {
                 document.removeEventListener('keydown', activeLightboxKeyHandler);
                 activeLightboxKeyHandler = null;
@@ -434,182 +515,88 @@ function loadArtworks() {
         function showDesktopImage() {
             imgContainer.querySelectorAll('img.lightbox-desktop-img').forEach(node => node.remove());
             const img = getFullImage(currentIndex);
-            img.className = 'lightbox-desktop-img';
+            img.classList.add('lightbox-desktop-img');
             imgContainer.insertBefore(img, imgContainer.firstChild);
         }
 
         function goPrev() {
             currentIndex = getLoopIndex(currentIndex - 1);
-            if (isMobileViewer) {
-                renderMobileSlides(false);
-            } else {
-                showDesktopImage();
-            }
+            showDesktopImage();
         }
 
         function goNext() {
             currentIndex = getLoopIndex(currentIndex + 1);
-            if (isMobileViewer) {
-                renderMobileSlides(false);
-            } else {
-                showDesktopImage();
-            }
+            showDesktopImage();
         }
 
         if (isMobileViewer) {
-            const track = document.createElement('div');
-            track.className = 'lightbox-track';
-            track.style.cssText = `
-                display: flex;
-                width: 100%;
-                height: 100%;
-                transform: translate3d(-100%, 0, 0);
-                transition: none;
-                will-change: transform;
-            `;
+            const gallery = document.createElement('div');
+            gallery.className = 'mobile-lightbox-gallery';
 
-            function createSlide(index) {
-                const slide = document.createElement('div');
-                slide.className = 'lightbox-slide';
-                slide.style.cssText = `
-                    flex: 0 0 100%;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 3.5rem 1rem 2.5rem;
-                    box-sizing: border-box;
-                `;
+            lightboxItems.forEach((_, index) => {
+                const slide = document.createElement('figure');
+                slide.className = 'mobile-lightbox-slide';
                 slide.appendChild(getFullImage(index));
-                return slide;
-            }
-
-            function renderMobileSlides(animateReset = false) {
-                track.innerHTML = '';
-                track.appendChild(createSlide(currentIndex - 1));
-                track.appendChild(createSlide(currentIndex));
-                track.appendChild(createSlide(currentIndex + 1));
-                track.style.transition = animateReset ? 'transform 240ms ease' : 'none';
-                track.style.transform = 'translate3d(-100%, 0, 0)';
-            }
-
-            function snapTo(position, afterTransition) {
-                track.style.transition = 'transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1)';
-                track.style.transform = `translate3d(${position}px, 0, 0)`;
-                if (afterTransition) {
-                    const handleTransitionEnd = () => {
-                        track.removeEventListener('transitionend', handleTransitionEnd);
-                        afterTransition();
-                    };
-                    track.addEventListener('transitionend', handleTransitionEnd);
-                }
-            }
-
-            let startX = 0;
-            let startY = 0;
-            let deltaX = 0;
-            let isDragging = false;
-            let isHorizontalSwipe = false;
-            let containerWidth = 0;
-
-            track.addEventListener('touchstart', (event) => {
-                if (!event.touches.length) return;
-                startX = event.touches[0].clientX;
-                startY = event.touches[0].clientY;
-                deltaX = 0;
-                isDragging = true;
-                isHorizontalSwipe = false;
-                containerWidth = imgContainer.clientWidth || window.innerWidth;
-                track.style.transition = 'none';
-            }, { passive: true });
-
-            track.addEventListener('touchmove', (event) => {
-                if (!isDragging || !event.touches.length) return;
-                const currentX = event.touches[0].clientX;
-                const currentY = event.touches[0].clientY;
-                deltaX = currentX - startX;
-                const deltaY = currentY - startY;
-
-                if (!isHorizontalSwipe) {
-                    isHorizontalSwipe = Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY);
-                }
-
-                if (isHorizontalSwipe) {
-                    event.preventDefault();
-                    track.style.transform = `translate3d(${-containerWidth + deltaX}px, 0, 0)`;
-                }
-            }, { passive: false });
-
-            track.addEventListener('touchend', () => {
-                if (!isDragging) return;
-                isDragging = false;
-                containerWidth = imgContainer.clientWidth || window.innerWidth;
-                const threshold = Math.min(90, containerWidth * 0.22);
-
-                if (Math.abs(deltaX) > threshold) {
-                    if (deltaX < 0) {
-                        snapTo(-containerWidth * 2, () => {
-                            currentIndex = getLoopIndex(currentIndex + 1);
-                            renderMobileSlides(false);
-                        });
-                    } else {
-                        snapTo(0, () => {
-                            currentIndex = getLoopIndex(currentIndex - 1);
-                            renderMobileSlides(false);
-                        });
-                    }
-                } else {
-                    snapTo(-containerWidth, null);
-                }
-                deltaX = 0;
+                gallery.appendChild(slide);
             });
 
-            imgContainer.appendChild(track);
-            renderMobileSlides(false);
+            imgContainer.appendChild(gallery);
+
+            requestAnimationFrame(() => {
+                const slideWidth = gallery.clientWidth || window.innerWidth;
+                gallery.scrollLeft = currentIndex * slideWidth;
+            });
+
+            let scrollEndTimer = null;
+            gallery.addEventListener('scroll', () => {
+                window.clearTimeout(scrollEndTimer);
+                scrollEndTimer = window.setTimeout(() => {
+                    const slideWidth = gallery.clientWidth || window.innerWidth;
+                    currentIndex = Math.round(gallery.scrollLeft / slideWidth);
+                }, 80);
+            }, { passive: true });
+
+            // Prevent click-to-close from firing after a swipe.
+            let pointerStartX = 0;
+            let pointerStartY = 0;
+            let didSwipe = false;
+
+            gallery.addEventListener('pointerdown', (event) => {
+                pointerStartX = event.clientX;
+                pointerStartY = event.clientY;
+                didSwipe = false;
+            }, { passive: true });
+
+            gallery.addEventListener('pointerup', (event) => {
+                const dx = Math.abs(event.clientX - pointerStartX);
+                const dy = Math.abs(event.clientY - pointerStartY);
+                didSwipe = dx > 12 || dy > 12;
+            }, { passive: true });
+
+            imgContainer.addEventListener('click', (event) => {
+                if (didSwipe) return;
+                if (event.target === imgContainer || event.target.classList.contains('mobile-lightbox-slide')) {
+                    closeLightbox();
+                }
+            });
         } else {
             const prevBtn = document.createElement('button');
             prevBtn.type = 'button';
+            prevBtn.className = 'lightbox-arrow lightbox-prev';
             prevBtn.setAttribute('aria-label', '上一张作品');
             prevBtn.innerHTML = '&#10094;';
-            prevBtn.style.cssText = `
-                position: absolute;
-                left: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: white;
-                background: transparent;
-                border: 0;
-                font-size: 3rem;
-                cursor: pointer;
-                padding: 20px;
-                user-select: none;
-                z-index: 2002;
-            `;
 
             const nextBtn = document.createElement('button');
             nextBtn.type = 'button';
+            nextBtn.className = 'lightbox-arrow lightbox-next';
             nextBtn.setAttribute('aria-label', '下一张作品');
             nextBtn.innerHTML = '&#10095;';
-            nextBtn.style.cssText = `
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: white;
-                background: transparent;
-                border: 0;
-                font-size: 3rem;
-                cursor: pointer;
-                padding: 20px;
-                user-select: none;
-                z-index: 2002;
-            `;
 
             prevBtn.addEventListener('click', (event) => {
                 event.stopPropagation();
                 goPrev();
             });
+
             nextBtn.addEventListener('click', (event) => {
                 event.stopPropagation();
                 goNext();
@@ -618,6 +605,12 @@ function loadArtworks() {
             imgContainer.appendChild(prevBtn);
             imgContainer.appendChild(nextBtn);
             showDesktopImage();
+
+            lightbox.addEventListener('click', (event) => {
+                if (event.target === lightbox || event.target === imgContainer) {
+                    closeLightbox();
+                }
+            });
         }
 
         closeBtn.addEventListener('click', (event) => {
@@ -625,19 +618,13 @@ function loadArtworks() {
             closeLightbox();
         });
 
-        lightbox.addEventListener('click', (event) => {
-            if (event.target === lightbox || event.target === imgContainer) {
-                closeLightbox();
-            }
-        });
-
         function handleKeydown(event) {
             if (event.key === 'Escape') {
                 closeLightbox();
-            } else if (event.key === 'ArrowLeft') {
+            } else if (!isMobileViewer && event.key === 'ArrowLeft') {
                 event.preventDefault();
                 goPrev();
-            } else if (event.key === 'ArrowRight') {
+            } else if (!isMobileViewer && event.key === 'ArrowRight') {
                 event.preventDefault();
                 goNext();
             }
@@ -645,10 +632,11 @@ function loadArtworks() {
 
         activeLightboxKeyHandler = handleKeydown;
         document.addEventListener('keydown', handleKeydown);
-        document.body.style.overflow = 'hidden';
+
         imgContainer.appendChild(closeBtn);
         lightbox.appendChild(imgContainer);
         document.body.appendChild(lightbox);
+        lockBodyScroll();
     }
 
 }
@@ -788,18 +776,32 @@ function load3DPrintVideos() {
     }
 }
 
+function isHomePage() {
+    const path = window.location.pathname;
+    const fileName = path.substring(path.lastIndexOf('/') + 1);
+    return fileName === '' || fileName === 'index.html';
+}
+
 // 恢复滚动位置
 function restoreScrollPosition() {
-    // 只有在首页才恢复滚动位置，all-artworks页面强制在顶部
-    if (!window.location.pathname.includes('all-artworks')) {
-        const savedPosition = localStorage.getItem('artworksScrollPosition');
+    // 只有回到首页时，才恢复从子页面离开前记录的位置。
+    // 必须用即时滚动，避免全局 smooth scroll 造成页面从上往下滑回去。
+    const isAllArtworksPage = window.location.pathname.includes('all-artworks');
+
+    if (isHomePage()) {
+        const savedArtworkPosition = localStorage.getItem('artworksScrollPosition');
+        const savedExplorePosition = localStorage.getItem('exploreScrollPosition');
+        const savedPosition = savedExplorePosition || savedArtworkPosition;
+
         if (savedPosition) {
-            window.scrollTo(0, parseInt(savedPosition));
+            const targetY = parseInt(savedPosition, 10) || 0;
+            scrollToInstantly(targetY, 0);
             localStorage.removeItem('artworksScrollPosition');
+            localStorage.removeItem('exploreScrollPosition');
         }
-    } else {
-        // 在all-artworks页面强制滚动到顶部
-        window.scrollTo(0, 0);
+    } else if (isAllArtworksPage) {
+        // 进入全部作品页时也保持即时到顶部，不要被 html { scroll-behavior: smooth } 影响。
+        scrollToInstantly(0, 0);
     }
 }
 
