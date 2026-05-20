@@ -289,14 +289,17 @@ function loadArtworks() {
     // 检查当前页面是否为全部作品页面
     const isAllArtworksPage = window.location.pathname.includes('all-artworks');
     
-    // 确定当前页面要使用的作品顺序
-    // 首页保留前 6 张原顺序；All Works 调整最后几张为 1,2,3,4,5,6,7,8,9,11,10,12。
-    const displayedArtworks = isAllArtworksPage
-        ? [...artworks.slice(0, 9), artworks[10], artworks[9], artworks[11]]
-        : artworks.slice(0, 6);
+    // 全局 Lightbox / Carousel 顺序：永远跟 All Works 页面显示顺序一致。
+    // 首页外层仍只展示前 6 张精选；Lightbox 内层使用完整作品集。
+    const galleryItems = [...artworks.slice(0, 9), artworks[10], artworks[9], artworks[11]];
+    const displayedArtworks = isAllArtworksPage ? galleryItems : galleryItems.slice(0, 6);
 
     // 确定要显示的作品数量
     const displayCount = displayedArtworks.length;
+
+    function getGalleryIndex(artwork) {
+        return galleryItems.findIndex(item => item.image === artwork.image);
+    }
 
     // 手机端大图比例：小图统一 4:5；大图根据作品原比例做轻裁切。
     // 这些 class 只影响手机端页面内展示，Lightbox / Carousel 仍然显示完整原比例。
@@ -329,7 +332,7 @@ function loadArtworks() {
         const fetchPriority = isAllArtworksPage && index === 0 ? ' fetchpriority="high"' : '';
 
         artworkItem.innerHTML = `
-            <img src="${imageSrc}"${srcsetAttr} alt="${artwork.title}" data-index="${index}" loading="${loadingMode}" decoding="async"${widthAttr}${heightAttr}${fetchPriority}>
+            <img src="${imageSrc}"${srcsetAttr} alt="${artwork.title}" data-index="${index}" data-gallery-index="${getGalleryIndex(artwork)}" loading="${loadingMode}" decoding="async"${widthAttr}${heightAttr}${fetchPriority}>
             <div class="artwork-overlay">
                 <div class="artwork-title">${artwork.title}</div>
             </div>
@@ -348,7 +351,7 @@ function loadArtworks() {
             const img = this.querySelector('img');
             if (!img || !img.dataset.index) return;
 
-            const index = parseInt(img.dataset.index, 10);
+            const index = parseInt(img.dataset.galleryIndex || img.dataset.index, 10);
             openLightbox(index);
         });
     });
@@ -376,11 +379,10 @@ function loadArtworks() {
     });
 
     // 创建 Lightbox / Carousel Viewer
-    // v15: mobile-first Lightbox rebuild.
-    // Mobile uses native horizontal scrolling + scroll-snap instead of JS-driven touch dragging.
-    // This is more stable on iPhone Safari and reduces flicker/jump caused by transform + touchmove.
+    // v21: unified global gallery.
+    // Mobile uses a three-slide transform carousel so it can drag, snap, and loop continuously.
     function openLightbox(startIndex) {
-        const lightboxItems = displayedArtworks;
+        const lightboxItems = galleryItems;
         if (!lightboxItems.length) return;
 
         let currentIndex = ((startIndex % lightboxItems.length) + lightboxItems.length) % lightboxItems.length;
@@ -533,45 +535,99 @@ function loadArtworks() {
             const gallery = document.createElement('div');
             gallery.className = 'mobile-lightbox-gallery';
 
-            lightboxItems.forEach((_, index) => {
-                const slide = document.createElement('figure');
-                slide.className = 'mobile-lightbox-slide';
-                slide.appendChild(getFullImage(index));
-                gallery.appendChild(slide);
-            });
-
+            const track = document.createElement('div');
+            track.className = 'mobile-lightbox-track';
+            gallery.appendChild(track);
             imgContainer.appendChild(gallery);
 
-            requestAnimationFrame(() => {
-                const slideWidth = gallery.clientWidth || window.innerWidth;
-                gallery.scrollLeft = currentIndex * slideWidth;
-            });
-
-            let scrollEndTimer = null;
-            gallery.addEventListener('scroll', () => {
-                window.clearTimeout(scrollEndTimer);
-                scrollEndTimer = window.setTimeout(() => {
-                    const slideWidth = gallery.clientWidth || window.innerWidth;
-                    currentIndex = Math.round(gallery.scrollLeft / slideWidth);
-                }, 80);
-            }, { passive: true });
-
-            // Prevent click-to-close from firing after a swipe.
             let pointerStartX = 0;
             let pointerStartY = 0;
+            let dragX = 0;
+            let isDragging = false;
             let didSwipe = false;
+            let isAnimating = false;
+
+            function buildMobileSlides() {
+                track.innerHTML = '';
+                [currentIndex - 1, currentIndex, currentIndex + 1].forEach((itemIndex) => {
+                    const slide = document.createElement('figure');
+                    slide.className = 'mobile-lightbox-slide';
+                    slide.appendChild(getFullImage(itemIndex));
+                    track.appendChild(slide);
+                });
+                track.style.transition = 'none';
+                track.style.transform = 'translate3d(-100%, 0, 0)';
+            }
+
+            function setMobileTrackOffset(offsetX, withTransition = false) {
+                track.style.transition = withTransition ? 'transform 260ms ease' : 'none';
+                track.style.transform = `translate3d(calc(-100% + ${offsetX}px), 0, 0)`;
+            }
+
+            function finishMobileMove(direction) {
+                if (isAnimating) return;
+                isAnimating = true;
+                currentIndex = getLoopIndex(currentIndex + direction);
+                setMobileTrackOffset(direction > 0 ? -gallery.clientWidth : gallery.clientWidth, true);
+
+                window.setTimeout(() => {
+                    buildMobileSlides();
+                    isAnimating = false;
+                }, 270);
+            }
+
+            function reboundMobileSlide() {
+                if (isAnimating) return;
+                isAnimating = true;
+                setMobileTrackOffset(0, true);
+                window.setTimeout(() => {
+                    setMobileTrackOffset(0, false);
+                    isAnimating = false;
+                }, 270);
+            }
+
+            buildMobileSlides();
 
             gallery.addEventListener('pointerdown', (event) => {
+                if (isAnimating) return;
                 pointerStartX = event.clientX;
                 pointerStartY = event.clientY;
+                dragX = 0;
+                isDragging = true;
                 didSwipe = false;
-            }, { passive: true });
+                gallery.setPointerCapture?.(event.pointerId);
+                setMobileTrackOffset(0, false);
+            });
 
-            gallery.addEventListener('pointerup', (event) => {
-                const dx = Math.abs(event.clientX - pointerStartX);
-                const dy = Math.abs(event.clientY - pointerStartY);
-                didSwipe = dx > 12 || dy > 12;
-            }, { passive: true });
+            gallery.addEventListener('pointermove', (event) => {
+                if (!isDragging || isAnimating) return;
+                const dx = event.clientX - pointerStartX;
+                const dy = event.clientY - pointerStartY;
+                if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) return;
+
+                event.preventDefault();
+                dragX = dx;
+                didSwipe = Math.abs(dx) > 10;
+                setMobileTrackOffset(dragX, false);
+            }, { passive: false });
+
+            function endMobileDrag(event) {
+                if (!isDragging || isAnimating) return;
+                isDragging = false;
+                gallery.releasePointerCapture?.(event.pointerId);
+
+                const threshold = Math.min(96, (gallery.clientWidth || window.innerWidth) * 0.22);
+                if (dragX <= -threshold) {
+                    finishMobileMove(1);
+                } else if (dragX >= threshold) {
+                    finishMobileMove(-1);
+                } else {
+                    reboundMobileSlide();
+                }
+            }
+
+            gallery.addEventListener('pointerup', endMobileDrag);
+            gallery.addEventListener('pointercancel', endMobileDrag);
 
             imgContainer.addEventListener('click', (event) => {
                 if (didSwipe) return;
