@@ -1021,9 +1021,6 @@ function loadArtworks() {
    --------------------------------------------------------- */
 // 提前唤醒后段 lazy 图片，解决手机端滑到图片区域后才开始加载的问题。
 // 这不会新增压缩图，也不会改变图片路径；只是让 lazy 图片更早进入浏览器下载队列。
-/* =========================================================
-   Artwork gallery performance
-   ========================================================= */
 function warmUpLazyArtworkImages(artworkGrid) {
     const lazyImages = artworkGrid.querySelectorAll('img[loading="lazy"]');
     if (!lazyImages.length) return;
@@ -1203,57 +1200,39 @@ function initBackToTop() {
 
     if (!backToTopBtn && !footerBackToTop && !logo) return;
 
-    let lastScrollY = window.scrollY;
-    let hideTimer = null;
-
     function isMobileView() {
         return window.innerWidth <= 768;
     }
 
-    function showBackToTopButton() {
-        if (!backToTopBtn) return;
+    function shouldShowBackToTop() {
+        if (!isMobileView()) return false;
+        if (window.scrollY < window.innerHeight * 0.6) return false;
 
-        backToTopBtn.classList.add('show');
+        const contactSection = document.querySelector('.contact');
+        const footer = document.querySelector('footer');
 
-        clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => {
-            backToTopBtn.classList.remove('show');
-        }, 1800);
+        if (contactSection) {
+            const contactTop = contactSection.getBoundingClientRect().top;
+            return contactTop <= window.innerHeight * 0.55;
+        }
+
+        if (footer) {
+            const footerTop = footer.getBoundingClientRect().top;
+            return footerTop <= window.innerHeight * 0.9;
+        }
+
+        const viewportBottom = window.scrollY + window.innerHeight;
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+        );
+
+        return viewportBottom >= documentHeight - window.innerHeight * 0.5;
     }
 
-    function hideBackToTopButton() {
+    function updateBackToTopButton() {
         if (!backToTopBtn) return;
-
-        backToTopBtn.classList.remove('show');
-        clearTimeout(hideTimer);
-    }
-
-    function toggleBackToTopButton() {
-        const currentScrollY = window.scrollY;
-        const triggerPoint = Math.max(window.innerHeight * 0.3, 300);
-        const scrollDifference = currentScrollY - lastScrollY;
-
-        // 电脑端隐藏；页面顶部附近隐藏
-        if (!isMobileView() || currentScrollY <= triggerPoint) {
-            hideBackToTopButton();
-            lastScrollY = currentScrollY;
-            return;
-        }
-
-        // 避免手机滚动惯性或轻微抖动造成按钮闪烁
-        if (Math.abs(scrollDifference) < 8) {
-            return;
-        }
-
-        if (scrollDifference < 0) {
-            // 往上滑：显示按钮
-            showBackToTopButton();
-        } else {
-            // 往下滑：隐藏按钮
-            hideBackToTopButton();
-        }
-
-        lastScrollY = currentScrollY;
+        backToTopBtn.classList.toggle('show', shouldShowBackToTop());
     }
 
     if (backToTopBtn) {
@@ -1275,7 +1254,6 @@ function initBackToTop() {
         });
     }
 
-    // Logo 点击返回顶部；电脑端和手机端都可用
     if (logo) {
         logo.style.cursor = 'pointer';
         logo.addEventListener('click', function() {
@@ -1292,7 +1270,7 @@ function initBackToTop() {
         });
     }
 
-    window.addEventListener('scroll', toggleBackToTopButton);
-    window.addEventListener('resize', toggleBackToTopButton);
-    toggleBackToTopButton();
+    window.addEventListener('scroll', updateBackToTopButton);
+    window.addEventListener('resize', updateBackToTopButton);
+    updateBackToTopButton();
 }

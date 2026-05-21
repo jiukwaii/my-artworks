@@ -76,8 +76,6 @@ img {
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f8f8;
 }
 
 /* =========================================================
@@ -87,14 +85,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.85rem 5%;
     position: fixed;
     width: 100%;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.95);
     z-index: 1000;
     transform: translateY(0);
-    transition: transform 0.35s ease, background-color 0.3s ease, border-color 0.3s ease;
     will-change: transform;
 }
 
@@ -120,14 +115,7 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
-    font-size: 1rem;
-    letter-spacing: 1px;
     transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #888;
 }
 
 .hamburger {
@@ -150,14 +138,11 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15rem 10% 10rem;
-    min-height: 100vh;
 }
 
 .hero-content {
     flex: 1;
     max-width: 600px;
-    margin-left: 10%;
 }
 
 .hero-content h1 {
@@ -168,13 +153,8 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.hero-content h1 span {
-    color: #888;
-}
-
 .hero-content p {
     font-size: 1.1rem;
-    color: #666;
     margin-bottom: 2.5rem;
     max-width: 400px;
 }
@@ -182,18 +162,12 @@ body {
 .btn {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background-color: #333;
     color: #fff;
     text-decoration: none;
     font-size: 0.9rem;
     letter-spacing: 1px;
     transition: background-color 0.3s ease;
-    border: none;
     cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #555;
 }
 
 .hero-image {
@@ -203,27 +177,15 @@ body {
 }
 
 .hero-image img {
-    width: 80%;
-    max-width: 450px;
     height: auto;
     border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     object-fit: cover;
-}
-
-/* =========================================================
-   05 about
-   ========================================================= */
-.about {
-    padding: 12rem 5% 8rem;
-    background-color: #fff;
 }
 
 .about-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 5rem;
 }
 
 .about-image {
@@ -232,7 +194,6 @@ body {
 
 .about-image img {
     width: 100%;
-    max-width: 450px;
     height: auto;
 }
 
@@ -262,7 +223,6 @@ h2::after {
 
 .about-content p {
     margin-bottom: 1.5rem;
-    color: #666;
     line-height: 1.8;
 }
 
@@ -288,7 +248,6 @@ h2::after {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     border-radius: 2px;
     overflow: hidden;
 }
@@ -296,8 +255,6 @@ h2::after {
 .model-images {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -305,7 +262,6 @@ h2::after {
     position: relative;
     overflow: hidden;
     border-radius: 2px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     aspect-ratio: 1/1;
 }
 
@@ -351,13 +307,6 @@ h2::after {
     display: none !important;
 }
 
-/* =========================================================
-   08 contact
-   ========================================================= */
-.contact {
-    padding: 12rem 5% 8rem;
-}
-
 .contact-container {
     display: flex;
     justify-content: space-between;
@@ -385,7 +334,6 @@ h2::after {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: inherit;
     transition: all 0.3s ease;
 }
 
@@ -415,10 +363,8 @@ h2::after {
 
 .contact-image img {
     width: 100%;
-    max-width: 450px;
     height: auto;
     border-radius: 2px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* =========================================================
@@ -493,13 +439,9 @@ footer {
 }
 
 @media screen and (max-width: 992px) {
-    .navbar {
-        padding: 1.05rem 5%;
-    }
     .hero {
         flex-direction: column;
         text-align: center;
-        padding: 12rem 10% 8rem;
     }
     .hero-content {
         order: 2;
@@ -517,7 +459,6 @@ footer {
         margin: 0 auto;
     }
     .hero-image img {
-        width: 100%;
         height: 100%;
         max-width: 300px;
         max-height: 300px;
@@ -544,10 +485,8 @@ footer {
 @media screen and (max-width: 768px) {
     .nav-links {
         position: fixed;
-        top: 5.25rem;
         left: 0;
         width: 100%;
-        background-color: rgba(255,255, 255, 0.95);
         flex-direction: column;
         align-items: center;
         padding: 2rem 0;
@@ -584,9 +523,6 @@ footer {
     .hero-content h1 {
         font-size: 2.5rem;
     }
-    .artwork-grid {
-        grid-template-columns: 1fr;
-    }
     .model-images {
         grid-template-columns:1fr;
         gap: 1.5rem;
@@ -599,19 +535,6 @@ footer {
     .game-item {
         margin-bottom: 2rem;
     }
-    .hero,
-    .about,
-    .artworks,
-    .contact,
-    .artworks-page {
-        padding: 6rem 5% 4rem;
-    }
-    .hero {
-        padding: 12rem 10% 4rem;
-    }
-    .artworks {
-        padding: 3rem 5% 4rem;
-    }
     .artworks-page {
         padding: 8rem 5% 4rem;
     }
@@ -622,12 +545,7 @@ footer {
         padding: 0.6rem 1.5rem;
         font-size: 0.85rem;
     }
-    .about-content,
-    .contact-info {
-        margin-top: 0.5rem;
-    }
     .hero-content {
-        margin-top: 3rem;
         margin-left: 0;
     }
     .contact-container {
@@ -654,8 +572,6 @@ footer {
 .game-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
-    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -733,8 +649,8 @@ footer {
 }
 
 /* =========================================================
-   12 utilities / final overrides
-   - Later visual calibration preserved to avoid changing the final design.
+   12 utilities / global visual calibration
+   - Current final visual layer. Keep order-sensitive rules conservative.
    ========================================================= */
 body {
     color: #333;
@@ -1168,38 +1084,18 @@ body {
 
     .hero {
         min-height: auto;
-        padding: 8.8rem 8% 4rem;
-    }
-
-    .hero-content {
-        margin-top: 1.3rem;
-    }
-
-    .artworks {
-        padding: 5.5rem 5% 6rem;
     }
 
     .artworks h2 {
-        font-size: 2.25rem;
         margin-bottom: 2.8rem;
     }
 
     .artwork-grid {
-        grid-template-columns: 1fr;
         gap: 1.2rem;
-    }
-
-    .artwork-item:first-child {
-        grid-column: auto;
-        grid-row: auto;
     }
 
     .explore-section {
         padding: 5.5rem 6% 5rem;
-    }
-
-    .about {
-        padding: 4.5rem 6% 4rem;
     }
 
     .about-image img {
@@ -1207,10 +1103,6 @@ body {
         width: 100%;
         height: auto;
         object-fit: contain;
-    }
-
-    .contact {
-        padding: 4.2rem 6% 4rem;
     }
 
     .explore-intro {
@@ -1268,7 +1160,6 @@ body {
     .artwork-grid,
     .artworks-page .artwork-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 2.4rem;
     }
 
     .artwork-item,
@@ -1305,8 +1196,6 @@ body {
     .artworks-page .artwork-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         max-width: 520px;
-        column-gap: 0.9rem;
-        row-gap: 0.9rem;
         align-items: stretch;
     }
 
@@ -1318,8 +1207,6 @@ body {
         grid-row: auto;
         min-height: 0;
         display: block;
-        background-color: #f3f3f3;
-        overflow: hidden;
     }
 
     /* Keep the mobile curated rhythm: big / pair / big / pair. */
@@ -1329,38 +1216,16 @@ body {
     .artworks-page .artwork-item:last-child:nth-child(3n + 2) {
         grid-column: 1 / -1;
     }
-
-    /* Mobile page cards use a fixed, cropped editorial ratio for alignment.
-       Full original-ratio viewing is preserved in the Lightbox / Carousel. */
-    .artwork-item img,
-    .artwork-item:first-child img,
-    .artworks-page .artwork-item img,
-    .artworks-page .artwork-item:first-child img {
-        width: 100%;
-        height: auto;
-        max-height: none;
-        aspect-ratio: 4 / 5;
-        object-fit: cover;
-        display: block;
-    }
 }
 
 @media screen and (max-width: 420px) {
-    .artwork-grid,
-    .artworks-page .artwork-grid {
-        column-gap: 0.75rem;
-        row-gap: 0.75rem;
-    }
 }
 
 /* =========================================================
-   v13 mobile artwork ratio refinement
+   11 responsive / mobile: curated artwork ratios
    - Desktop remains the 3-column square portfolio grid.
-   - Mobile keeps the curated rhythm.
-   - Small paired images use one fixed 4:5 ratio for alignment.
-   - Mobile feature images use ratios close to their original artwork shape:
-     soft-wide 6:5, portrait 4:5, landscape 3:2, wide 16:10.
-   - Lightbox / Carousel still displays the complete original-ratio image.
+   - Mobile keeps the curated rhythm and paired-image alignment.
+   - Lightbox / carousel still displays the complete original-ratio image.
    ========================================================= */
 @media screen and (max-width: 768px) {
     .artwork-item,
@@ -1408,9 +1273,9 @@ body {
 
 
 /* =========================================================
-   v14 artwork spacing refinement
+   04 artwork gallery: spacing refinement
    - Desktop: slightly tighter 3-column grid for stronger portfolio grouping.
-   - Mobile: horizontal spacing stays compact; vertical spacing gets more breathing room.
+   - Mobile: compact horizontal spacing with more vertical breathing room.
    ========================================================= */
 @media screen and (min-width: 769px) {
     .artwork-grid,
@@ -1420,11 +1285,6 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-    .artwork-grid,
-    .artworks-page .artwork-grid {
-        column-gap: 12px;
-        row-gap: 16px;
-    }
 }
 
 @media screen and (max-width: 420px) {
@@ -1450,7 +1310,6 @@ body.lightbox-open {
     position: fixed;
     inset: 0;
     width: 100%;
-    height: 100vh;
     height: 100dvh;
     background: rgba(0, 0, 0, 0.94);
     z-index: 2000;
@@ -1474,7 +1333,6 @@ body.lightbox-open {
 .lightbox-image {
     display: block;
     max-width: 82vw;
-    max-height: 82vh;
     max-height: 82dvh;
     width: auto;
     height: auto;
@@ -1560,14 +1418,12 @@ body.lightbox-open {
     .is-mobile-gallery .lightbox-container {
         display: block;
         width: 100%;
-        height: 100%;
         height: 100dvh;
         overflow: hidden;
     }
 
     .mobile-lightbox-gallery {
         width: 100%;
-        height: 100%;
         height: 100dvh;
         overflow: hidden;
         overscroll-behavior: contain;
@@ -1577,7 +1433,6 @@ body.lightbox-open {
 
     .mobile-lightbox-track {
         width: 100%;
-        height: 100%;
         height: 100dvh;
         display: flex;
         will-change: transform;
@@ -1587,7 +1442,6 @@ body.lightbox-open {
     .mobile-lightbox-slide {
         flex: 0 0 100%;
         width: 100%;
-        height: 100%;
         height: 100dvh;
         margin: 0;
         padding: max(54px, env(safe-area-inset-top)) 12px max(28px, env(safe-area-inset-bottom));
@@ -1625,10 +1479,10 @@ body.lightbox-open {
 }
 
 /* =========================================================
-   06 explore entry + final homepage rhythm cleanup
+   06 explore entry + homepage rhythm
    - Keep Hero image/artwork grid unchanged.
-   - Desktop: refine About into an editorial two-column block.
-   - Creative Lab: keep it as a light secondary entry on desktop and mobile.
+   - Desktop: refined About editorial block.
+   - Creative Lab: light secondary entry on desktop and mobile.
    - Lightbox: keep exit visually still while scroll position is restored.
    ========================================================= */
 #lightbox.is-closing {
