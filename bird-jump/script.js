@@ -1,8 +1,6 @@
 (() => {
   'use strict';
 
-  console.log('SCRIPT VERSION: LAYER_CHECKED_PIPE_IN_FRONT_2026_05_12');
-
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
   const gameCard = document.getElementById('gameCard');

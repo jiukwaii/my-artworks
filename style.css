@@ -1,7 +1,9 @@
-/* 字体引入 */
+/* =========================================================
+   01 base / variables
+   ========================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-/* 基础样式重置 */
+/* Base reset */
 * {
     margin: 0;
     padding: 0;
@@ -29,12 +31,27 @@ section {
 }
 
 
-/* Utility: keep short phrases from breaking awkwardly */
+/* Base utility: keep short phrases from breaking awkwardly */
 .no-break {
     white-space: nowrap;
 }
 
-/* 防止图片、视频、SVG icon 和作品卡片被误选中或拖动 */
+
+.page-back-link {
+    color: inherit;
+    text-decoration: none;
+    margin-right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.page-back-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Base media protection: prevent accidental selection / dragging */
 img,
 video,
 svg,
@@ -59,23 +76,20 @@ img {
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f8f8f8;
 }
 
-/* 导航栏样式 */
+/* =========================================================
+   02 navbar
+   ========================================================= */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.85rem 5%;
     position: fixed;
     width: 100%;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.95);
     z-index: 1000;
     transform: translateY(0);
-    transition: transform 0.35s ease, background-color 0.3s ease, border-color 0.3s ease;
     will-change: transform;
 }
 
@@ -101,14 +115,7 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
-    font-size: 1rem;
-    letter-spacing: 1px;
     transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #888;
 }
 
 .hamburger {
@@ -124,19 +131,18 @@ body {
     transition: all 0.3s ease;
 }
 
-/* 英雄区域样式 */
+/* =========================================================
+   03 hero
+   ========================================================= */
 .hero {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15rem 10% 10rem;
-    min-height: 100vh;
 }
 
 .hero-content {
     flex: 1;
     max-width: 600px;
-    margin-left: 10%;
 }
 
 .hero-content h1 {
@@ -147,13 +153,8 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.hero-content h1 span {
-    color: #888;
-}
-
 .hero-content p {
     font-size: 1.1rem;
-    color: #666;
     margin-bottom: 2.5rem;
     max-width: 400px;
 }
@@ -161,18 +162,12 @@ body {
 .btn {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background-color: #333;
     color: #fff;
     text-decoration: none;
     font-size: 0.9rem;
     letter-spacing: 1px;
     transition: background-color 0.3s ease;
-    border: none;
     cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #555;
 }
 
 .hero-image {
@@ -182,25 +177,15 @@ body {
 }
 
 .hero-image img {
-    width: 80%;
-    max-width: 450px;
     height: auto;
     border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     object-fit: cover;
-}
-
-/* 关于我部分样式 */
-.about {
-    padding: 12rem 5% 8rem;
-    background-color: #fff;
 }
 
 .about-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 5rem;
 }
 
 .about-image {
@@ -209,7 +194,6 @@ body {
 
 .about-image img {
     width: 100%;
-    max-width: 450px;
     height: auto;
 }
 
@@ -239,11 +223,13 @@ h2::after {
 
 .about-content p {
     margin-bottom: 1.5rem;
-    color: #666;
     line-height: 1.8;
 }
 
-/* 游戏部分样式 */
+/* =========================================================
+   07 explore page
+   - Legacy label kept as explore media/game styling.
+   ========================================================= */
 .game-note {
     font-size: 1rem;
     color: #666;
@@ -262,7 +248,6 @@ h2::after {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     border-radius: 2px;
     overflow: hidden;
 }
@@ -270,8 +255,6 @@ h2::after {
 .model-images {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -279,7 +262,6 @@ h2::after {
     position: relative;
     overflow: hidden;
     border-radius: 2px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     aspect-ratio: 1/1;
 }
 
@@ -325,11 +307,6 @@ h2::after {
     display: none !important;
 }
 
-/* 联系方式部分样式 */
-.contact {
-    padding: 12rem 5% 8rem;
-}
-
 .contact-container {
     display: flex;
     justify-content: space-between;
@@ -357,7 +334,6 @@ h2::after {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: inherit;
     transition: all 0.3s ease;
 }
 
@@ -387,28 +363,57 @@ h2::after {
 
 .contact-image img {
     width: 100%;
-    max-width: 450px;
     height: auto;
     border-radius: 2px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* 页脚样式 */
+/* =========================================================
+   09 footer
+   ========================================================= */
 footer {
     padding: 1.6rem 5%;
     background-color: #333;
     color: #fff;
-    text-align: center;
+}
+
+.footer-content {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
 }
 
 .footer-content p {
+    grid-column: 2;
     font-size: 0.82rem;
     line-height: 1.5;
     opacity: 0.68;
     margin: 0;
+    text-align: center;
 }
 
-/* 艺术作品页面样式 */
+.footer-back-to-top {
+    grid-column: 3;
+    justify-self: end;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+    padding-bottom: 0.16rem;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.footer-back-to-top:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.58);
+}
+
+/* =========================================================
+   04 artwork gallery
+   ========================================================= */
 .artworks-page {
     padding: 12rem 5% 8rem;
 }
@@ -424,7 +429,9 @@ footer {
     grid-row: auto;
 }
 
-/* 响应式设计 */
+/* =========================================================
+   11 responsive / mobile
+   ========================================================= */
 @media screen and (max-width: 1200px) {
     .hero-content h1 {
         font-size: 3rem;
@@ -432,13 +439,9 @@ footer {
 }
 
 @media screen and (max-width: 992px) {
-    .navbar {
-        padding: 1.05rem 5%;
-    }
     .hero {
         flex-direction: column;
         text-align: center;
-        padding: 12rem 10% 8rem;
     }
     .hero-content {
         order: 2;
@@ -456,7 +459,6 @@ footer {
         margin: 0 auto;
     }
     .hero-image img {
-        width: 100%;
         height: 100%;
         max-width: 300px;
         max-height: 300px;
@@ -483,10 +485,8 @@ footer {
 @media screen and (max-width: 768px) {
     .nav-links {
         position: fixed;
-        top: 5.25rem;
         left: 0;
         width: 100%;
-        background-color: rgba(255,255, 255, 0.95);
         flex-direction: column;
         align-items: center;
         padding: 2rem 0;
@@ -523,9 +523,6 @@ footer {
     .hero-content h1 {
         font-size: 2.5rem;
     }
-    .artwork-grid {
-        grid-template-columns: 1fr;
-    }
     .model-images {
         grid-template-columns:1fr;
         gap: 1.5rem;
@@ -538,19 +535,6 @@ footer {
     .game-item {
         margin-bottom: 2rem;
     }
-    .hero,
-    .about,
-    .artworks,
-    .contact,
-    .artworks-page {
-        padding: 6rem 5% 4rem;
-    }
-    .hero {
-        padding: 12rem 10% 4rem;
-    }
-    .artworks {
-        padding: 3rem 5% 4rem;
-    }
     .artworks-page {
         padding: 8rem 5% 4rem;
     }
@@ -561,12 +545,7 @@ footer {
         padding: 0.6rem 1.5rem;
         font-size: 0.85rem;
     }
-    .about-content,
-    .contact-info {
-        margin-top: 0.5rem;
-    }
     .hero-content {
-        margin-top: 3rem;
         margin-left: 0;
     }
     .contact-container {
@@ -593,8 +572,6 @@ footer {
 .game-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
-    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -608,7 +585,7 @@ footer {
     }
     
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: 1.92rem;
     }
     h2 {
         font-size: 1.8rem;
@@ -618,7 +595,10 @@ footer {
     }
 }
 
-/* 返回顶部按钮：默认隐藏，电脑端不显示 */
+/* =========================================================
+   12 utilities / final overrides
+   ========================================================= */
+/* Back to top: default hidden, mobile-only floating trigger */
 .back-to-top {
     display: none;
 }
@@ -668,7 +648,10 @@ footer {
     }
 }
 
-/* Portfolio hierarchy refinement */
+/* =========================================================
+   12 utilities / global visual calibration
+   - Current final visual layer. Keep order-sensitive rules conservative.
+   ========================================================= */
 body {
     color: #333;
     background-color: #f8f8f8;
@@ -1021,17 +1004,22 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-footer {
-    background-color: #333;
-}
-
 @media screen and (max-width: 768px) {
     footer {
         padding: 1.25rem 5%;
+        text-align: center;
+    }
+
+    .footer-content {
+        display: block;
     }
 
     .footer-content p {
         font-size: 0.78rem;
+    }
+
+    .footer-back-to-top {
+        display: none;
     }
 }
 
@@ -1096,38 +1084,18 @@ footer {
 
     .hero {
         min-height: auto;
-        padding: 8.8rem 8% 4rem;
-    }
-
-    .hero-content {
-        margin-top: 1.5rem;
-    }
-
-    .artworks {
-        padding: 5.5rem 5% 6rem;
     }
 
     .artworks h2 {
-        font-size: 2.25rem;
         margin-bottom: 2.8rem;
     }
 
     .artwork-grid {
-        grid-template-columns: 1fr;
         gap: 1.2rem;
-    }
-
-    .artwork-item:first-child {
-        grid-column: auto;
-        grid-row: auto;
     }
 
     .explore-section {
         padding: 5.5rem 6% 5rem;
-    }
-
-    .about {
-        padding: 4.5rem 6% 4rem;
     }
 
     .about-image img {
@@ -1135,10 +1103,6 @@ footer {
         width: 100%;
         height: auto;
         object-fit: contain;
-    }
-
-    .contact {
-        padding: 4.2rem 6% 4rem;
     }
 
     .explore-intro {
@@ -1164,30 +1128,7 @@ footer {
     }
 }
 
-/* all-artworks mobile: restore single vertical artwork display */
-@media screen and (max-width: 768px) {
-    .artworks-page .artwork-grid {
-        grid-template-columns: 1fr;
-        max-width: 520px;
-        gap: 1.6rem;
-    }
-
-    .artworks-page .artwork-item {
-        min-height: min(70vw, 520px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .artworks-page .artwork-item img,
-    .artworks-page .artwork-item:first-child img {
-        aspect-ratio: auto;
-        height: auto;
-        object-fit: contain;
-    }
-}
-
-/* explore section: tighten 3D video-to-image spacing */
+/* 07 explore page: tighten 3D video-to-image spacing */
 .explore-section .videos-section .video-container {
     margin-bottom: 2rem;
 }
@@ -1202,7 +1143,7 @@ footer {
     }
 }
 
-/* 3D video should remain a native video, not a lightbox trigger */
+/* 07 explore page: keep 3D video as native video, not a lightbox trigger */
 .explore-section .video-item,
 .explore-section .model-preview-video {
     cursor: default;
@@ -1214,12 +1155,11 @@ footer {
     object-fit: cover;
 }
 
-/* v10 artwork strategy: desktop aligned grid, mobile curated rhythm */
+/* 04 artwork gallery: desktop aligned grid, mobile curated rhythm */
 @media screen and (min-width: 769px) {
     .artwork-grid,
     .artworks-page .artwork-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 2.4rem;
     }
 
     .artwork-item,
@@ -1244,7 +1184,7 @@ footer {
 }
 
 /* =========================================================
-   v12 mobile artwork ratio correction
+   11 responsive / mobile: artwork ratio correction
    - Desktop stays as the clean 3-column square grid from v10/v11.
    - Mobile keeps the curated rhythm, but returns to fixed cropped cards
      instead of full original-ratio images.
@@ -1256,8 +1196,6 @@ footer {
     .artworks-page .artwork-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         max-width: 520px;
-        column-gap: 0.9rem;
-        row-gap: 0.9rem;
         align-items: stretch;
     }
 
@@ -1269,8 +1207,6 @@ footer {
         grid-row: auto;
         min-height: 0;
         display: block;
-        background-color: #f3f3f3;
-        overflow: hidden;
     }
 
     /* Keep the mobile curated rhythm: big / pair / big / pair. */
@@ -1280,38 +1216,16 @@ footer {
     .artworks-page .artwork-item:last-child:nth-child(3n + 2) {
         grid-column: 1 / -1;
     }
-
-    /* Mobile page cards use a fixed, cropped editorial ratio for alignment.
-       Full original-ratio viewing is preserved in the Lightbox / Carousel. */
-    .artwork-item img,
-    .artwork-item:first-child img,
-    .artworks-page .artwork-item img,
-    .artworks-page .artwork-item:first-child img {
-        width: 100%;
-        height: auto;
-        max-height: none;
-        aspect-ratio: 4 / 5;
-        object-fit: cover;
-        display: block;
-    }
 }
 
 @media screen and (max-width: 420px) {
-    .artwork-grid,
-    .artworks-page .artwork-grid {
-        column-gap: 0.75rem;
-        row-gap: 0.75rem;
-    }
 }
 
 /* =========================================================
-   v13 mobile artwork ratio refinement
+   11 responsive / mobile: curated artwork ratios
    - Desktop remains the 3-column square portfolio grid.
-   - Mobile keeps the curated rhythm.
-   - Small paired images use one fixed 4:5 ratio for alignment.
-   - Mobile feature images use ratios close to their original artwork shape:
-     soft-wide 6:5, portrait 4:5, landscape 3:2, wide 16:10.
-   - Lightbox / Carousel still displays the complete original-ratio image.
+   - Mobile keeps the curated rhythm and paired-image alignment.
+   - Lightbox / carousel still displays the complete original-ratio image.
    ========================================================= */
 @media screen and (max-width: 768px) {
     .artwork-item,
@@ -1359,9 +1273,9 @@ footer {
 
 
 /* =========================================================
-   v14 artwork spacing refinement
+   04 artwork gallery: spacing refinement
    - Desktop: slightly tighter 3-column grid for stronger portfolio grouping.
-   - Mobile: horizontal spacing stays compact; vertical spacing gets more breathing room.
+   - Mobile: compact horizontal spacing with more vertical breathing room.
    ========================================================= */
 @media screen and (min-width: 769px) {
     .artwork-grid,
@@ -1371,11 +1285,6 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-    .artwork-grid,
-    .artworks-page .artwork-grid {
-        column-gap: 12px;
-        row-gap: 16px;
-    }
 }
 
 @media screen and (max-width: 420px) {
@@ -1388,7 +1297,7 @@ footer {
 
 
 /* =========================================================
-   Lightbox viewer
+   10 lightbox / carousel
    - Mobile: swipeable gallery with touch zoom.
    - Desktop: arrows, keyboard navigation, wheel zoom, and image-only panning.
    ========================================================= */
@@ -1401,7 +1310,6 @@ body.lightbox-open {
     position: fixed;
     inset: 0;
     width: 100%;
-    height: 100vh;
     height: 100dvh;
     background: rgba(0, 0, 0, 0.94);
     z-index: 2000;
@@ -1425,7 +1333,6 @@ body.lightbox-open {
 .lightbox-image {
     display: block;
     max-width: 82vw;
-    max-height: 82vh;
     max-height: 82dvh;
     width: auto;
     height: auto;
@@ -1437,32 +1344,41 @@ body.lightbox-open {
     transform: translateZ(0);
     transform-origin: center center;
     transition: transform 120ms ease-out;
+    cursor: default;
 }
 
 .lightbox-image.is-zoomed {
-    cursor: grab;
     transition: none;
-}
-
-.lightbox-image.is-zoom-transitioning {
-    transition: transform 180ms ease-out;
+    cursor: grab;
 }
 
 .lightbox-container.is-panning .lightbox-image.is-zoomed {
     cursor: grabbing;
 }
 
+.lightbox-image.is-zooming-in {
+    cursor: zoom-in;
+}
+
+.lightbox-image.is-zooming-out {
+    cursor: zoom-out;
+}
+
+.lightbox-image.is-zoom-transitioning {
+    transition: transform 180ms ease-out;
+}
+
+
 .lightbox-close {
     position: absolute;
     top: 20px;
     right: 36px;
     z-index: 2003;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.72);
     background: transparent;
     border: 0;
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 1;
-    cursor: pointer;
     padding: 0.35rem;
 }
 
@@ -1471,12 +1387,11 @@ body.lightbox-open {
     top: 50%;
     transform: translateY(-50%);
     z-index: 2002;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.58);
     background: transparent;
     border: 0;
-    font-size: 3rem;
-    cursor: pointer;
-    padding: 20px;
+    font-size: 2.35rem;
+    padding: 16px;
     user-select: none;
 }
 
@@ -1503,14 +1418,12 @@ body.lightbox-open {
     .is-mobile-gallery .lightbox-container {
         display: block;
         width: 100%;
-        height: 100%;
         height: 100dvh;
         overflow: hidden;
     }
 
     .mobile-lightbox-gallery {
         width: 100%;
-        height: 100%;
         height: 100dvh;
         overflow: hidden;
         overscroll-behavior: contain;
@@ -1520,7 +1433,6 @@ body.lightbox-open {
 
     .mobile-lightbox-track {
         width: 100%;
-        height: 100%;
         height: 100dvh;
         display: flex;
         will-change: transform;
@@ -1530,7 +1442,6 @@ body.lightbox-open {
     .mobile-lightbox-slide {
         flex: 0 0 100%;
         width: 100%;
-        height: 100%;
         height: 100dvh;
         margin: 0;
         padding: max(54px, env(safe-area-inset-top)) 12px max(28px, env(safe-area-inset-bottom));
@@ -1560,18 +1471,18 @@ body.lightbox-open {
     .is-mobile-gallery .lightbox-close {
         top: max(12px, env(safe-area-inset-top));
         right: max(14px, env(safe-area-inset-right));
-        font-size: 2.15rem;
-        color: rgba(255, 255, 255, 0.78);
+        font-size: 2rem;
+        color: rgba(255, 255, 255, 0.68);
         padding: 0.45rem;
         z-index: 2005;
     }
 }
 
 /* =========================================================
-   Final homepage rhythm cleanup
+   06 explore entry + homepage rhythm
    - Keep Hero image/artwork grid unchanged.
-   - Desktop: refine About into an editorial two-column block.
-   - Creative Lab: keep it as a light secondary entry on desktop and mobile.
+   - Desktop: refined About editorial block.
+   - Creative Lab: light secondary entry on desktop and mobile.
    - Lightbox: keep exit visually still while scroll position is restored.
    ========================================================= */
 #lightbox.is-closing {
@@ -1612,11 +1523,11 @@ body.lightbox-open {
     }
 
     .artworks {
-        padding: 8rem 6% 8rem;
+        padding: 8.4rem 6% 8.6rem;
     }
 
     .about {
-        padding: 7rem 8% 6rem;
+        padding: 6.4rem 8% 5.4rem;
     }
 
     .about-container {
@@ -1636,7 +1547,7 @@ body.lightbox-open {
     .about-image img {
         display: block;
         width: 100%;
-        max-width: 320px;
+        max-width: 300px;
         margin-left: auto;
         box-shadow: none;
     }
@@ -1648,8 +1559,8 @@ body.lightbox-open {
     }
 
     .about-content h2 {
-        margin-bottom: 2rem;
-        font-size: 2rem;
+        margin-bottom: 1.85rem;
+        font-size: 1.92rem;
     }
 
     .about-content p {
@@ -1659,16 +1570,16 @@ body.lightbox-open {
     }
 
     .explore-entry {
-        padding: 2.8rem 6% 5.2rem;
+        padding: 2.2rem 6% 4.7rem;
     }
 
     .explore-entry-card {
-        max-width: 1080px;
+        max-width: 1020px;
         border: 0;
-        border-top: 1px solid rgba(51, 51, 51, 0.16);
-        border-bottom: 1px solid rgba(51, 51, 51, 0.16);
+        border-top: 1px solid rgba(51, 51, 51, 0.12);
+        border-bottom: 1px solid rgba(51, 51, 51, 0.12);
         border-radius: 0;
-        padding: 2.2rem 0;
+        padding: 1.85rem 0;
     }
 
     .explore-entry-content {
@@ -1678,23 +1589,23 @@ body.lightbox-open {
             "title action"
             "desc action";
         align-items: center;
-        column-gap: 3rem;
+        column-gap: 2.6rem;
     }
 
     .explore-entry-content h2 {
         grid-area: title;
         margin: 0 0 0.65rem;
-        font-size: 1.65rem;
+        font-size: 1.48rem;
     }
 
     .explore-entry-content h2::after {
-        width: 42px;
+        width: 34px;
         bottom: -8px;
     }
 
     .explore-entry-content p {
         grid-area: desc;
-        max-width: 560px;
+        max-width: 520px;
         margin: 0;
         line-height: 1.7;
     }
@@ -1704,8 +1615,8 @@ body.lightbox-open {
         align-self: center;
         background: transparent;
         color: #333;
-        border: 1px solid rgba(51, 51, 51, 0.35);
-        padding: 0.75rem 1.45rem;
+        border: 1px solid rgba(51, 51, 51, 0.28);
+        padding: 0.66rem 1.22rem;
         white-space: nowrap;
     }
 
@@ -1715,13 +1626,13 @@ body.lightbox-open {
     }
 
     .contact {
-        padding: 6rem 8% 6rem;
+        padding: 5.2rem 8% 5.4rem;
     }
 }
 
 @media screen and (max-width: 768px) {
     .hero {
-        padding: 8.5rem 8% 3.8rem;
+        padding: 8.4rem 8% 3.9rem;
     }
 
     .hero-content {
@@ -1732,8 +1643,49 @@ body.lightbox-open {
         max-width: min(78vw, 330px);
     }
 
+    .artworks {
+        padding: 5.85rem 6% 5.45rem;
+    }
+
+    .artworks h2 {
+        font-size: 2.34rem;
+        margin: 0 auto 3.25rem;
+    }
+
+    .artwork-grid,
+    .artworks-page .artwork-grid {
+        margin-bottom: 2.55rem;
+        row-gap: 20px;
+        column-gap: 12px;
+    }
+
+    .artworks .view-more {
+        margin-top: 2rem;
+    }
+
+    .about {
+        padding: 4.05rem 6% 3.85rem;
+    }
+
+    .about-container {
+        gap: 1.85rem;
+    }
+
+    .about-content {
+        margin-top: 0;
+    }
+
+    .about-content h2 {
+        margin-bottom: 1.55rem;
+    }
+
+    .about-content p {
+        margin-bottom: 0.85rem;
+        line-height: 1.74;
+    }
+
     .explore-entry {
-        padding: 2.2rem 6% 3.6rem;
+        padding: 2rem 6% 3.35rem;
         background-color: #fff;
     }
 
@@ -1744,7 +1696,7 @@ body.lightbox-open {
         border-top: 1px solid rgba(51, 51, 51, 0.16);
         border-bottom: 1px solid rgba(51, 51, 51, 0.16);
         border-radius: 0;
-        padding: 1.65rem 0 1.75rem;
+        padding: 1.42rem 0 1.52rem;
     }
 
     .explore-entry-content {
@@ -1752,20 +1704,20 @@ body.lightbox-open {
     }
 
     .explore-entry-content h2 {
-        font-size: 1.45rem;
-        margin: 0 0 0.85rem;
+        font-size: 1.34rem;
+        margin: 0 0 0.75rem;
     }
 
     .explore-entry-content h2::after {
-        width: 36px;
+        width: 30px;
         bottom: -7px;
     }
 
     .explore-entry-content p {
         max-width: 28rem;
-        margin: 0 0 1.2rem;
-        font-size: 0.92rem;
-        line-height: 1.75;
+        margin: 0 0 1.05rem;
+        font-size: 0.9rem;
+        line-height: 1.68;
     }
 
     .explore-entry-content .btn {
@@ -1773,11 +1725,35 @@ body.lightbox-open {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0.65rem 1.1rem;
-        font-size: 0.76rem;
+        padding: 0.58rem 0.98rem;
+        font-size: 0.72rem;
         background: transparent;
         color: #333;
-        border: 1px solid rgba(51, 51, 51, 0.32);
+        border: 1px solid rgba(51, 51, 51, 0.26);
+    }
+
+    .contact {
+        padding: 3.45rem 6% 3.4rem;
+    }
+
+    .contact-info {
+        margin-top: 0;
+    }
+
+    .contact-details {
+        margin-top: 1.3rem;
+    }
+
+    .contact-details li {
+        margin-bottom: 0.85rem;
+    }
+
+    .contact-image {
+        margin-top: 1.6rem;
+    }
+
+    .contact-image img {
+        max-width: min(76vw, 280px);
     }
 }
 

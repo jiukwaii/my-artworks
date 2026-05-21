@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // =========================================================
+    // 00 page setup
+    // =========================================================
     // 自己控制返回首页后的滚动位置，避免浏览器自动恢复 + smooth scroll 造成滑动感。
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
 
+
+    // =========================================================
+    // 02 navbar
+    // =========================================================
     // 移动端菜单切换
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -27,12 +34,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
+    // =========================================================
+    // 03 artwork gallery
+    // =========================================================
     // 加载艺术作品
     loadArtworks();
     
+
+    // =========================================================
+    // 06 video preview
+    // =========================================================
     // 加载3D打印视频
     load3DPrintVideos();
     
+
+    // =========================================================
+    // 07 scroll restore / 08 back to top / footer utility
+    // =========================================================
     // 恢复滚动位置
     restoreScrollPosition();
 
@@ -47,6 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+/* =========================================================
+   07 scroll restore
+   ========================================================= */
 // 即时滚动辅助：用于“返回首页原位置 / 页面初始化 / Lightbox 关闭”等场景。
 // 全局 CSS 有 scroll-behavior: smooth；如果直接 window.scrollTo，浏览器可能会用动画滚回去，
 // 造成“从上往下滑回来”的感觉。这里会临时关闭 smooth scroll，再恢复。
@@ -72,6 +95,10 @@ function scrollToInstantly(top = 0, left = 0) {
 }
 
 
+
+/* =========================================================
+   Footer utility
+   ========================================================= */
 // 自动更新页脚年份
 function updateFooterYear() {
     const yearElements = document.querySelectorAll('.current-year');
@@ -82,6 +109,10 @@ function updateFooterYear() {
     });
 }
 
+
+/* =========================================================
+   02 navbar
+   ========================================================= */
 // 固定导航栏：向下滚动隐藏，向上滚动显示
 function initNavbarAutoHide(hamburger, navLinks) {
     const navbar = document.querySelector('.navbar');
@@ -152,12 +183,19 @@ function initNavbarAutoHide(hamburger, navLinks) {
     showNavbar();
 }
 
+
+/* =========================================================
+   01 constants / data + 03 artwork gallery
+   ========================================================= */
 // 动态加载艺术作品
 function loadArtworks() {
     const artworkGrid = document.querySelector('.artwork-grid');
     if (!artworkGrid) return;
     let activeLightboxKeyHandler = null;
 
+    // ---------------------------------------------------------
+    // 01 constants / data
+    // ---------------------------------------------------------
     // 艺术作品数据
     const artworks = [
         {
@@ -314,6 +352,9 @@ function loadArtworks() {
         return mobileFeatureRatioMap[artwork.image] || '';
     }
     
+    // ---------------------------------------------------------
+    // 03 artwork gallery: render cards
+    // ---------------------------------------------------------
     // 生成艺术作品HTML
     // Loading strategy:
     // - 首頁與全部作品頁只讓前 4 張作品 eager，避免首屏與作品區等待太久。
@@ -378,8 +419,10 @@ function loadArtworks() {
         });
     });
 
-    // 创建 Lightbox / Carousel Viewer
-    // v21: unified global gallery.
+    // =========================================================
+    // 04 lightbox desktop / 05 lightbox mobile
+    // =========================================================
+    // Unified global gallery.
     // Mobile uses a three-slide transform carousel so it can drag, snap, and loop continuously.
     function openLightbox(startIndex) {
         const lightboxItems = galleryItems;
@@ -532,7 +575,7 @@ function loadArtworks() {
             state.y = 0;
             if (img) {
                 img.style.transform = 'translate3d(0, 0, 0) scale(1)';
-                img.classList.remove('is-zoomed', 'is-zoom-transitioning');
+                img.classList.remove('is-zoomed', 'is-zoom-transitioning', 'is-zooming-in', 'is-zooming-out');
             }
         }
 
@@ -571,7 +614,11 @@ function loadArtworks() {
         let desktopIsPanning = false;
         let desktopDidPan = false;
         let desktopSuppressBackdropClick = false;
+        let desktopZoomCursorTimer = null;
 
+        // ---------------------------------------------------------
+        // 04 lightbox desktop
+        // ---------------------------------------------------------
         function showDesktopImage() {
             imgContainer.querySelectorAll('img.lightbox-desktop-img').forEach(node => node.remove());
             const img = getFullImage(currentIndex);
@@ -591,10 +638,21 @@ function loadArtworks() {
             showDesktopImage();
         }
 
+        function setDesktopZoomCursor(deltaY) {
+            if (!desktopZoomImg) return;
+            desktopZoomImg.classList.remove('is-zooming-in', 'is-zooming-out');
+            desktopZoomImg.classList.add(deltaY < 0 ? 'is-zooming-in' : 'is-zooming-out');
+            window.clearTimeout(desktopZoomCursorTimer);
+            desktopZoomCursorTimer = window.setTimeout(() => {
+                desktopZoomImg?.classList.remove('is-zooming-in', 'is-zooming-out');
+            }, 260);
+        }
+
         function initDesktopZoomControls() {
             imgContainer.addEventListener('wheel', (event) => {
                 if (!desktopZoomImg || event.target !== desktopZoomImg) return;
                 event.preventDefault();
+                setDesktopZoomCursor(event.deltaY);
                 const nextScale = desktopZoomState.scale + (event.deltaY < 0 ? 0.18 : -0.18);
                 desktopZoomState.scale = clamp(nextScale, 1, zoomLimits.max);
                 applyZoomState(desktopZoomState, desktopZoomImg);
@@ -644,6 +702,9 @@ function loadArtworks() {
             imgContainer.addEventListener('pointercancel', endDesktopPan);
         }
 
+        // ---------------------------------------------------------
+        // 05 lightbox mobile
+        // ---------------------------------------------------------
         if (isMobileViewer) {
             const gallery = document.createElement('div');
             gallery.className = 'mobile-lightbox-gallery';
@@ -954,6 +1015,10 @@ function loadArtworks() {
 }
 
 
+
+/* ---------------------------------------------------------
+   03 artwork gallery: lazy image warm-up
+   --------------------------------------------------------- */
 // 提前唤醒后段 lazy 图片，解决手机端滑到图片区域后才开始加载的问题。
 // 这不会新增压缩图，也不会改变图片路径；只是让 lazy 图片更早进入浏览器下载队列。
 function warmUpLazyArtworkImages(artworkGrid) {
@@ -990,6 +1055,9 @@ function warmUpLazyArtworkImages(artworkGrid) {
     lazyImages.forEach(makeEager);
 }
 
+/* =========================================================
+   06 video preview
+   ========================================================= */
 // 动态加载3D渲染展示视频
 function load3DPrintVideos() {
     const videoContainer = document.querySelector('.video-container');
@@ -1088,6 +1156,9 @@ function load3DPrintVideos() {
     }
 }
 
+/* =========================================================
+   07 scroll restore
+   ========================================================= */
 function isHomePage() {
     const path = window.location.pathname;
     const fileName = path.substring(path.lastIndexOf('/') + 1);
@@ -1117,12 +1188,17 @@ function restoreScrollPosition() {
     }
 }
 
-// 返回顶部按钮：手机端显示，电脑端隐藏
+
+/* =========================================================
+   08 back to top
+   ========================================================= */
+// Back to Top: mobile floating trigger + footer link
 function initBackToTop() {
     const backToTopBtn = document.querySelector('.back-to-top');
+    const footerBackToTop = document.querySelector('.footer-back-to-top');
     const logo = document.querySelector('.logo');
 
-    if (!backToTopBtn) return;
+    if (!backToTopBtn && !footerBackToTop && !logo) return;
 
     let lastScrollY = window.scrollY;
     let hideTimer = null;
@@ -1131,56 +1207,111 @@ function initBackToTop() {
         return window.innerWidth <= 768;
     }
 
-    function showBackToTopButton() {
-        backToTopBtn.classList.add('show');
+    function isContactTitleVisible() {
+        const contactTitle = document.querySelector('#contact .contact-info h2, #contact h2, .contact h2');
+        const contactSection = document.querySelector('#contact, .contact');
 
+        if (!contactTitle) return false;
+
+        const titleRect = contactTitle.getBoundingClientRect();
+        const contactRect = contactSection ? contactSection.getBoundingClientRect() : null;
+
+        const titleHasReachedViewport = titleRect.top <= window.innerHeight;
+        const contactHasNotPassed = contactRect ? contactRect.bottom > 0 : titleRect.bottom > 0;
+
+        return titleHasReachedViewport && contactHasNotPassed;
+    }
+
+    function isNearFooter() {
+        const footer = document.querySelector('footer');
+
+        if (footer) {
+            const footerTop = footer.getBoundingClientRect().top;
+            return footerTop <= window.innerHeight * 0.9;
+        }
+
+        const viewportBottom = window.scrollY + window.innerHeight;
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+        );
+
+        return viewportBottom >= documentHeight - window.innerHeight * 0.35;
+    }
+
+    function shouldKeepBackToTopVisible() {
+        return isContactTitleVisible() || isNearFooter();
+    }
+
+    function showBackToTopButton(temporary = true) {
+        if (!backToTopBtn) return;
+
+        backToTopBtn.classList.add('show');
         clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => {
-            backToTopBtn.classList.remove('show');
-        }, 1800);
+
+        if (temporary) {
+            hideTimer = setTimeout(() => {
+                if (!shouldKeepBackToTopVisible()) {
+                    backToTopBtn.classList.remove('show');
+                }
+            }, 1800);
+        }
     }
 
     function hideBackToTopButton() {
+        if (!backToTopBtn) return;
+
         backToTopBtn.classList.remove('show');
         clearTimeout(hideTimer);
     }
 
-    function toggleBackToTopButton() {
+    function updateBackToTopButton() {
         const currentScrollY = window.scrollY;
         const triggerPoint = Math.max(window.innerHeight * 0.3, 300);
         const scrollDifference = currentScrollY - lastScrollY;
 
-        // 电脑端隐藏；页面顶部附近隐藏
         if (!isMobileView() || currentScrollY <= triggerPoint) {
             hideBackToTopButton();
             lastScrollY = currentScrollY;
             return;
         }
 
-        // 避免手机滚动惯性或轻微抖动造成按钮闪烁
-        if (Math.abs(scrollDifference) < 8) {
+        if (shouldKeepBackToTopVisible()) {
+            showBackToTopButton(false);
+            lastScrollY = currentScrollY;
             return;
         }
 
+        if (Math.abs(scrollDifference) < 8) return;
+
         if (scrollDifference < 0) {
-            // 往上滑：显示按钮
-            showBackToTopButton();
+            showBackToTopButton(true);
         } else {
-            // 往下滑：隐藏按钮
             hideBackToTopButton();
         }
 
         lastScrollY = currentScrollY;
     }
 
-    backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
-    });
+    }
 
-    // Logo 点击返回顶部；电脑端和手机端都可用
+    if (footerBackToTop) {
+        footerBackToTop.addEventListener('click', function(event) {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
     if (logo) {
         logo.style.cursor = 'pointer';
         logo.addEventListener('click', function() {
@@ -1197,7 +1328,7 @@ function initBackToTop() {
         });
     }
 
-    window.addEventListener('scroll', toggleBackToTopButton);
-    window.addEventListener('resize', toggleBackToTopButton);
-    toggleBackToTopButton();
+    window.addEventListener('scroll', updateBackToTopButton, { passive: true });
+    window.addEventListener('resize', updateBackToTopButton);
+    updateBackToTopButton();
 }
