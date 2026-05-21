@@ -694,8 +694,8 @@ body {
 }
 
 .hero {
-    padding: 13rem 10% 6rem;
-    min-height: 88vh;
+    padding: 11rem 10% 5rem;
+    min-height: 78vh;
     background-color: #f8f8f8;
 }
 
@@ -732,7 +732,7 @@ body {
 }
 
 .artworks {
-    padding: 9rem 6% 11rem;
+    padding: 7.5rem 6% 8rem;
     background-color: #f8f8f8;
 }
 
@@ -828,7 +828,7 @@ body {
 }
 
 .about {
-    padding: 9rem 8% 8rem;
+    padding: 7rem 8% 6.5rem;
     background-color: #fff;
 }
 
@@ -1096,11 +1096,11 @@ footer {
 
     .hero {
         min-height: auto;
-        padding: 10rem 8% 4.5rem;
+        padding: 8.8rem 8% 4rem;
     }
 
     .hero-content {
-        margin-top: 2.2rem;
+        margin-top: 1.5rem;
     }
 
     .artworks {
@@ -1212,47 +1212,6 @@ footer {
     width: 100%;
     display: block;
     object-fit: cover;
-}
-
-/* 首页创作探索入口卡片 */
-.explore-entry {
-    padding: 0 6% 5.5rem;
-    background-color: #fff;
-}
-
-.explore-entry-card {
-    max-width: 860px;
-    margin: 0 auto;
-    border: 1px solid rgba(51, 51, 51, 0.18);
-    border-radius: 2px;
-    padding: 3rem 3.5rem;
-}
-
-.explore-entry-content h2 {
-    font-size: 2.1rem;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.explore-entry-content p {
-    color: #666;
-    margin-bottom: 1.7rem;
-    max-width: 480px;
-    line-height: 1.8;
-}
-
-@media screen and (max-width: 768px) {
-    .explore-entry {
-        padding: 0 6% 3.8rem;
-    }
-
-    .explore-entry-card {
-        padding: 2.2rem 1.6rem;
-    }
-
-    .explore-entry-content h2 {
-        font-size: 1.8rem;
-    }
 }
 
 /* v10 artwork strategy: desktop aligned grid, mobile curated rhythm */
@@ -1429,9 +1388,9 @@ footer {
 
 
 /* =========================================================
-   v15 Lightbox rebuild
-   - Mobile: native scroll-snap gallery for smoother iPhone Safari swiping.
-   - Desktop: keeps classic portfolio arrows + keyboard behavior.
+   Lightbox viewer
+   - Mobile: swipeable gallery with touch zoom.
+   - Desktop: arrows, keyboard navigation, wheel zoom, and image-only panning.
    ========================================================= */
 html.lightbox-open,
 body.lightbox-open {
@@ -1476,6 +1435,21 @@ body.lightbox-open {
     -webkit-user-drag: none;
     backface-visibility: hidden;
     transform: translateZ(0);
+    transform-origin: center center;
+    transition: transform 120ms ease-out;
+}
+
+.lightbox-image.is-zoomed {
+    cursor: grab;
+    transition: none;
+}
+
+.lightbox-image.is-zoom-transitioning {
+    transition: transform 180ms ease-out;
+}
+
+.lightbox-container.is-panning .lightbox-image.is-zoomed {
+    cursor: grabbing;
 }
 
 .lightbox-close {
@@ -1574,7 +1548,13 @@ body.lightbox-open {
         height: auto;
         object-fit: contain;
         transform: translateZ(0);
+        transform-origin: center center;
         backface-visibility: hidden;
+        will-change: transform;
+    }
+
+    .is-mobile-gallery .mobile-lightbox-gallery.is-zoomed .mobile-lightbox-track {
+        transition: none !important;
     }
 
     .is-mobile-gallery .lightbox-close {
@@ -1588,14 +1568,41 @@ body.lightbox-open {
 }
 
 /* =========================================================
-   v20 section rhythm + Lightbox exit refinement
-   - Desktop: tighten section rhythm so the homepage feels like one controlled portfolio flow.
-   - Mobile: slightly reduce Hero height without removing its premium breathing room.
+   Final homepage rhythm cleanup
+   - Keep Hero image/artwork grid unchanged.
+   - Desktop: refine About into an editorial two-column block.
+   - Creative Lab: keep it as a light secondary entry on desktop and mobile.
    - Lightbox: keep exit visually still while scroll position is restored.
    ========================================================= */
 #lightbox.is-closing {
     opacity: 1;
     pointer-events: none;
+}
+
+.explore-entry {
+    padding: 3.5rem 6% 5.5rem;
+    background-color: #fff;
+}
+
+.explore-entry-card {
+    max-width: 780px;
+    margin: 0 auto;
+    border: 1px solid rgba(51, 51, 51, 0.18);
+    border-radius: 2px;
+    padding: 2.6rem 3rem;
+}
+
+.explore-entry-content h2 {
+    font-size: 2.1rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.explore-entry-content p {
+    color: #666;
+    margin-bottom: 1.7rem;
+    max-width: 480px;
+    line-height: 1.8;
 }
 
 @media screen and (min-width: 993px) {
@@ -1609,11 +1616,102 @@ body.lightbox-open {
     }
 
     .about {
-        padding: 7.5rem 8% 6.5rem;
+        padding: 7rem 8% 6rem;
+    }
+
+    .about-container {
+        max-width: 1080px;
+        display: grid;
+        grid-template-columns: minmax(260px, 340px) minmax(0, 520px);
+        justify-content: center;
+        align-items: center;
+        column-gap: clamp(4rem, 7vw, 7rem);
+    }
+
+    .about-image {
+        justify-self: end;
+        width: 100%;
+    }
+
+    .about-image img {
+        display: block;
+        width: 100%;
+        max-width: 320px;
+        margin-left: auto;
+        box-shadow: none;
+    }
+
+    .about-content {
+        max-width: 520px;
+        padding-left: 2.8rem;
+        border-left: 1px solid rgba(51, 51, 51, 0.14);
+    }
+
+    .about-content h2 {
+        margin-bottom: 2rem;
+        font-size: 2rem;
+    }
+
+    .about-content p {
+        max-width: 30rem;
+        margin-bottom: 1.1rem;
+        line-height: 1.85;
     }
 
     .explore-entry {
-        padding: 3.5rem 6% 5.5rem;
+        padding: 2.8rem 6% 5.2rem;
+    }
+
+    .explore-entry-card {
+        max-width: 1080px;
+        border: 0;
+        border-top: 1px solid rgba(51, 51, 51, 0.16);
+        border-bottom: 1px solid rgba(51, 51, 51, 0.16);
+        border-radius: 0;
+        padding: 2.2rem 0;
+    }
+
+    .explore-entry-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "title action"
+            "desc action";
+        align-items: center;
+        column-gap: 3rem;
+    }
+
+    .explore-entry-content h2 {
+        grid-area: title;
+        margin: 0 0 0.65rem;
+        font-size: 1.65rem;
+    }
+
+    .explore-entry-content h2::after {
+        width: 42px;
+        bottom: -8px;
+    }
+
+    .explore-entry-content p {
+        grid-area: desc;
+        max-width: 560px;
+        margin: 0;
+        line-height: 1.7;
+    }
+
+    .explore-entry-content .btn {
+        grid-area: action;
+        align-self: center;
+        background: transparent;
+        color: #333;
+        border: 1px solid rgba(51, 51, 51, 0.35);
+        padding: 0.75rem 1.45rem;
+        white-space: nowrap;
+    }
+
+    .explore-entry-content .btn:hover {
+        background: #333;
+        color: #fff;
     }
 
     .contact {
@@ -1635,6 +1733,51 @@ body.lightbox-open {
     }
 
     .explore-entry {
-        padding: 2.4rem 6% 3.8rem;
+        padding: 2.2rem 6% 3.6rem;
+        background-color: #fff;
+    }
+
+    .explore-entry-card {
+        max-width: 520px;
+        margin: 0 auto;
+        border: 0;
+        border-top: 1px solid rgba(51, 51, 51, 0.16);
+        border-bottom: 1px solid rgba(51, 51, 51, 0.16);
+        border-radius: 0;
+        padding: 1.65rem 0 1.75rem;
+    }
+
+    .explore-entry-content {
+        text-align: left;
+    }
+
+    .explore-entry-content h2 {
+        font-size: 1.45rem;
+        margin: 0 0 0.85rem;
+    }
+
+    .explore-entry-content h2::after {
+        width: 36px;
+        bottom: -7px;
+    }
+
+    .explore-entry-content p {
+        max-width: 28rem;
+        margin: 0 0 1.2rem;
+        font-size: 0.92rem;
+        line-height: 1.75;
+    }
+
+    .explore-entry-content .btn {
+        width: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1.1rem;
+        font-size: 0.76rem;
+        background: transparent;
+        color: #333;
+        border: 1px solid rgba(51, 51, 51, 0.32);
     }
 }
+

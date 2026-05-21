@@ -498,6 +498,58 @@ function loadArtworks() {
             return img;
         }
 
+
+        const zoomLimits = isMobileViewer ? { max: 3, doubleTap: 2 } : { max: 2.5, doubleTap: 2 };
+
+        function clamp(value, min, max) {
+            return Math.min(max, Math.max(min, value));
+        }
+
+        function getPointerDistance(a, b) {
+            const dx = a.clientX - b.clientX;
+            const dy = a.clientY - b.clientY;
+            return Math.hypot(dx, dy);
+        }
+
+        function createZoomState() {
+            return {
+                scale: 1,
+                x: 0,
+                y: 0,
+                lastTapTime: 0,
+                dragStartX: 0,
+                dragStartY: 0,
+                startX: 0,
+                startY: 0,
+                pinchStartDistance: 0,
+                pinchStartScale: 1
+            };
+        }
+
+        function resetZoomState(state, img) {
+            state.scale = 1;
+            state.x = 0;
+            state.y = 0;
+            if (img) {
+                img.style.transform = 'translate3d(0, 0, 0) scale(1)';
+                img.classList.remove('is-zoomed', 'is-zoom-transitioning');
+            }
+        }
+
+        function applyZoomState(state, img) {
+            if (!img) return;
+            if (state.scale <= 1.01) {
+                resetZoomState(state, img);
+                return;
+            }
+
+            state.scale = clamp(state.scale, 1, zoomLimits.max);
+            state.x = clamp(state.x, -window.innerWidth * (state.scale - 1), window.innerWidth * (state.scale - 1));
+            state.y = clamp(state.y, -window.innerHeight * (state.scale - 1), window.innerHeight * (state.scale - 1));
+            img.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) scale(${state.scale})`;
+            img.classList.add('is-zoomed');
+        }
+
         function closeLightbox() {
             // Keep the Lightbox covering the viewport until the scroll position is restored.
             // This removes the visible “scrolling back down” feeling on desktop.
@@ -514,10 +566,18 @@ function loadArtworks() {
             }
         }
 
+        let desktopZoomState = createZoomState();
+        let desktopZoomImg = null;
+        let desktopIsPanning = false;
+        let desktopDidPan = false;
+        let desktopSuppressBackdropClick = false;
+
         function showDesktopImage() {
             imgContainer.querySelectorAll('img.lightbox-desktop-img').forEach(node => node.remove());
             const img = getFullImage(currentIndex);
             img.classList.add('lightbox-desktop-img');
+            resetZoomState(desktopZoomState, img);
+            desktopZoomImg = img;
             imgContainer.insertBefore(img, imgContainer.firstChild);
         }
 
@@ -529,6 +589,59 @@ function loadArtworks() {
         function goNext() {
             currentIndex = getLoopIndex(currentIndex + 1);
             showDesktopImage();
+        }
+
+        function initDesktopZoomControls() {
+            imgContainer.addEventListener('wheel', (event) => {
+                if (!desktopZoomImg || event.target !== desktopZoomImg) return;
+                event.preventDefault();
+                const nextScale = desktopZoomState.scale + (event.deltaY < 0 ? 0.18 : -0.18);
+                desktopZoomState.scale = clamp(nextScale, 1, zoomLimits.max);
+                applyZoomState(desktopZoomState, desktopZoomImg);
+            }, { passive: false });
+
+            imgContainer.addEventListener('pointerdown', (event) => {
+                if (!desktopZoomImg || event.target !== desktopZoomImg || event.button !== 0 || desktopZoomState.scale <= 1) return;
+                event.preventDefault();
+                desktopIsPanning = true;
+                desktopDidPan = false;
+                desktopZoomState.dragStartX = event.clientX;
+                desktopZoomState.dragStartY = event.clientY;
+                desktopZoomState.startX = desktopZoomState.x;
+                desktopZoomState.startY = desktopZoomState.y;
+                imgContainer.classList.add('is-panning');
+                desktopZoomImg.setPointerCapture?.(event.pointerId);
+            });
+
+            imgContainer.addEventListener('pointermove', (event) => {
+                if (!desktopIsPanning || !desktopZoomImg) return;
+                event.preventDefault();
+                const panDx = event.clientX - desktopZoomState.dragStartX;
+                const panDy = event.clientY - desktopZoomState.dragStartY;
+                if (Math.hypot(panDx, panDy) > 4) {
+                    desktopDidPan = true;
+                    desktopSuppressBackdropClick = true;
+                }
+                desktopZoomState.x = desktopZoomState.startX + panDx;
+                desktopZoomState.y = desktopZoomState.startY + panDy;
+                applyZoomState(desktopZoomState, desktopZoomImg);
+            });
+
+            function endDesktopPan(event) {
+                if (!desktopIsPanning) return;
+                desktopIsPanning = false;
+                imgContainer.classList.remove('is-panning');
+                desktopZoomImg?.releasePointerCapture?.(event.pointerId);
+                if (desktopDidPan) {
+                    window.setTimeout(() => {
+                        desktopSuppressBackdropClick = false;
+                        desktopDidPan = false;
+                    }, 0);
+                }
+            }
+
+            imgContainer.addEventListener('pointerup', endDesktopPan);
+            imgContainer.addEventListener('pointercancel', endDesktopPan);
         }
 
         if (isMobileViewer) {
@@ -546,6 +659,52 @@ function loadArtworks() {
             let isDragging = false;
             let didSwipe = false;
             let isAnimating = false;
+            let isPanningZoom = false;
+            let isPinching = false;
+            let mobileZoomTransitionTimer = null;
+            const activePointers = new Map();
+            const mobileZoomState = createZoomState();
+
+            function getCurrentMobileImage() {
+                const currentSlide = track.children[1];
+                return currentSlide ? currentSlide.querySelector('.lightbox-image') : null;
+            }
+
+            function updateMobileZoom(options = {}) {
+                const img = getCurrentMobileImage();
+                const useSmoothTransition = Boolean(options.smooth && img);
+
+                if (mobileZoomTransitionTimer) {
+                    window.clearTimeout(mobileZoomTransitionTimer);
+                    mobileZoomTransitionTimer = null;
+                }
+
+                if (useSmoothTransition) {
+                    img.classList.add('is-zoom-transitioning');
+                }
+
+                applyZoomState(mobileZoomState, img);
+                gallery.classList.toggle('is-zoomed', mobileZoomState.scale > 1);
+
+                if (useSmoothTransition) {
+                    mobileZoomTransitionTimer = window.setTimeout(() => {
+                        img.classList.remove('is-zoom-transitioning');
+                        mobileZoomTransitionTimer = null;
+                    }, 190);
+                }
+            }
+
+            function resetMobileZoom() {
+                if (mobileZoomTransitionTimer) {
+                    window.clearTimeout(mobileZoomTransitionTimer);
+                    mobileZoomTransitionTimer = null;
+                }
+                resetZoomState(mobileZoomState, getCurrentMobileImage());
+                gallery.classList.remove('is-zoomed');
+                activePointers.clear();
+                isPanningZoom = false;
+                isPinching = false;
+            }
 
             function buildMobileSlides() {
                 track.innerHTML = '';
@@ -557,6 +716,7 @@ function loadArtworks() {
                 });
                 track.style.transition = 'none';
                 track.style.transform = 'translate3d(-100%, 0, 0)';
+                resetMobileZoom();
             }
 
             function setMobileTrackOffset(offsetX, withTransition = false) {
@@ -566,6 +726,7 @@ function loadArtworks() {
 
             function finishMobileMove(direction) {
                 if (isAnimating) return;
+                resetMobileZoom();
                 isAnimating = true;
                 currentIndex = getLoopIndex(currentIndex + direction);
                 setMobileTrackOffset(direction > 0 ? -gallery.clientWidth : gallery.clientWidth, true);
@@ -590,17 +751,68 @@ function loadArtworks() {
 
             gallery.addEventListener('pointerdown', (event) => {
                 if (isAnimating) return;
+                activePointers.set(event.pointerId, event);
+                gallery.setPointerCapture?.(event.pointerId);
+                didSwipe = false;
+
+                if (activePointers.size === 2) {
+                    const points = Array.from(activePointers.values());
+                    isPinching = true;
+                    isDragging = false;
+                    isPanningZoom = false;
+                    mobileZoomState.pinchStartDistance = getPointerDistance(points[0], points[1]);
+                    mobileZoomState.pinchStartScale = mobileZoomState.scale;
+                    return;
+                }
+
                 pointerStartX = event.clientX;
                 pointerStartY = event.clientY;
                 dragX = 0;
+
+                if (mobileZoomState.scale > 1) {
+                    isPanningZoom = true;
+                    isDragging = false;
+                    mobileZoomState.dragStartX = event.clientX;
+                    mobileZoomState.dragStartY = event.clientY;
+                    mobileZoomState.startX = mobileZoomState.x;
+                    mobileZoomState.startY = mobileZoomState.y;
+                    return;
+                }
+
                 isDragging = true;
-                didSwipe = false;
-                gallery.setPointerCapture?.(event.pointerId);
+                isPanningZoom = false;
                 setMobileTrackOffset(0, false);
             });
 
             gallery.addEventListener('pointermove', (event) => {
-                if (!isDragging || isAnimating) return;
+                if (isAnimating || !activePointers.has(event.pointerId)) return;
+                activePointers.set(event.pointerId, event);
+
+                if (isPinching && activePointers.size >= 2) {
+                    event.preventDefault();
+                    const points = Array.from(activePointers.values());
+                    const distance = getPointerDistance(points[0], points[1]);
+                    if (mobileZoomState.pinchStartDistance > 0) {
+                        mobileZoomState.scale = clamp(
+                            mobileZoomState.pinchStartScale * (distance / mobileZoomState.pinchStartDistance),
+                            1,
+                            zoomLimits.max
+                        );
+                        updateMobileZoom();
+                    }
+                    return;
+                }
+
+                if (mobileZoomState.scale > 1 || isPanningZoom) {
+                    event.preventDefault();
+                    isPanningZoom = true;
+                    mobileZoomState.x = mobileZoomState.startX + event.clientX - mobileZoomState.dragStartX;
+                    mobileZoomState.y = mobileZoomState.startY + event.clientY - mobileZoomState.dragStartY;
+                    updateMobileZoom();
+                    return;
+                }
+
+                if (!isDragging) return;
                 const dx = event.clientX - pointerStartX;
                 const dy = event.clientY - pointerStartY;
                 if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 12) return;
@@ -611,10 +823,29 @@ function loadArtworks() {
                 setMobileTrackOffset(dragX, false);
             }, { passive: false });
 
-            function endMobileDrag(event) {
+            function endMobilePointer(event) {
+                activePointers.delete(event.pointerId);
+                gallery.releasePointerCapture?.(event.pointerId);
+
+                if (isPinching) {
+                    if (activePointers.size < 2) {
+                        isPinching = false;
+                        if (mobileZoomState.scale <= 1.01) {
+                            resetMobileZoom();
+                        } else {
+                            updateMobileZoom();
+                        }
+                    }
+                    return;
+                }
+
+                if (isPanningZoom) {
+                    isPanningZoom = false;
+                    return;
+                }
+
                 if (!isDragging || isAnimating) return;
                 isDragging = false;
-                gallery.releasePointerCapture?.(event.pointerId);
 
                 const threshold = Math.min(96, (gallery.clientWidth || window.innerWidth) * 0.22);
                 if (dragX <= -threshold) {
@@ -626,11 +857,27 @@ function loadArtworks() {
                 }
             }
 
-            gallery.addEventListener('pointerup', endMobileDrag);
-            gallery.addEventListener('pointercancel', endMobileDrag);
+            gallery.addEventListener('pointerup', endMobilePointer);
+            gallery.addEventListener('pointercancel', endMobilePointer);
+
+            gallery.addEventListener('click', (event) => {
+                if (didSwipe || isPinching) return;
+                if (!event.target.classList.contains('lightbox-image')) return;
+
+                const now = Date.now();
+                if (now - mobileZoomState.lastTapTime < 280) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    mobileZoomState.scale = mobileZoomState.scale > 1 ? 1 : zoomLimits.doubleTap;
+                    mobileZoomState.x = 0;
+                    mobileZoomState.y = 0;
+                    updateMobileZoom({ smooth: true });
+                }
+                mobileZoomState.lastTapTime = now;
+            });
 
             imgContainer.addEventListener('click', (event) => {
-                if (didSwipe) return;
+                if (didSwipe || mobileZoomState.scale > 1 || event.target.classList.contains('lightbox-image')) return;
                 if (event.target === imgContainer || event.target.classList.contains('mobile-lightbox-slide')) {
                     closeLightbox();
                 }
@@ -661,8 +908,17 @@ function loadArtworks() {
             imgContainer.appendChild(prevBtn);
             imgContainer.appendChild(nextBtn);
             showDesktopImage();
+            initDesktopZoomControls();
 
             lightbox.addEventListener('click', (event) => {
+                if (desktopSuppressBackdropClick) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    desktopSuppressBackdropClick = false;
+                    desktopDidPan = false;
+                    return;
+                }
+
                 if (event.target === lightbox || event.target === imgContainer) {
                     closeLightbox();
                 }
