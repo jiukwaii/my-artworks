@@ -1757,3 +1757,18 @@ body.lightbox-open {
     }
 }
 
+
+/* =========================================================
+   iOS Safari heading fallback fix
+   Keep desktop / Android heading rendering unchanged, while
+   preventing Chinese headings on iPhone Safari from falling
+   back to a plain sans-serif font.
+   ========================================================= */
+@supports (-webkit-touch-callout: none) {
+    .hero-content h1,
+    h2,
+    .video-item h3,
+    .game-content h3 {
+        font-family: 'Playfair Display', 'Songti TC', 'Songti SC', 'STSong', 'Hiragino Mincho ProN', serif;
+    }
+}
