@@ -115,14 +115,17 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    transition: color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.6; /* 极简暗示：非活跃链接降低透明度 */
+    transition: color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease;
+    opacity: 0.45; /* 增强对比：非活跃链接更淡一点 */
+    border-bottom: 1.5px solid transparent; /* 预留底边位置，防止激活时文字抖动 */
+    padding-bottom: 4px;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: #333;
     opacity: 1; /* 活跃或悬停时完全显示 */
+    border-bottom-color: #333; /* 激活或悬停时显示下划线 */
 }
 
 .hamburger {

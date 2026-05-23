@@ -25,12 +25,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // 点击导航链接后关闭菜单
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-            if (navLinks) {
-                navLinks.classList.remove('active');
-                if (hamburger) {
-                    hamburger.classList.remove('toggle');
+            // 增加极短延迟（250ms），让用户能看清 Active 状态（如下划线亮起）后再收起菜单
+            // 这种“确认感”能让交互显得更有序且专业
+            setTimeout(() => {
+                if (navLinks) {
+                    navLinks.classList.remove('active');
+                    if (hamburger) {
+                        hamburger.classList.remove('toggle');
+                    }
                 }
-            }
+            }, 250);
         });
     });
 
@@ -77,11 +81,23 @@ function initActiveNavLink() {
     const navLinks = document.querySelectorAll('.nav-links a');
     const currentPath = window.location.pathname;
     const currentFile = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
+    const isHome = currentFile === 'index.html' || currentFile === '';
 
+    function setActive(href) {
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === href) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    // 初始状态设置
     navLinks.forEach(link => {
         const linkPath = link.getAttribute('href');
-        // 处理首页特殊情况：index.html 或空路径
-        if ((currentFile === 'index.html' || currentFile === '') && linkPath === 'index.html') {
+        if (isHome && linkPath === 'index.html') {
             link.classList.add('active');
         } else if (linkPath === currentFile) {
             link.classList.add('active');
@@ -89,6 +105,34 @@ function initActiveNavLink() {
             link.classList.remove('active');
         }
     });
+
+    // 针对首页的 Scroll Spy 逻辑
+    if (isHome && 'IntersectionObserver' in window) {
+        const contactSection = document.querySelector('#contact');
+        if (contactSection) {
+            const observerOptions = {
+                // 当联络区进入视窗 40% 时触发切换
+                rootMargin: '-20% 0px -40% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // 进入联络区：激活“聯絡”，取消“首頁”
+                        setActive('#contact');
+                    } else {
+                        // 离开联络区（向上滚）：恢复“首頁”激活
+                        if (window.scrollY < contactSection.offsetTop) {
+                            setActive('index.html');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            observer.observe(contactSection);
+        }
+    }
 }
 
 
@@ -198,9 +242,10 @@ function initNavbarAutoHide(hamburger, navLinks) {
         });
     }
 
-    document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+    document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', function() {
-            anchorScrollLockUntil = Date.now() + 1000;
+            // 延长锁定时间到 1.5s，确保在长页面滚动（如跳到联络区）过程中导航栏始终可见
+            anchorScrollLockUntil = Date.now() + 1500;
             showNavbar();
         });
     });
