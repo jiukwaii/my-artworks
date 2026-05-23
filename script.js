@@ -63,8 +63,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 自动更新页脚年份
     updateFooterYear();
+
+    // 初始化导航链接激活状态
+    initActiveNavLink();
 });
 
+
+
+/* =========================================================
+   02 navbar: active link state
+   ========================================================= */
+function initActiveNavLink() {
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const currentPath = window.location.pathname;
+    const currentFile = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
+
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        // 处理首页特殊情况：index.html 或空路径
+        if ((currentFile === 'index.html' || currentFile === '') && linkPath === 'index.html') {
+            link.classList.add('active');
+        } else if (linkPath === currentFile) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
 
 
 /* =========================================================
@@ -709,6 +734,14 @@ function loadArtworks() {
             const gallery = document.createElement('div');
             gallery.className = 'mobile-lightbox-gallery';
 
+            const counter = document.createElement('div');
+            counter.className = 'lightbox-counter';
+            imgContainer.appendChild(counter);
+
+            function updateCounter() {
+                counter.textContent = `${currentIndex + 1} / ${lightboxItems.length}`;
+            }
+
             const track = document.createElement('div');
             track.className = 'mobile-lightbox-track';
             gallery.appendChild(track);
@@ -778,6 +811,7 @@ function loadArtworks() {
                 track.style.transition = 'none';
                 track.style.transform = 'translate3d(-100%, 0, 0)';
                 resetMobileZoom();
+                updateCounter();
             }
 
             function setMobileTrackOffset(offsetX, withTransition = false) {
@@ -790,6 +824,7 @@ function loadArtworks() {
                 resetMobileZoom();
                 isAnimating = true;
                 currentIndex = getLoopIndex(currentIndex + direction);
+                updateCounter();
                 setMobileTrackOffset(direction > 0 ? -gallery.clientWidth : gallery.clientWidth, true);
 
                 window.setTimeout(() => {
@@ -1011,7 +1046,6 @@ function loadArtworks() {
         document.body.appendChild(lightbox);
         lockBodyScroll();
     }
-
 }
 
 
@@ -1222,25 +1256,37 @@ function initBackToTop() {
         return titleHasReachedViewport && contactHasNotPassed;
     }
 
-    function isNearFooter() {
-        const footer = document.querySelector('footer');
+    function hasContactSection() {
+        return Boolean(document.querySelector('#contact, .contact'));
+    }
 
-        if (footer) {
-            const footerTop = footer.getBoundingClientRect().top;
-            return footerTop <= window.innerHeight * 0.9;
-        }
-
+    function isNearDocumentBottom() {
         const viewportBottom = window.scrollY + window.innerHeight;
         const documentHeight = Math.max(
             document.body.scrollHeight,
             document.documentElement.scrollHeight
         );
 
-        return viewportBottom >= documentHeight - window.innerHeight * 0.35;
+        return viewportBottom >= documentHeight - window.innerHeight * 0.4;
+    }
+
+    function isNearFooter() {
+        const footer = document.querySelector('footer');
+
+        if (footer) {
+            const footerTop = footer.getBoundingClientRect().top;
+            return footerTop <= window.innerHeight * 0.9 || isNearDocumentBottom();
+        }
+
+        return isNearDocumentBottom();
     }
 
     function shouldKeepBackToTopVisible() {
-        return isContactTitleVisible() || isNearFooter();
+        if (hasContactSection() && isHomePage()) {
+            return isContactTitleVisible() || isNearFooter();
+        }
+
+        return isNearFooter();
     }
 
     function showBackToTopButton(temporary = true) {
@@ -1267,7 +1313,8 @@ function initBackToTop() {
 
     function updateBackToTopButton() {
         const currentScrollY = window.scrollY;
-        const triggerPoint = Math.max(window.innerHeight * 0.3, 300);
+        // 优化触发阈值：滚动超过 1.5 倍屏幕高度后再显示，避免在短页面或刚开始滚动时出现。
+        const triggerPoint = window.innerHeight * 1.5;
         const scrollDifference = currentScrollY - lastScrollY;
 
         if (!isMobileView() || currentScrollY <= triggerPoint) {
@@ -1315,9 +1362,8 @@ function initBackToTop() {
     if (logo) {
         logo.style.cursor = 'pointer';
         logo.addEventListener('click', function() {
-            const isAllArtworksPage = window.location.pathname.includes('all-artworks') || window.location.pathname.includes('artwork');
-
-            if (isAllArtworksPage) {
+            // 修正判断逻辑：不再依赖脆弱的路径包含匹配，而是明确判断是否为首页
+            if (!isHomePage()) {
                 window.location.href = 'index.html#home';
             } else {
                 window.scrollTo({

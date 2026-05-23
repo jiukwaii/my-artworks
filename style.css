@@ -115,7 +115,14 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    opacity: 0.6; /* 极简暗示：非活跃链接降低透明度 */
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #333;
+    opacity: 1; /* 活跃或悬停时完全显示 */
 }
 
 .hamburger {
@@ -670,6 +677,7 @@ body {
     color: #333;
     font-size: 0.88rem;
     letter-spacing: 1.6px;
+    /* transition and opacity already defined in base section */
 }
 
 .nav-links a:hover {
@@ -747,6 +755,11 @@ body {
     cursor: pointer;
     background-color: #f1f1f1;
     box-shadow: none;
+    transition: transform 0.2s ease;
+}
+
+.artwork-item:active {
+    transform: scale(0.98);
 }
 
 .artwork-item:first-child {
@@ -1475,6 +1488,20 @@ body.lightbox-open {
         color: rgba(255, 255, 255, 0.68);
         padding: 0.45rem;
         z-index: 2005;
+    }
+
+    .lightbox-counter {
+        position: absolute;
+        bottom: max(20px, env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2005;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.82rem;
+        font-weight: 300;
+        letter-spacing: 0.08em;
+        pointer-events: none;
+        font-family: 'Poppins', sans-serif;
     }
 }
 
