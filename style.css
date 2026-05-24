@@ -58,7 +58,9 @@ svg,
 .artwork-item,
 .model-image-item,
 .game-image,
-.about-image {
+.hero-image,
+.about-image,
+.contact-image {
     -webkit-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
@@ -423,6 +425,16 @@ h2::after {
     margin-right: 0.5rem;
 }
 
+.contact-image {
+    flex: 1;
+}
+
+.contact-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+}
+
 /* =========================================================
    09 footer
    ========================================================= */
@@ -733,6 +745,44 @@ body {
     color: #888;
 }
 
+.hero {
+    padding: 11rem 10% 5rem;
+    min-height: 78vh;
+    background-color: #f8f8f8;
+}
+
+.hero-content {
+    margin-left: 4%;
+}
+
+.hero-content h1 {
+    color: #333;
+    letter-spacing: 0.4px;
+}
+
+.hero-content h1 span {
+    color: #888;
+}
+
+.hero-content p {
+    color: #666;
+}
+
+.btn {
+    background-color: #333;
+    border: 1px solid #333;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.hero-image img {
+    width: 68%;
+    max-width: 390px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
 .artworks {
     padding: 7.5rem 6% 8rem;
     background-color: #f8f8f8;
@@ -843,6 +893,11 @@ body {
     max-width: 980px;
     margin: 0 auto;
     gap: 4rem;
+}
+
+.about-image img {
+    max-width: 360px;
+    box-shadow: none;
 }
 
 .about-content h2 {
@@ -1062,8 +1117,9 @@ body {
     transition: all 0.3s ease;
 }
 
-.all-artworks-grid {
-    gap: 1.5rem;
+.contact-image img {
+    max-width: 360px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 @media screen and (max-width: 768px) {
@@ -1101,6 +1157,14 @@ body {
         padding: 0.8rem 5%;
     }
 
+    .hero {
+        padding: 11rem 10% 5rem;
+    }
+
+    .hero-image img {
+        width: 100%;
+    }
+
     .artwork-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1136,6 +1200,10 @@ body {
         background-color: rgba(255, 255, 255, 0.95);
     }
 
+    .hero {
+        min-height: auto;
+    }
+
     .artworks h2 {
         margin-bottom: 2.8rem;
     }
@@ -1149,12 +1217,10 @@ body {
     }
 
     .about-image img {
-        max-width: 180px;
+        max-width: 180px; /* 移动端头像尺寸 */
         margin: 0 auto;
         border-radius: 50%;
         object-fit: cover;
-        border: 1px solid rgba(0, 0, 0, 0.04);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     }
 
     .explore-intro {
