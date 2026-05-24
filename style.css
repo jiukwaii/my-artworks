@@ -10,6 +10,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden; /* 防止水平溢出触发 resize */
+    width: 100%;
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 85px;
@@ -147,10 +152,12 @@ body {
 .hero {
     position: relative;
     height: 92vh;
-    height: 92svh; /* 修复移动端工具栏伸缩导致的高度跳动 */
+    height: calc(var(--vh, 1vh) * 92);
     display: flex;
     overflow: hidden;
     background-color: #f9f9f9;
+    /* 强制移除可能的内边距干扰 */
+    padding: 0 !important;
 }
 
 .hero-visual {
@@ -168,6 +175,8 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    backface-visibility: hidden; /* 强制开启 GPU 加速，减少重绘引起的闪烁 */
+    -webkit-backface-visibility: hidden;
 }
 
 .hero-overlay {
@@ -764,12 +773,7 @@ body {
     color: #888;
 }
 
-.hero {
-    padding: 11rem 10% 5rem;
-    min-height: 78vh;
-    min-height: 78svh;
-    background-color: #f8f8f8;
-}
+/* .hero calibration removed to prevent conflicts with mobile height locking */
 
 .hero-content {
     margin-left: 4%;
@@ -1198,9 +1202,7 @@ body {
         background-color: rgba(255, 255, 255, 0.95);
     }
 
-    .hero {
-        min-height: auto;
-    }
+    /* .hero min-height: auto removed to avoid redundant overrides */
 
     .artworks h2 {
         margin-bottom: 2.8rem;
@@ -1771,8 +1773,10 @@ body.lightbox-open {
 
 @media screen and (max-width: 768px) {
     .hero {
-        height: 90vh;
-        height: 90svh; /* 锁定在小视口高度，防止 IG 浏览器滑动时高度跳动 */
+        /* 使用 JS 锁定的 --vh 变量强制固定高度，彻底规避 IG 浏览器工具栏跳动 */
+        height: calc(var(--vh, 1vh) * 90) !important;
+        min-height: calc(var(--vh, 1vh) * 90) !important;
+        
         display: flex;
         flex-direction: column;
         justify-content: flex-end; /* 强行置底 */
@@ -1793,8 +1797,7 @@ body.lightbox-open {
         /* 建立稳定的左下角定位 */
         padding-left: 9%;      /* 安全水平留白 */
         padding-right: 9%;
-        padding-bottom: 10vh;
-        padding-bottom: 10svh; /* 垂直间距同步使用稳定单位 */
+        padding-bottom: calc(var(--vh, 1vh) * 10) !important; /* 使用锁定单位保持间距绝对稳定 */
         
         display: block;        /* 切换回块级，消除 Flex 内部对齐干扰 */
         text-align: left;

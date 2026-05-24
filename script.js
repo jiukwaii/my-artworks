@@ -70,7 +70,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 初始化导航链接激活状态
     initActiveNavLink();
+
+    // 锁定移动端 Hero 高度，防止工具栏跳动
+    initMobileHeroHeight();
 });
+
+
+
+/* =========================================================
+   00 page setup: Mobile Hero Height Fix
+   ========================================================= */
+function initMobileHeroHeight() {
+    // 仅在移动端执行
+    if (window.innerWidth > 768) return;
+
+    // 检查是否已经初始化过监听器，避免重复绑定
+    if (window.isHeroHeightInitialized) {
+        return;
+    }
+
+    const setHeroHeight = () => {
+        // 使用 innerHeight 获取当前实际高度并存入 CSS 变量
+        // 关键：这里捕获的是包含地址栏的高度，并在后续滚动中保持不变
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    // 立即锁定高度
+    setHeroHeight();
+
+    // 额外在 load 时尝试修正一次，防止某些 WebView 初始高度计算错误
+    window.addEventListener('load', setHeroHeight, { once: true });
+
+    // 监听 orientationchange
+    window.addEventListener('orientationchange', () => {
+        // 延迟等待转屏动画完成
+        setTimeout(setHeroHeight, 300);
+    });
+
+    // 监听宽度变化引起的 resize
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+        const currentWidth = window.innerWidth;
+        // 只有宽度发生显著变化（如转屏或窗口拉伸）才重新计算高度
+        // 忽略 IG/Safari 浏览器工具栏收缩引起的纯高度变化
+        if (Math.abs(currentWidth - lastWidth) > 10) {
+            setHeroHeight();
+            lastWidth = currentWidth;
+        }
+    });
+
+    // 标记已初始化
+    window.isHeroHeightInitialized = true;
+}
 
 
 
