@@ -3,6 +3,12 @@
    ========================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
 
+:root {
+    /* Desktop Hero 文字块位置控制：调整此处数值即可手动微调 */
+    --hero-desktop-text-x: 15%; /* 控制左右位置：数值越大越往左 */
+    --hero-desktop-text-y: 13vh; /* 控制上下位置：数值越大越往下 */
+}
+
 /* Base reset */
 * {
     margin: 0;
@@ -63,7 +69,6 @@ svg,
 .artwork-item,
 .model-image-item,
 .game-image,
-.hero-image,
 .about-image,
 .contact-image {
     -webkit-user-select: none;
@@ -535,31 +540,6 @@ footer {
 }
 
 @media screen and (max-width: 992px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-    }
-    .hero-content {
-        order: 2;
-        max-width: 100%;
-        margin-top: 3rem;
-        margin-left: 0;
-    }
-    .hero-content p {
-        max-width: 100%;
-    }
-    .hero-image {
-        order: 1;
-        justify-content: center;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-    .hero-image img {
-        height: 100%;
-        max-width: 300px;
-        max-height: 300px;
-        object-fit: cover;
-    }
     .about-container,
     .contact-container {
         flex-direction: column;
@@ -771,18 +751,6 @@ body {
 
 .nav-links a:hover {
     color: #888;
-}
-
-/* .hero calibration removed to prevent conflicts with mobile height locking */
-
-.hero-content {
-    margin-left: 4%;
-}
-
-.hero-image img {
-    width: 68%;
-    max-width: 390px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .artworks {
@@ -1157,14 +1125,6 @@ body {
 
     .navbar {
         padding: 0.8rem 5%;
-    }
-
-    .hero {
-        padding: 11rem 10% 5rem;
-    }
-
-    .hero-image img {
-        width: 100%;
     }
 
     .artwork-grid {
@@ -1656,7 +1616,8 @@ body.lightbox-open {
     }
 
     .hero-content {
-        padding-right: 6%; /* 进一步减小 padding，让文字更向右侧退让 */
+        padding-right: var(--hero-desktop-text-x);
+        padding-top: var(--hero-desktop-text-y);
     }
 
     .artworks {
