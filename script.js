@@ -254,6 +254,13 @@ function initNavbarAutoHide(hamburger, navLinks) {
     }
 
     function handleNavbarScroll() {
+        // 仅在移动端（宽度 <= 768px）执行隐藏/显示逻辑
+        if (window.innerWidth > 768) {
+            showNavbar();
+            ticking = false;
+            return;
+        }
+
         const currentScrollY = window.scrollY;
         const scrollDifference = currentScrollY - lastScrollY;
         const menuIsOpen = navLinks && navLinks.classList.contains('active');

@@ -566,6 +566,7 @@ footer {
         flex-direction: column;
         align-items: center;
         padding: 2rem 0;
+        background-color: #fff; /* 实心白色背景，防止透出底图 */
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         transform: translateY(-150%);
         transition: transform 0.3s ease;
@@ -735,7 +736,7 @@ body {
 
 .navbar {
     padding: 0.85rem 5%;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: #fff;
     border-bottom: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
@@ -1149,7 +1150,7 @@ body {
 
     .navbar {
         padding: 0.8rem 5%;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: #fff;
     }
 
     .logo img {
@@ -1159,7 +1160,7 @@ body {
 
     .nav-links {
         top: 4.75rem;
-        background-color: rgba(255, 255, 255, 0.95);
+        background-color: #fff;
     }
 
     /* .hero min-height: auto removed to avoid redundant overrides */
