@@ -1,0 +1,62 @@
+[
+  {
+    "width": 1440,
+    "identity": "插畫創作者 · AI Maker",
+    "bio": "17 歲，來自馬來西亞，目前是一名中五學生。畫畫是我的起點；我用 AI 邊做邊學，把角色做成遊戲，也把日常困擾做成能用的小工具。",
+    "stamp": "JIUKUIJSINCE 2021",
+    "order": [
+      "hero",
+      "work",
+      "experiments",
+      "illustration",
+      "about",
+      "contact"
+    ],
+    "projects": 9,
+    "artworks": 12,
+    "statuses": 0,
+    "extraLinks": 0,
+    "overflow": false,
+    "brokenImages": [],
+    "status": 200,
+    "headers": {
+      "x-content-type-options": "nosniff",
+      "referrer-policy": "strict-origin-when-cross-origin"
+    },
+    "errors": [],
+    "failed": [],
+    "otherWorkHighlight": "作品",
+    "viewerOpened": true,
+    "birdStarted": true
+  },
+  {
+    "width": 390,
+    "identity": "插畫創作者 · AI Maker",
+    "bio": "17 歲，來自馬來西亞，目前是一名中五學生。畫畫是我的起點；我用 AI 邊做邊學，把角色做成遊戲，也把日常困擾做成能用的小工具。",
+    "stamp": "JIUKUIJSINCE 2021",
+    "order": [
+      "hero",
+      "work",
+      "experiments",
+      "illustration",
+      "about",
+      "contact"
+    ],
+    "projects": 9,
+    "artworks": 12,
+    "statuses": 0,
+    "extraLinks": 0,
+    "overflow": false,
+    "brokenImages": [],
+    "status": 200,
+    "headers": {
+      "x-content-type-options": "nosniff",
+      "referrer-policy": "strict-origin-when-cross-origin"
+    },
+    "errors": [],
+    "failed": [],
+    "otherWorkHighlight": "作品",
+    "viewerOpened": true,
+    "birdStarted": true
+  }
+]

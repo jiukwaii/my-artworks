@@ -1,6 +1,6 @@
 # Jiukui — Personal Website 2.0
 
-本地可审阅版本，2026-10-25。基线是用户指定的 **https://jiukui.vercel.app/**，不是更早的本地 cottage/hero 版本。没有生产部署。
+已于2026-10-25按用户授权部署到 **https://jiukui.vercel.app/**。运行代码提交73bea0c，生产与核验记录见DEPLOYMENT.md。基线为同一正式站此前版本，不是更早的本地cottage/hero版本。
 
 ## 运行与维护
 

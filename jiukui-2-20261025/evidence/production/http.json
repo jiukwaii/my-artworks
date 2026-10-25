@@ -1,0 +1,39 @@
+{
+  "html_matches_local": false,
+  "sha256": "1f89c2b0bf8d0eb1c21d92052da454d3a9bb3a1f34ae96dee142ce0ca400d484",
+  "checks": [
+    {
+      "path": "index.html",
+      "status": 308,
+      "location": "/"
+    },
+    {
+      "path": "games/bird-jump/index.html",
+      "status": 308,
+      "location": "/games/bird-jump/"
+    },
+    {
+      "path": "games/cross-chicken/index.html",
+      "status": 308,
+      "location": "/games/cross-chicken/"
+    },
+    {
+      "path": "AUDIT_AND_STRATEGY.md",
+      "status": 404,
+      "location": null
+    },
+    {
+      "path": "content.json",
+      "status": 404,
+      "location": null
+    },
+    {
+      "path": "cases.json",
+      "status": 404,
+      "location": null
+    }
+  ],
+  "html_matches_local_normalized": true,
+  "normalization": "Git serves LF; Windows generated file uses CRLF. No content difference.",
+  "local_sha256": "7c25d57a3d40b378068e2b3400fb89bd68d5239f0533eab036d6d7b09375303f"
+}
