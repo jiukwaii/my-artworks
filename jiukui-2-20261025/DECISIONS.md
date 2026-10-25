@@ -1,3 +1,7 @@
+## 2026-10-25 iPhone精选预览修复
+
+用户提供iPhone Safari截图，首件精选预览异常缩小。用现有WebKit复现：393px视口下卡片353px，但封面仅约221px宽；Chrome未出现同等缩窄。根因是手机切换column flex后仍继承桌面align-items:center，以及Safari对auto宽度/aspect-ratio与边距的计算差异。只在700px以下设置stretch、明确width:calc(100% - 24px)、12px内边距与原有4:3比例，防止flex收缩。最终封面327×245.25px，两张预览恢复正常尺寸；桌面保持原1.5比例。WebKit/Chrome七档宽度14项回归通过。原图、Hero、文案、入口和作品顺序未改；本轮沿用生产授权修复正式站。
+
 ## 2026-10-25 已获生产部署授权并完成发布
 
 用户明确要求“部署”，覆盖此前本轮只预览、不部署的阶段边界。已将当前Hero恢复、连续作品顺序和导航修复发布至既有jiukui.vercel.app，运行代码提交73bea0c，最终部署dpl_6YK4RwCDV8axx1ifYFrpRdLHDqbG。保留原生产跳转/响应头，未合并main。正式域名桌面/手机内容和交互核对通过；维护文档不在公开运行目录。详见DEPLOYMENT.md与evidence/production。

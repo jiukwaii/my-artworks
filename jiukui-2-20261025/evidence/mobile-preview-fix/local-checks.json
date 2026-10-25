@@ -1,0 +1,254 @@
+[
+  {
+    "width": 320,
+    "cardWidth": 288,
+    "coverWidth": 262,
+    "coverHeight": 196.5,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      88.484375,
+      95.890625
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 375,
+    "cardWidth": 335,
+    "coverWidth": 309,
+    "coverHeight": 231.75,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      106.703125,
+      115.6875
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 393,
+    "cardWidth": 353,
+    "coverWidth": 327,
+    "coverHeight": 245.25,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      113.6875,
+      123.265625
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 430,
+    "cardWidth": 390,
+    "coverWidth": 364,
+    "coverHeight": 273,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      128.015625,
+      138.84375
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 555,
+    "cardWidth": 515,
+    "coverWidth": 489,
+    "coverHeight": 366.75,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      176.46875,
+      191.5
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 768,
+    "cardWidth": 704,
+    "coverWidth": 338.859375,
+    "coverHeight": 225.90625,
+    "coverRatio": 1.5,
+    "imageWidths": [
+      121.09375,
+      131.25
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 1440,
+    "cardWidth": 1256,
+    "coverWidth": 622.484375,
+    "coverHeight": 414.984375,
+    "coverRatio": 1.5000188260100153,
+    "imageWidths": [
+      218.796875,
+      237.4375
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "webkit",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 320,
+    "cardWidth": 288,
+    "coverWidth": 262,
+    "coverHeight": 196.5,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      88.484375,
+      95.890625
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 375,
+    "cardWidth": 335,
+    "coverWidth": 309,
+    "coverHeight": 231.75,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      106.703125,
+      115.6875
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 393,
+    "cardWidth": 353,
+    "coverWidth": 327,
+    "coverHeight": 245.25,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      113.6875,
+      123.265625
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 430,
+    "cardWidth": 390,
+    "coverWidth": 364,
+    "coverHeight": 273,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      128.015625,
+      138.84375
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 555,
+    "cardWidth": 515,
+    "coverWidth": 489,
+    "coverHeight": 366.75,
+    "coverRatio": 1.3333333333333333,
+    "imageWidths": [
+      176.46875,
+      191.5
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 768,
+    "cardWidth": 704,
+    "coverWidth": 338.859375,
+    "coverHeight": 225.90625,
+    "coverRatio": 1.5,
+    "imageWidths": [
+      105.59375,
+      114.40625
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  },
+  {
+    "width": 1440,
+    "cardWidth": 1256,
+    "coverWidth": 622.484375,
+    "coverHeight": 414.984375,
+    "coverRatio": 1.5000188260100153,
+    "imageWidths": [
+      200.1875,
+      217.21875
+    ],
+    "brokenImages": false,
+    "overflow": false,
+    "projects": 9,
+    "artworks": 12,
+    "engine": "chromium",
+    "errors": [],
+    "pass": true
+  }
+]
