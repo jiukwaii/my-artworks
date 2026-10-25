@@ -14,4 +14,6 @@
 
 ## 当前上传状态
 
-本地独立分支已提交，完整载荷为本目录约21.5MB：源码、此前已公开的图片/影片/字体、基线模板、策略文档与QA截图/JSON。自动审批拒绝首次GitHub推送，要求明确确认仓库和完整载荷；截至此记录尚未上传。等待用户批准 `jiukwaii/my-artworks` 的 `codex/jiukui-2-brand-20261025` 分支。
+用户已明确批准目标仓库和完整载荷。2026-10-25 已成功推送至 `jiukwaii/my-artworks` 的 `codex/jiukui-2-brand-20261025` 分支，包含本目录约21.5MB：源码、此前已公开的图片/影片/字体、基线模板、策略文档与QA截图/JSON。首批源码与QA记录提交为 `cb025d8fe86e15f7e010eba5e10bf3050421d03a`，之后补充本上传状态记录。
+
+GitHub 浏览入口：https://github.com/jiukwaii/my-artworks/tree/codex/jiukui-2-brand-20261025/jiukui-2-20261025 。未合并 main、未部署正式站。
