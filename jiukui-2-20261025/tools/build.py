@@ -18,8 +18,6 @@ def section_title(id,title):
     rule=re.search(r'<div class="chapter-rule">(.*?)</div>',LIVE,re.S).group(1)
     return f'<div class="section-heading" data-enter="heading"><h2 id="{id}">{title}<span>。</span></h2><div class="chapter-rule">{rule}</div></div>'
 
-# These statuses describe visible deliverables, never API/install acceptance.
-STATUSES=['','僅展示','','僅展示','','','','','']
 TYPES=['遊戲','桌面 App 與 3D','網頁 App','桌面 App','日常工具','日常工具','實體模型','早期遊戲','早期遊戲']
 ORIGINAL_CARDS=re.findall(r'<article class="project-card\b.*?</article>',LIVE,re.S)
 def card(i):
@@ -37,9 +35,8 @@ def card(i):
         old=re.search(r'<a class="project-link".*?</a>',original,re.S)
         if old: actions+=old.group(0)
     if i==6: actions+=re.search(r'<div class="model-photos">.*?</div>',original,re.S).group(0)
-    status=f'<p class="project-status">{STATUSES[i]}</p>' if STATUSES[i] else ''
     action_group=f'<div class="project-actions">{actions}</div>' if actions else ''
-    return cover+f'<div class="project-copy">{meta}<h3 id="project-{i}">{escape(p["name"])}</h3><p class="project-summary">{escape(p["summary"])}</p><p class="project-context">{context}</p>{status}{action_group}</div></article>'
+    return cover+f'<div class="project-copy">{meta}<h3 id="project-{i}">{escape(p["name"])}</h3><p class="project-summary">{escape(p["summary"])}</p><p class="project-context">{context}</p>{action_group}</div></article>'
 
 def head(path,title,description):
     graph={'@context':'https://schema.org','@graph':[
@@ -95,8 +92,6 @@ def homepage():
     body=re.sub(r'<section class="works chapter".*?</section>',lambda _:work,body,count=1,flags=re.S)
     extra='<section class="experiments chapter" id="experiments" aria-labelledby="experiments-title">'+section_title('experiments-title','更多創作與嘗試')+'<h3 class="collection-title">日常小工具</h3><p class="section-intro">把反覆遇到的小困擾，做成可以試用的網頁。</p><div class="project-grid supporting-grid">'+''.join(card(i) for i in (5,4))+'</div><h3 class="collection-title">角色與實體探索</h3><div class="project-grid supporting-grid">'+''.join(card(i) for i in (3,6))+'</div><h3 class="collection-title">早期遊戲</h3><p class="section-intro">2025 年的兩次練習，保留開始、挑戰、失敗與再試一次。</p><div class="project-grid supporting-grid">'+''.join(card(i) for i in (7,8))+'</div></section>'
     body=body.replace('<section class="about chapter"',extra+'<section class="about chapter"',1)
-    bio='<p class="about-background">我是梁嘉偉，創作時叫玖葵，來自馬來西亞。目前 17 歲、就讀中五。我從畫畫開始，逐漸嘗試遊戲、桌寵、日常工具與實體模型。</p>'
-    body=body.replace('<div class="book-travel">',bio+'<div class="book-travel">',1)
     title='玖葵 Jiukui — 把想像做成作品'
     desc='來自馬來西亞的獨立創作者。從插畫出發，把角色與日常想法做成遊戲、桌寵、App 與實體作品。'
     emit('<!doctype html><html lang="zh-Hant">'+head(path,title,desc)+body,path)
