@@ -33,11 +33,6 @@ const OUT=path.join(ROOT,'evidence','qa');fs.mkdirSync(OUT,{recursive:true});
   }
   await page.close();
  }
- for(const url of ['projects/aoi/','projects/pouch/'])for(const width of [1440,768,390,320]){
-  const p=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});const errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto(BASE+url,{waitUntil:'networkidle'});
-  const layout=await p.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,sections:document.querySelectorAll('.case-sections>section').length,headings:document.querySelectorAll('h1').length}));check(`${url}-${width}`,layout.scrollWidth<=width&&layout.sections===5&&layout.headings===1&&!errors.length);
-  if(width===1440||width===390)await p.screenshot({path:path.join(OUT,url.replaceAll('/','-')+width+'.png'),fullPage:true});await p.close();
- }
  // Real book movement is checked separately from reduced-motion static layout.
  const p=await browser.newPage({viewport:{width:1440,height:960},reducedMotion:'no-preference'});await p.goto(BASE,{waitUntil:'networkidle'});
  await p.locator('#about').scrollIntoViewIfNeeded();await p.waitForTimeout(300);

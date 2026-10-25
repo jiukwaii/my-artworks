@@ -110,8 +110,8 @@
       "context": "來自我對表達的猶豫：把顧慮、草稿與想要的語氣，收進三步操作，由 AI 協助整理。",
       "register": "03 / WEB",
       "date": "2026.05",
-      "url": "https://github.com/jiukwaii/kuiletter",
-      "action": "查看 GitHub"
+      "url": "https://kuiletter.vercel.app/",
+      "action": "體驗網頁"
     },
     {
       "name": "Puff",
@@ -128,8 +128,8 @@
       "context": "因為自己總要反覆查課表，我把課程、固定用品和臨時提醒整合到同一頁。",
       "register": "05 / WEB TOOL",
       "date": "2026.07",
-      "url": "https://github.com/jiukwaii/tomorrowbackpack",
-      "action": "查看 GitHub"
+      "url": "https://jiukwaii.github.io/tomorrowbackpack/",
+      "action": "體驗網頁"
     },
     {
       "name": "今天花到這裡",
@@ -155,8 +155,8 @@
       "context": "我在這裡學會把開始、挑戰、失敗與重來接成完整流程，再部署成能分享的網頁。",
       "register": "08 / GAME",
       "date": "2025.08",
-      "url": "https://github.com/jiukwaii/bird-jump",
-      "action": "查看 GitHub"
+      "url": "games/bird-jump/",
+      "action": "體驗遊戲"
     },
     {
       "name": "小雞過馬路",
@@ -164,8 +164,8 @@
       "context": "從單鍵跳躍換成左右移動與空白鍵前進，也開始比較：什麼樣的目標，會讓人想再玩一次？",
       "register": "09 / GAME",
       "date": "2025.08",
-      "url": "https://github.com/jiukwaii/cross-chicken",
-      "action": "查看 GitHub"
+      "url": "games/cross-chicken/",
+      "action": "體驗遊戲"
     }
   ]
 }
