@@ -1,0 +1,171 @@
+{
+  "artworks": [
+    {
+      "src": "Image_20250806171201_168.webp",
+      "thumb": "Image_20250806171201_168-480.webp",
+      "caption": "海邊少女",
+      "width": 1600,
+      "height": 1326
+    },
+    {
+      "src": "Image_20250805153619_70.webp",
+      "thumb": "Image_20250805153619_70-480.webp",
+      "caption": "Dora King",
+      "width": 1035,
+      "height": 1295
+    },
+    {
+      "src": "d2795fb66ab3a4cb868b15915f0822e0.webp",
+      "thumb": "d2795fb66ab3a4cb868b15915f0822e0-480.webp",
+      "caption": "飛鳥與少女",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "src": "614e62d84900b8eb7dca8202349345f2.webp",
+      "thumb": "614e62d84900b8eb7dca8202349345f2-480.webp",
+      "caption": "Penguin King",
+      "width": 1280,
+      "height": 1598
+    },
+    {
+      "src": "Image_20250805153619_69.webp",
+      "thumb": "Image_20250805153619_69-480.webp",
+      "caption": "Makima",
+      "width": 1127,
+      "height": 1408
+    },
+    {
+      "src": "Image_20250805153619_68.webp",
+      "thumb": "Image_20250805153619_68-480.webp",
+      "caption": "漢堡少女",
+      "width": 1040,
+      "height": 1300
+    },
+    {
+      "src": "7ebb92e5ed9a54e786dcb8e2b47b818a.webp",
+      "thumb": "7ebb92e5ed9a54e786dcb8e2b47b818a-480.webp",
+      "caption": "畢業紀念",
+      "width": 1300,
+      "height": 873
+    },
+    {
+      "src": "301ed367d7e2b3b5d4d5146eae5423cd.webp",
+      "thumb": "301ed367d7e2b3b5d4d5146eae5423cd-480.webp",
+      "caption": "抱貓少女",
+      "width": 1230,
+      "height": 1600
+    },
+    {
+      "src": "a45dd89d0ebdb4f53fbf3ac99c8e019d.webp",
+      "thumb": "a45dd89d0ebdb4f53fbf3ac99c8e019d-480.webp",
+      "caption": "殺手女僕",
+      "width": 1015,
+      "height": 1355
+    },
+    {
+      "src": "9dec5c5f28b2e89a744260e78242945f.webp",
+      "thumb": "9dec5c5f28b2e89a744260e78242945f-480.webp",
+      "caption": "向日葵少女",
+      "width": 1280,
+      "height": 1578
+    },
+    {
+      "src": "0f12e295770ae362c53ffe7601f4bad0.webp",
+      "thumb": "0f12e295770ae362c53ffe7601f4bad0-480.webp",
+      "caption": "生日派對",
+      "width": 1423,
+      "height": 868
+    },
+    {
+      "src": "7830aaa70eb63159111e59d17e318d23.webp",
+      "thumb": "7830aaa70eb63159111e59d17e318d23-480.webp",
+      "caption": "牛角少女",
+      "width": 716,
+      "height": 1058
+    }
+  ],
+  "projects": [
+    {
+      "name": "葵的送信日記",
+      "summary": "把畫裡的葵，變成能親自扮演的主角。",
+      "context": "從無限跑酷改成一章三關，讓奔跑有明確的終點，也為故事留下空間。",
+      "register": "01 / GAME",
+      "date": "2026.10",
+      "url": "https://aoi-post.vercel.app/",
+      "action": "體驗遊戲"
+    },
+    {
+      "name": "Pouch Pet",
+      "summary": "給姐姐的陪伴，從桌面走到手心。",
+      "context": "以自己的草圖操作 AI 輔助建模，再打印、打磨與手工上色，讓數位桌寵有了能握在手裡的模樣。",
+      "register": "02 / APP · 3D",
+      "date": "2026.09",
+      "url": "",
+      "action": ""
+    },
+    {
+      "name": "葵的開口信",
+      "summary": "幫你整理那些寫了又刪、遲遲不敢發的話。",
+      "context": "來自我對表達的猶豫：把顧慮、草稿與想要的語氣，收進三步操作，由 AI 協助整理。",
+      "register": "03 / WEB",
+      "date": "2026.05",
+      "url": "https://github.com/jiukwaii/kuiletter",
+      "action": "查看 GitHub"
+    },
+    {
+      "name": "Puff",
+      "summary": "從送給家人的禮物，走到第一件付費委託。",
+      "context": "姐姐的同事因為喜歡 Pouch Pet 而提出委託；我以白貓角色，完成這件桌寵產品。",
+      "register": "04 / DESKTOP APP",
+      "date": "2026.09",
+      "url": "",
+      "action": ""
+    },
+    {
+      "name": "明日背包",
+      "summary": "明天要帶什麼，今晚一眼確認。",
+      "context": "因為自己總要反覆查課表，我把課程、固定用品和臨時提醒整合到同一頁。",
+      "register": "05 / WEB TOOL",
+      "date": "2026.07",
+      "url": "https://github.com/jiukwaii/tomorrowbackpack",
+      "action": "查看 GitHub"
+    },
+    {
+      "name": "今天花到這裡",
+      "summary": "先定花費上限，再決定今天怎麼花。",
+      "context": "把我喜歡的 CCD 視覺做進出行情境，搭配預算與中、英、馬來文混用的語音記錄，讓花費有個看得見的範圍。",
+      "register": "06 / WEB TOOL",
+      "date": "2026.06",
+      "url": "https://today-stopline-my.vercel.app/",
+      "action": "體驗網頁"
+    },
+    {
+      "name": "3D 模型與上色",
+      "summary": "讓紙上的葵，第一次有了拿在手裡的模樣。",
+      "context": "以早期 Q 版草圖為起點，第一次走完 AI 輔助建模、打印與親手上色的流程。",
+      "register": "07 / 3D",
+      "date": "",
+      "url": "",
+      "action": ""
+    },
+    {
+      "name": "小鳥跳躍",
+      "summary": "一個按鍵，開始我的第一個小遊戲。",
+      "context": "我在這裡學會把開始、挑戰、失敗與重來接成完整流程，再部署成能分享的網頁。",
+      "register": "08 / GAME",
+      "date": "2025.08",
+      "url": "https://github.com/jiukwaii/bird-jump",
+      "action": "查看 GitHub"
+    },
+    {
+      "name": "小雞過馬路",
+      "summary": "換一種玩法，試試有終點的挑戰。",
+      "context": "從單鍵跳躍換成左右移動與空白鍵前進，也開始比較：什麼樣的目標，會讓人想再玩一次？",
+      "register": "09 / GAME",
+      "date": "2025.08",
+      "url": "https://github.com/jiukwaii/cross-chicken",
+      "action": "查看 GitHub"
+    }
+  ]
+}

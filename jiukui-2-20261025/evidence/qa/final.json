@@ -1,0 +1,106 @@
+[
+  {
+    "name": "bird-jump starts",
+    "pass": true
+  },
+  {
+    "name": "bird-jump no runtime errors",
+    "pass": true
+  },
+  {
+    "name": "cross-chicken starts",
+    "pass": true
+  },
+  {
+    "name": "cross-chicken no runtime errors",
+    "pass": true
+  },
+  {
+    "name": "aoi-1440 no overflow",
+    "pass": true
+  },
+  {
+    "name": "aoi caption contrast >= 4.5",
+    "pass": true
+  },
+  {
+    "name": "Case back to selected work",
+    "pass": true
+  },
+  {
+    "name": "aoi-390 no overflow",
+    "pass": true
+  },
+  {
+    "name": "aoi caption contrast >= 4.5",
+    "pass": true
+  },
+  {
+    "name": "Case back to selected work",
+    "pass": true
+  },
+  {
+    "name": "pouch-1440 no overflow",
+    "pass": true
+  },
+  {
+    "name": "pouch caption contrast >= 4.5",
+    "pass": true
+  },
+  {
+    "name": "Case video manual playback",
+    "pass": true
+  },
+  {
+    "name": "Case back to selected work",
+    "pass": true
+  },
+  {
+    "name": "pouch-390 no overflow",
+    "pass": true
+  },
+  {
+    "name": "pouch caption contrast >= 4.5",
+    "pass": true
+  },
+  {
+    "name": "Case video manual playback",
+    "pass": true
+  },
+  {
+    "name": "Case back to selected work",
+    "pass": true
+  },
+  {
+    "name": "Skip link first in keyboard order",
+    "pass": true
+  },
+  {
+    "name": "Skip link focuses work",
+    "pass": true
+  },
+  {
+    "name": "work anchor header clearance",
+    "pass": true
+  },
+  {
+    "name": "illustration anchor header clearance",
+    "pass": true
+  },
+  {
+    "name": "about anchor header clearance",
+    "pass": true
+  },
+  {
+    "name": "contact anchor header clearance",
+    "pass": true
+  },
+  {
+    "name": "No language implementation",
+    "pass": true
+  },
+  {
+    "name": "Email and Instagram real channels",
+    "pass": true
+  }
+]

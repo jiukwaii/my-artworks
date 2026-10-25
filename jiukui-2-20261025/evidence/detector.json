@@ -1,0 +1,159 @@
+[
+  {
+    "antipattern": "italic-serif-display",
+    "name": "Italic serif display headline",
+    "description": "Oversized italic serif (Fraunces, Recoleta, Playfair, Newsreader-italic) as the primary hero headline reads as taste in isolation but has become the universal AI-startup landing page hero. Set roman, or move to a non-serif display face. Editorial / magazine register may legitimately want this — judge by context.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "italic serif h1 (bookitalic) at 62px \"玖葵。Jiukui\""
+  },
+  {
+    "antipattern": "cramped-padding",
+    "name": "Cramped padding",
+    "description": "Text is too close to the edge of its container. Two shapes: (1) an element with its own text where the space between the rendered text and the border box is too small for the font size, and (2) a wrapper whose children's text lands flush against a visible boundary (border, outline, or non-transparent background) with nothing to inset it. Add at least 8px (ideally 12–16px) of space inside bordered, outlined, or colored containers.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "<section> \"gallery\": children flush against bg on all sides (no inset)"
+  },
+  {
+    "antipattern": "cramped-padding",
+    "name": "Cramped padding",
+    "description": "Text is too close to the edge of its container. Two shapes: (1) an element with its own text where the space between the rendered text and the border box is too small for the font size, and (2) a wrapper whose children's text lands flush against a visible boundary (border, outline, or non-transparent background) with nothing to inset it. Add at least 8px (ideally 12–16px) of space inside bordered, outlined, or colored containers.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "<div> \"model-film\": children flush against border+bg on all sides (no inset)"
+  },
+  {
+    "antipattern": "cramped-padding",
+    "name": "Cramped padding",
+    "description": "Text is too close to the edge of its container. Two shapes: (1) an element with its own text where the space between the rendered text and the border box is too small for the font size, and (2) a wrapper whose children's text lands flush against a visible boundary (border, outline, or non-transparent background) with nothing to inset it. Add at least 8px (ideally 12–16px) of space inside bordered, outlined, or colored containers.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "<div> \"book-scene\": children flush against bg on right/bottom/left (no inset)"
+  },
+  {
+    "antipattern": "cramped-padding",
+    "name": "Cramped padding",
+    "description": "Text is too close to the edge of its container. Two shapes: (1) an element with its own text where the space between the rendered text and the border box is too small for the font size, and (2) a wrapper whose children's text lands flush against a visible boundary (border, outline, or non-transparent background) with nothing to inset it. Add at least 8px (ideally 12–16px) of space inside bordered, outlined, or colored containers.",
+    "severity": "warning",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "<section> \"contact\": children flush against border-top+bg on right/bottom/left (no inset)"
+  },
+  {
+    "antipattern": "cream-palette",
+    "name": "Cream / beige palette",
+    "description": "A warm cream or beige page background has become the default \"tasteful\" AI surface, reached for by reflex. Choose a background that comes from a deliberate palette, not the safe warm off-white.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "cream/beige page background rgb(242, 232, 210)"
+  },
+  {
+    "antipattern": "repeating-stripes-gradient",
+    "name": "Repeating-gradient stripes",
+    "description": "Repeating-gradient stripes used as surface decoration are a recurring generated-UI signature. Reach for a deliberate texture or leave the surface plain.",
+    "severity": "advisory",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\index.html",
+    "line": 0,
+    "snippet": "repeating-gradient decorative stripes",
+    "advisory": true
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\aoi\\index.html",
+    "line": 0,
+    "snippet": "4.49:1 (need 4.5:1) — text #596047 on #ded5bc",
+    "advisory": true
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\aoi\\index.html",
+    "line": 0,
+    "snippet": "4.49:1 (need 4.5:1) — text #596047 on #ded5bc",
+    "advisory": true
+  },
+  {
+    "antipattern": "cream-palette",
+    "name": "Cream / beige palette",
+    "description": "A warm cream or beige page background has become the default \"tasteful\" AI surface, reached for by reflex. Choose a background that comes from a deliberate palette, not the safe warm off-white.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\aoi\\index.html",
+    "line": 0,
+    "snippet": "cream/beige page background rgb(242, 232, 210)"
+  },
+  {
+    "antipattern": "repeating-stripes-gradient",
+    "name": "Repeating-gradient stripes",
+    "description": "Repeating-gradient stripes used as surface decoration are a recurring generated-UI signature. Reach for a deliberate texture or leave the surface plain.",
+    "severity": "advisory",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\aoi\\index.html",
+    "line": 0,
+    "snippet": "repeating-gradient decorative stripes",
+    "advisory": true
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\pouch\\index.html",
+    "line": 0,
+    "snippet": "4.49:1 (need 4.5:1) — text #596047 on #ded5bc",
+    "advisory": true
+  },
+  {
+    "antipattern": "low-contrast",
+    "name": "Low contrast text",
+    "description": "Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\pouch\\index.html",
+    "line": 0,
+    "snippet": "4.49:1 (need 4.5:1) — text #596047 on #ded5bc",
+    "advisory": true
+  },
+  {
+    "antipattern": "cream-palette",
+    "name": "Cream / beige palette",
+    "description": "A warm cream or beige page background has become the default \"tasteful\" AI surface, reached for by reflex. Choose a background that comes from a deliberate palette, not the safe warm off-white.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\pouch\\index.html",
+    "line": 0,
+    "snippet": "cream/beige page background rgb(242, 232, 210)"
+  },
+  {
+    "antipattern": "repeating-stripes-gradient",
+    "name": "Repeating-gradient stripes",
+    "description": "Repeating-gradient stripes used as surface decoration are a recurring generated-UI signature. Reach for a deliberate texture or leave the surface plain.",
+    "severity": "advisory",
+    "category": "slop",
+    "file": "C:\\Users\\user\\Files\\内容创作\\作品\\网页作品\\myartworks\\jiukui-2-20261025\\src\\site\\projects\\pouch\\index.html",
+    "line": 0,
+    "snippet": "repeating-gradient decorative stripes",
+    "advisory": true
+  }
+]

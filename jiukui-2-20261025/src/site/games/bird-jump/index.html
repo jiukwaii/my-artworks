@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <link rel="stylesheet" href="style.css" />
+<!-- Jiukui SEO -->
+<title>小鸟跳跃｜玖葵 Jiukui</title>
+<link rel="canonical" href="https://jiukui.vercel.app/games/bird-jump/">
+<meta name="description" content="玖葵 Jiukui 的第一款小遊戲。點擊、觸碰螢幕或按空白鍵，讓小鳥穿過水管空隙。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="玖葵 Jiukui">
+<meta property="og:title" content="小鸟跳跃｜玖葵 Jiukui">
+<meta property="og:description" content="玖葵 Jiukui 的第一款小遊戲。點擊、觸碰螢幕或按空白鍵，讓小鳥穿過水管空隙。">
+<meta property="og:url" content="https://jiukui.vercel.app/games/bird-jump/">
+<meta property="og:image" content="https://jiukui.vercel.app/assets/og-kitchen-4x3-share-v2.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="玖葵的手繪插畫：女孩在廚房切麵包">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="小鸟跳跃｜玖葵 Jiukui">
+<meta name="twitter:description" content="玖葵 Jiukui 的第一款小遊戲。點擊、觸碰螢幕或按空白鍵，讓小鳥穿過水管空隙。">
+<meta name="twitter:image" content="https://jiukui.vercel.app/assets/og-kitchen-4x3-share-v2.jpg">
+<meta name="twitter:image:alt" content="玖葵的手繪插畫：女孩在廚房切麵包">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://jiukui.vercel.app/games/bird-jump/#webpage","url":"https://jiukui.vercel.app/games/bird-jump/","name":"小鸟跳跃｜玖葵 Jiukui","description":"玖葵 Jiukui 的第一款小遊戲。點擊、觸碰螢幕或按空白鍵，讓小鳥穿過水管空隙。","isPartOf":{"@id":"https://jiukui.vercel.app/#website"},"author":{"@id":"https://jiukui.vercel.app/#person"}}]}</script>
+<!-- /Jiukui SEO -->
+</head>
+<body>
+  <main class="game-shell" aria-label="小鸟跳跃游戏">
+    <section class="game-card" id="gameCard">
+      <canvas id="gameCanvas" aria-label="游戏画面"></canvas>
+
+      <div class="hud">
+        <div class="top-bar">
+          <div class="score-pill" id="scorePill">
+            <span class="label">Score</span>
+            <span class="value" id="score">0</span>
+          </div>
+          <div class="best-pill">
+            <span class="label">Best</span>
+            <span class="value" id="bestScore">0</span>
+          </div>
+        </div>
+        <div class="center-tip" id="playTip">点击 / 触碰屏幕让小鸟跳跃</div>
+      </div>
+
+      <div class="flash" id="hitFlash"></div>
+
+      <div class="overlay" id="overlay">
+        <div class="panel" id="panel">
+          <h1 class="title" id="panelTitle">小鸟跳跃</h1>
+          <p class="subtitle" id="panelText">避开水管，穿过空隙得分。手机端可直接点击屏幕或按住节奏轻点。</p>
+
+          <div class="stats">
+            <div class="stat-card">
+              <span class="label">Score</span>
+              <b id="finalScore">0</b>
+            </div>
+            <div class="stat-card">
+              <span class="label">Best</span>
+              <b id="finalBest">0</b>
+            </div>
+          </div>
+
+          <button class="primary-btn" id="mainButton">开始游戏</button>
+          <div class="small-note" id="panelNote">电脑：Space / 鼠标点击　手机：轻点屏幕</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

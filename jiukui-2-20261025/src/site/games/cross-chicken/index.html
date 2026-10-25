@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <link rel="stylesheet" href="style.css" />
+<!-- Jiukui SEO -->
+<title>小鸡过马路｜玖葵 Jiukui</title>
+<link rel="canonical" href="https://jiukui.vercel.app/games/cross-chicken/">
+<meta name="description" content="玖葵 Jiukui 的小雞過馬路遊戲。左右移動、向前跳躍，躲避車輛並抵達終點。">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:site_name" content="玖葵 Jiukui">
+<meta property="og:title" content="小鸡过马路｜玖葵 Jiukui">
+<meta property="og:description" content="玖葵 Jiukui 的小雞過馬路遊戲。左右移動、向前跳躍，躲避車輛並抵達終點。">
+<meta property="og:url" content="https://jiukui.vercel.app/games/cross-chicken/">
+<meta property="og:image" content="https://jiukui.vercel.app/assets/og-kitchen-4x3-share-v2.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="玖葵的手繪插畫：女孩在廚房切麵包">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="小鸡过马路｜玖葵 Jiukui">
+<meta name="twitter:description" content="玖葵 Jiukui 的小雞過馬路遊戲。左右移動、向前跳躍，躲避車輛並抵達終點。">
+<meta name="twitter:image" content="https://jiukui.vercel.app/assets/og-kitchen-4x3-share-v2.jpg">
+<meta name="twitter:image:alt" content="玖葵的手繪插畫：女孩在廚房切麵包">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://jiukui.vercel.app/games/cross-chicken/#webpage","url":"https://jiukui.vercel.app/games/cross-chicken/","name":"小鸡过马路｜玖葵 Jiukui","description":"玖葵 Jiukui 的小雞過馬路遊戲。左右移動、向前跳躍，躲避車輛並抵達終點。","isPartOf":{"@id":"https://jiukui.vercel.app/#website"},"author":{"@id":"https://jiukui.vercel.app/#person"}}]}</script>
+<!-- /Jiukui SEO -->
+</head>
+<body>
+  <main class="game-shell" aria-label="Crossy Chicken 小鸡过马路游戏">
+    <section class="game-card" id="gameCard">
+      <header class="top-ui">
+        <div>
+          <p class="eyebrow">PIXEL ROAD</p>
+          <h1>小鸡过马路</h1>
+        </div>
+        <div class="score-panel">
+          <span>Score</span>
+          <strong id="score">0</strong>
+        </div>
+      </header>
+
+      <div class="canvas-wrap" id="touchArea" aria-label="触控操作区：轻点前进，左右滑动移动">
+        <canvas id="gameCanvas" width="432" height="624" aria-label="游戏画面"></canvas>
+        <div class="toast" id="toast">+5</div>
+      </div>
+
+      <section class="hud-row">
+        <div><span>前进</span><strong id="steps">0</strong></div>
+        <div><span>金币</span><strong id="coins">0</strong></div>
+        <div><span>最佳</span><strong id="best">0</strong></div>
+      </section>
+
+      <section class="mobile-controls" aria-label="手机操作按钮">
+        <button class="control-btn" id="leftBtn" aria-label="向左移动">←</button>
+        <button class="control-btn forward" id="forwardBtn" aria-label="向前移动">前进</button>
+        <button class="control-btn" id="rightBtn" aria-label="向右移动">→</button>
+      </section>
+
+      <div class="overlay" id="overlay">
+        <div class="modal">
+          <p class="eyebrow">CROSSY CHICKEN</p>
+          <h2 id="overlayTitle">准备开始</h2>
+          <p id="overlayText">躲避车辆，踩上浮木过河，收集金币并抵达终点。</p>
+          <button id="mainBtn" class="primary-btn">开始游戏</button>
+          <p class="tip">电脑：Space 前进，← → 移动｜手机：轻点画面前进，左右滑动移动</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

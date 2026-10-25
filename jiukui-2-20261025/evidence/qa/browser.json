@@ -1,0 +1,183 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "projects": 9,
+      "selected": 3,
+      "artworks": 12,
+      "broken": [],
+      "overflow": [],
+      "duplicates": [],
+      "locale": "zh",
+      "errors": [],
+      "failed": []
+    },
+    {
+      "width": 1024,
+      "scrollWidth": 1024,
+      "projects": 9,
+      "selected": 3,
+      "artworks": 12,
+      "broken": [],
+      "overflow": [],
+      "duplicates": [],
+      "locale": "zh",
+      "errors": [],
+      "failed": []
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768,
+      "projects": 9,
+      "selected": 3,
+      "artworks": 12,
+      "broken": [],
+      "overflow": [],
+      "duplicates": [],
+      "locale": "zh",
+      "errors": [],
+      "failed": []
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "projects": 9,
+      "selected": 3,
+      "artworks": 12,
+      "broken": [],
+      "overflow": [],
+      "duplicates": [],
+      "locale": "zh",
+      "errors": [],
+      "failed": []
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "projects": 9,
+      "selected": 3,
+      "artworks": 12,
+      "broken": [],
+      "overflow": [],
+      "duplicates": [],
+      "locale": "zh",
+      "errors": [],
+      "failed": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "zh-1440 integrity",
+      "pass": true
+    },
+    {
+      "name": "-1440 viewer open",
+      "pass": true
+    },
+    {
+      "name": "-1440 viewer next",
+      "pass": true
+    },
+    {
+      "name": "-1440 viewer focus return",
+      "pass": true
+    },
+    {
+      "name": "Chinese only: no language switch",
+      "pass": true
+    },
+    {
+      "name": "zh-1024 integrity",
+      "pass": true
+    },
+    {
+      "name": "zh-768 integrity",
+      "pass": true
+    },
+    {
+      "name": "zh-390 integrity",
+      "pass": true
+    },
+    {
+      "name": "-390 viewer open",
+      "pass": true
+    },
+    {
+      "name": "-390 viewer next",
+      "pass": true
+    },
+    {
+      "name": "-390 viewer focus return",
+      "pass": true
+    },
+    {
+      "name": "Mobile menu open",
+      "pass": true
+    },
+    {
+      "name": "Mobile menu closes",
+      "pass": true
+    },
+    {
+      "name": "Chinese only: no language switch",
+      "pass": true
+    },
+    {
+      "name": "zh-320 integrity",
+      "pass": true
+    },
+    {
+      "name": "projects/aoi/-1440",
+      "pass": true
+    },
+    {
+      "name": "projects/aoi/-768",
+      "pass": true
+    },
+    {
+      "name": "projects/aoi/-390",
+      "pass": true
+    },
+    {
+      "name": "projects/aoi/-320",
+      "pass": true
+    },
+    {
+      "name": "projects/pouch/-1440",
+      "pass": true
+    },
+    {
+      "name": "projects/pouch/-768",
+      "pass": true
+    },
+    {
+      "name": "projects/pouch/-390",
+      "pass": true
+    },
+    {
+      "name": "projects/pouch/-320",
+      "pass": true
+    },
+    {
+      "name": "Book scroll progresses",
+      "pass": true
+    },
+    {
+      "name": "Book copy stays inside pages",
+      "pass": true
+    },
+    {
+      "name": "Pet recording can play",
+      "pass": true
+    },
+    {
+      "name": "Pet keyboard pause",
+      "pass": true
+    },
+    {
+      "name": "No-JS all work visible",
+      "pass": true
+    }
+  ]
+}
