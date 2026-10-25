@@ -1,3 +1,2 @@
-templates/** -text
-src/site/assets/** -text
-
+templates/** -text whitespace=cr-at-eol
+src/site/assets/** -text whitespace=cr-at-eol
