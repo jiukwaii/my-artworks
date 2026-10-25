@@ -1,5 +1,7 @@
 # 生产发布记录
 
+> 最新生产：2026-10-25 iPhone Safari精选预览修复，部署dpl_6mNaoqSA6iX1s298E9PJXy4sUkuY，运行代码fbf1bfb0597a302fc85d65ae9e00481a5def73c6；jiukui.vercel.app已指向新部署。下文首次发布保留为历史记录。
+
 2026-10-25，用户明确要求“部署”，授权把当前修改版发布到既有正式站。
 
 - 正式地址：https://jiukui.vercel.app/
@@ -18,3 +20,7 @@
 线上HTML与本地文件规范化换行后完全一致；Git部署LF与Windows本地CRLF的字节差异已记录，不是内容差异。三个原有index地址返回308，维护文档与内容源文件路径返回404。响应头正确。详见 evidence/production/live-browser.json 与 http.json。
 
 截图为Chrome桌面及手机尺寸模拟，不是物理手机检查。未代用户测试付费AI、语音事务或安装包。
+
+## iPhone Safari修复上线核验
+
+通过WebKit复现原缩窄问题后，修复首件精选的手机对齐和明确宽度，恢复4:3。已发布正式站，READY且正式域名别名生效。WebKit与Chrome在375/393/430/1440共8项线上检查全部通过；线上HTML/CSS与本地修复文件规范化换行后一致。393px视口预览宽度由约221px恢复327px，桌面样式保持。记录位于evidence/mobile-preview-fix/live-checks.json与published-files.json。尚未由用户在其实际iPhone刷新验收。

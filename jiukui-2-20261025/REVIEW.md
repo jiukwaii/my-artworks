@@ -71,3 +71,5 @@
 ## iPhone Safari预览回归
 
 已通过WebKit复现用户截图。之前Chrome模拟手机的检查不足以代表Safari，此问题在本轮补齐引擎覆盖。修复仅限首件精选手机预览的尺寸/对齐，CSS与生成后的index哈希更新。WebKit与Chrome在320/375/393/430/555/768/1440七档宽度，共14项通过，检查撑满宽度、精确比例、两张图片尺寸、无溢出与脚本错误。最终记录local-checks.json，修改前为webkit-before.png，修复后为local-webkit-393.png。尚非用户实际iPhone的修复后验收。
+
+修复已发布至正式站，WebKit/Chrome八项线上回归全部通过，HTML和CSS内容与本地修复一致。真机验收仍需用户在自己的iPhone刷新查看。
