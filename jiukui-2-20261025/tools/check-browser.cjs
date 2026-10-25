@@ -25,7 +25,7 @@ const OUT=path.join(ROOT,'evidence','qa');fs.mkdirSync(OUT,{recursive:true});
    const first=page.locator('[data-artwork]').first();await first.click();await page.locator('.image-viewer').waitFor({state:'visible'});
    check(`${locale}-${width} viewer open`,await page.locator('.image-viewer').evaluate(e=>e.open));
    await page.keyboard.press('ArrowRight');check(`${locale}-${width} viewer next`,(await page.locator('#viewer-counter').innerText()).includes('2 / 12'));
-   
+
    await page.keyboard.press('Escape');check(`${locale}-${width} viewer focus return`,await first.evaluate(e=>document.activeElement===e));
    if(width===390){await page.locator('.nav-toggle').click();check('Mobile menu open',await page.locator('nav').isVisible());await page.locator('nav a[href="#about"]').click();check('Mobile menu closes',await page.locator('.nav-toggle').getAttribute('aria-expanded')==='false')}
    else{await page.locator('nav a[href="#contact"]').click()}

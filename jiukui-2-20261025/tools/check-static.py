@@ -19,7 +19,7 @@ class Inspect(HTMLParser):
         if tag=='meta': self.meta[a.get('name',a.get('property'))]=a.get('content')
 def resolve(path,ref,ids=None):
     u=urlsplit(ref)
-    if u.scheme in ('https','http','mailto','data'): 
+    if u.scheme in ('https','http','mailto','data'):
         if u.scheme.startswith('http'): links.add(ref)
         return
     dest=(SITE/u.path.lstrip('/') if u.path.startswith('/') else path.parent/unquote(u.path)) if u.path else path
