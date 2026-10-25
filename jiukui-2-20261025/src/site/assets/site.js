@@ -38,7 +38,9 @@
   });
   mobileNav.addEventListener('change', syncMenu);
   syncMenu();
-  const sections = navLinks.map(a => document.querySelector(a.hash));
+  const sections = [...document.querySelectorAll('main > section[id]')].filter(section =>
+    section.id === 'experiments' || navLinks.some(a => a.hash === '#' + section.id)
+  );
   const root = document.documentElement;
   const contactRegion = document.getElementById('contact');
   const themeColor = document.querySelector('meta[name="theme-color"]');
@@ -51,7 +53,11 @@
     readingFrame = 0;
     header.classList.toggle('scrolled', scrollY > 12);
     let current = '';
-    for (const section of sections) if (section.getBoundingClientRect().top <= innerHeight * .38) current = section.id;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= innerHeight * .38) {
+        current = section.id === 'experiments' ? 'work' : section.id;
+      }
+    }
     if (scrollY + innerHeight >= document.documentElement.scrollHeight - 3) current = 'contact';
     const contactBox = contactRegion.getBoundingClientRect();
     const useContactPaper = contactBox.top < innerHeight && contactBox.bottom > 0;
