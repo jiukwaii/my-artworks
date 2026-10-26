@@ -1,5 +1,7 @@
 # 生产发布记录
 
+> 最新生产：2026-10-26 参考箭头字形纠正，部署dpl_HoN12mxoJo2M2VCiZnAq2Y45Cdnu，运行代码5ec6a6c6f9142bdd306da823becfe2c62f6c2594。正式域名已生效；后续为历史发布记录。
+
 > 最新生产：2026-10-26 右上斜箭头、纯展示自动循环影片与手机菜单过渡。部署dpl_6LTVPgnbHhFzNNYZLgHhdtxp85jf，运行代码a2b2e47f2128876e2b3e8ea34f0ba39c6fe8cf23，正式域名jiukui.vercel.app已生效。较早发布记录保留供追溯。
 
 > 最新生产：2026-10-25 iPhone Safari精选预览修复，部署dpl_6mNaoqSA6iX1s298E9PJXy4sUkuY，运行代码fbf1bfb0597a302fc85d65ae9e00481a5def73c6；jiukui.vercel.app已指向新部署。下文首次发布保留为历史记录。
@@ -30,3 +32,7 @@
 ## 2026-10-26 线上展示交互验证
 
 WebKit/Chrome × 手机393px/桌面1440px × 普通/减少动态偏好，共8组线上检查全部通过。三段真实影片可见即自动静音循环，无播放暂停UI、点击不会暂停，已退出键盘焦点。六个体验入口为右上斜箭头，站内照片入口与Hero入口保留各自方向。菜单300ms旋转/淡出中间状态、X终态、Esc关闭和焦点返回均验证；减少动态时直接切换。未出现脚本错误或横向溢出。正式HTML/CSS/JS与本地文件规范化换行后完全一致，见evidence/showcase-interactions/live-checks.json、published-files.json与截图。不是用户物理iPhone验收，不声称能绕过浏览器系统级媒体限制。
+
+## 同款箭头纠正上线
+
+此次由SVG改成参考站真正使用的Noto Sans SC 800的↗文本字形，只新增单箭头字体1856bytes及许可证，不更换全站字体。六个体验入口为12px/800/8px间距/.08em/260ms向右6px向上3px。WebKit与Chrome手机393/桌面1440共4项本地与4项线上检查分别全通过，截图和计算样式见evidence/arrow-match。影片、菜单和iPhone预览布局未修改。
