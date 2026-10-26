@@ -101,7 +101,7 @@ def homepage():
         tag=re.sub(r'\s+(?:preload|controls|autoplay)(?:="[^"]*")?(?=\s|>)','',match.group(0))
         return tag[:-1]+' autoplay preload="metadata" disablepictureinpicture tabindex="-1">'
     body=re.sub(r'<video\b[^>]*>',showcase_video,body)
-    title='玖葵 Jiukui — 把想像做成作品'
+    title='玖葵 Jiukui'
     desc='來自馬來西亞的獨立創作者。從插畫出發，把角色與日常想法做成遊戲、桌寵、App 與實體作品。'
     emit('<!doctype html><html lang="zh-Hant">'+head(path,title,desc)+body,path)
 
