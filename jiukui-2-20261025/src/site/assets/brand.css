@@ -9,3 +9,14 @@
 
 
 .case-hero figcaption{color:#4f583f}
+
+.project-actions .project-link:hover svg{transform:translate(2px,-2px)}
+.nav-toggle .menu-glyph{position:relative;display:block;width:23px;height:23px}
+.nav-toggle .menu-stroke{position:absolute;left:2.5px;top:10.75px;width:18px;height:1.5px;background:currentColor;transform-origin:center;transition:transform 300ms ease,opacity 300ms ease}
+.nav-toggle .menu-stroke:nth-child(1){transform:translateY(-6px)}
+.nav-toggle .menu-stroke:nth-child(3){transform:translateY(6px)}
+.nav-toggle[aria-expanded="true"] .menu-stroke:nth-child(1){transform:rotate(45deg)}
+.nav-toggle[aria-expanded="true"] .menu-stroke:nth-child(2){opacity:0;transform:scaleX(.7)}
+.nav-toggle[aria-expanded="true"] .menu-stroke:nth-child(3){transform:rotate(-45deg)}
+[data-exhibit-video]{pointer-events:none;cursor:default!important;user-select:none;-webkit-user-select:none}
+@media(prefers-reduced-motion:reduce){.nav-toggle .menu-stroke{transition:none}}

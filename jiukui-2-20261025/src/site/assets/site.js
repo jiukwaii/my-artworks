@@ -14,7 +14,6 @@
   function setMenu(open, restoreFocus = false) {
     const expanded = mobileNav.matches && open;
     navToggle.setAttribute('aria-expanded', String(expanded));
-    navToggle.querySelector('path').setAttribute('d', expanded ? 'M5 5l14 14M5 19L19 5' : 'M4 6h16M4 12h16M4 18h16');
     navToggle.setAttribute('aria-label', expanded ? '關閉導覽選單' : '開啟導覽選單');
     navigation.hidden = mobileNav.matches && !expanded;
     if (restoreFocus && mobileNav.matches) navToggle.focus({preventScroll:true});
@@ -395,14 +394,12 @@
   function setupExhibitVideo(video) {
     const exhibitName = video.dataset.exhibitName || '模型影片';
     let visible = false;
-    let manualPause = false;
-    let userStartedPlayback = false;
     let pending = false;
     let retryCount = 0;
     let retryTimer = 0;
     let scrollTimer = 0;
     function allowedToAutoplay() {
-      return visible && !manualPause && !document.hidden && !dialog.open && (!reduce.matches || userStartedPlayback) && !video.parentElement.classList.contains('media-error');
+      return visible && !document.hidden && !dialog.open && !video.parentElement.classList.contains('media-error');
     }
     function clearRetry() {
       clearTimeout(retryTimer);
@@ -452,36 +449,16 @@
     // A silent inline exhibit, without a visible player toolbar.
     video.controls = false;
     video.playbackRate = 1;
-    video.tabIndex = 0;
-    video.setAttribute('role', 'button');
-    function syncPlaybackLabel() {
-      if (video.parentElement.classList.contains('media-error')) return;
-      video.setAttribute('aria-label', (video.paused ? '播放' : '暫停') + exhibitName);
-    }
-    function togglePlayback() {
-      clearRetry();
-      if (video.paused) {
-        manualPause = false;
-        userStartedPlayback = true;
-        retryCount = 0;
-        video.muted = true;
-        video.play().catch(() => {syncPlaybackLabel();});
-      } else {
-        manualPause = true;
-        userStartedPlayback = false;
-        video.autoplay = false;
-        video.pause();
-      }
-    }
-    video.addEventListener('click', togglePlayback);
-    video.addEventListener('keydown', event => {
-      if (event.key === ' ' || event.key === 'Enter') {
-        event.preventDefault();
-        togglePlayback();
-      }
-    });
-    video.addEventListener('play', syncPlaybackLabel);
-    video.addEventListener('pause', syncPlaybackLabel);
+    video.defaultMuted = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.disablePictureInPicture = true;
+    video.tabIndex = -1;
+    video.removeAttribute('role');
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('aria-label', exhibitName);
     function mediaError() {
       video.removeAttribute('role');
       video.removeAttribute('tabindex');
@@ -490,7 +467,6 @@
     }
     video.addEventListener('error', mediaError);
     video.querySelector('source')?.addEventListener('error', mediaError);
-    syncPlaybackLabel();
     if (video.error || video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) mediaError();
     new IntersectionObserver(refreshVideo, {threshold:[0,.05,.15,.3,.5,.8,1]}).observe(video);
     addEventListener('scroll', () => {
@@ -500,7 +476,6 @@
     addEventListener('resize', refreshVideo, {passive:true});
     addEventListener('pageshow', refreshVideo);
     document.addEventListener('visibilitychange', refreshVideo);
-    reduce.addEventListener('change', () => {userStartedPlayback = false;refreshVideo();});
     // Offscreen exhibits must not compete with the first-screen portrait.
     // A direct jump into a project still starts playback immediately via play().
     let nearForPreload = false;
@@ -510,7 +485,7 @@
       if (warmed || !nearForPreload || document.hidden) return;
       if (portrait && !portrait.complete) return;
       warmed = true;
-      video.preload = 'metadata';
+      video.preload = 'auto';
       if (video.readyState === 0 && video.paused && !pending) video.load();
       warmObserver.unobserve(video);
     }
@@ -527,4 +502,7 @@
   }
   const videoControllers = [...document.querySelectorAll('[data-exhibit-video]')].map(setupExhibitVideo);
   function updateVideo() { videoControllers.forEach(refresh => refresh()); }
+  for (const event of ['pointerdown', 'touchend', 'keydown']) {
+    document.addEventListener(event, updateVideo, {passive:true});
+  }
 })();

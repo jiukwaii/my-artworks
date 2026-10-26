@@ -1,0 +1,8 @@
+{
+  "arrow_reference": "https://youxiaopeng.com/",
+  "arrow_observation": "Project destination links use a top-right arrow; implementation reuses Jiukui existing diagonal SVG.",
+  "menu_reference": "https://jiukwaii.github.io/my-artworks/index.html",
+  "menu_observation": "Three horizontal lines; top and bottom rotate into an X, middle fades; 300ms ease.",
+  "video_policy_source": "https://webkit.org/blog/6784/new-video-policies-for-ios/",
+  "video_scope": "Muted, inline, loop, autoplay when visible. No click or keyboard playback toggle. Respect page visibility and original-image dialog."
+}

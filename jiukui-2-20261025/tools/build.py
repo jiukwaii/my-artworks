@@ -33,7 +33,7 @@ def card(i):
     actions=''
     if i!=1:
         old=re.search(r'<a class="project-link".*?</a>',original,re.S)
-        if old: actions+=old.group(0)
+        if old: actions+=old.group(0).replace('href="#arrow"', 'href="#diagonal"')
     if i==6: actions+=re.search(r'<div class="model-photos">.*?</div>',original,re.S).group(0)
     action_group=f'<div class="project-actions">{actions}</div>' if actions else ''
     return cover+f'<div class="project-copy">{meta}<h3 id="project-{i}">{escape(p["name"])}</h3><p class="project-summary">{escape(p["summary"])}</p><p class="project-context">{context}</p>{action_group}</div></article>'
@@ -89,6 +89,12 @@ def homepage():
     body=re.sub(r'<section class="works chapter".*?</section>',lambda _:work,body,count=1,flags=re.S)
     extra='<section class="experiments chapter" id="experiments" aria-labelledby="experiments-title">'+section_title('experiments-title','更多創作與嘗試')+'<h3 class="collection-title">日常小工具</h3><p class="section-intro">把反覆遇到的小困擾，做成可以試用的網頁。</p><div class="project-grid supporting-grid">'+''.join(card(i) for i in (5,4))+'</div><h3 class="collection-title">角色與實體探索</h3><div class="project-grid supporting-grid">'+''.join(card(i) for i in (3,6))+'</div><h3 class="collection-title">早期遊戲</h3><p class="section-intro">2025 年的兩次練習，保留開始、挑戰、失敗與再試一次。</p><div class="project-grid supporting-grid">'+''.join(card(i) for i in (7,8))+'</div></section>'
     body=body.replace('<section class="gallery"',extra+'<section class="gallery"',1)
+    menu_icon='<span class="menu-glyph" aria-hidden="true"><span class="menu-stroke"></span><span class="menu-stroke"></span><span class="menu-stroke"></span></span>'
+    body=re.sub(r'(<button class="nav-toggle"[^>]*>).*?(</button>)',lambda match:match.group(1)+menu_icon+match.group(2),body,count=1,flags=re.S)
+    def showcase_video(match):
+        tag=re.sub(r'\s+(?:preload|controls|autoplay)(?:="[^"]*")?(?=\s|>)','',match.group(0))
+        return tag[:-1]+' autoplay preload="metadata" disablepictureinpicture tabindex="-1">'
+    body=re.sub(r'<video\b[^>]*>',showcase_video,body)
     title='玖葵 Jiukui — 把想像做成作品'
     desc='來自馬來西亞的獨立創作者。從插畫出發，把角色與日常想法做成遊戲、桌寵、App 與實體作品。'
     emit('<!doctype html><html lang="zh-Hant">'+head(path,title,desc)+body,path)

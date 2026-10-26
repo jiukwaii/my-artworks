@@ -41,7 +41,7 @@ const OUT=path.join(ROOT,'evidence','qa');fs.mkdirSync(OUT,{recursive:true});
  check('Book scroll progresses',Number(poses[2])>Number(poses[0]));
  check('Book copy stays inside pages',await p.locator('.spread-two .book-page-copy').evaluate(e=>e.getBoundingClientRect().bottom<e.closest('.book-page').getBoundingClientRect().bottom-15));
  const vids=p.locator('[data-exhibit-video]');await vids.first().scrollIntoViewIfNeeded();await p.waitForTimeout(900);check('Pet recording can play',await vids.first().evaluate(v=>v.readyState>=2&&!v.paused));
- await vids.first().focus();await p.keyboard.press('Enter');await p.waitForTimeout(150);check('Pet keyboard pause',await vids.first().evaluate(v=>v.paused));
+ check('Pet is display only',await vids.first().evaluate(v=>!v.hasAttribute('role')&&v.tabIndex<0&&!v.controls));
  await p.close();
  // No-script reading, artwork links, and case navigation remain available.
  const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const n=await context.newPage();await n.goto(BASE);check('No-JS all work visible',await n.locator('.project-card').count()===9&&await n.locator('nav').isVisible());await context.close();
