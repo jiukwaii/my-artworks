@@ -10,11 +10,11 @@
 
 .case-hero figcaption{color:#4f583f}
 
-@font-face{font-family:'Jiukui Project Arrow';font-style:normal;font-weight:800;font-display:swap;src:url('fonts/project-arrow-800.ttf') format('truetype');unicode-range:U+2197}
-.project-actions .project-link{gap:0}
-.project-actions .project-link:after{right:21px}
-.project-arrow{display:inline-block;margin-left:8px;font-family:'Jiukui Project Arrow',sans-serif;font-size:12px;font-weight:800;line-height:1.65;letter-spacing:.08em;transition:transform 260ms var(--ease)}
-.project-actions .project-link:hover .project-arrow{transform:translate(6px,-3px)}
+.project-actions .project-link,.model-photo-link{gap:10px;font-size:14px;line-height:1.6;min-height:44px}
+.project-actions .project-link:after{right:26px}
+.project-actions .project-arrow{display:block;width:16px;height:16px;flex:0 0 16px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;transition:transform 220ms var(--ease)}
+.project-actions .project-link:is(:hover,:focus-visible) .project-arrow{transform:translate(2px,-2px)}
+.model-photo-link:is(:hover,:focus-visible) .project-arrow{transform:translateX(2px)}
 .nav-toggle .menu-glyph{position:relative;display:block;width:23px;height:23px}
 .nav-toggle .menu-stroke{position:absolute;left:2.5px;top:10.75px;width:18px;height:1.5px;background:currentColor;transform-origin:center;transition:transform 300ms ease,opacity 300ms ease}
 .nav-toggle .menu-stroke:nth-child(1){transform:translateY(-6px)}

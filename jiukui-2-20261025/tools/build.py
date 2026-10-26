@@ -12,6 +12,9 @@ BASE='https://jiukui.vercel.app/'
 DATA=json.loads((ROOT/'content.json').read_text('utf8'))
 LIVE=(ROOT/'templates/live.html').read_text('utf8')
 ARROW='<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>'
+def project_arrow(direction):
+    path='M6 18 18 6M6 6h12v12' if direction=='external' else 'M4 12h16m-6-6 6 6-6 6'
+    return f'<svg class="project-arrow" data-direction="{direction}" viewBox="0 0 24 24" aria-hidden="true"><path d="{path}"/></svg>'
 def link(url,label,external=False):
     return f'<a class="project-link" href="{escape(url)}"'+(' target="_blank" rel="noopener noreferrer"' if external else '')+f'>{escape(label)}{ARROW}</a>'
 def section_title(id,title):
@@ -34,8 +37,10 @@ def card(i):
     if i!=1:
         old=re.search(r'<a class="project-link".*?</a>',original,re.S)
         if old:
-            actions+=re.sub(r'<svg\b[^>]*>.*?</svg>','<span class="project-arrow" aria-hidden="true">↗</span>',old.group(0),flags=re.S)
-    if i==6: actions+=re.search(r'<div class="model-photos">.*?</div>',original,re.S).group(0)
+            actions+=re.sub(r'<svg\b[^>]*>.*?</svg>',project_arrow('external'),old.group(0),flags=re.S)
+    if i==6:
+        photos=re.search(r'<div class="model-photos">.*?</div>',original,re.S).group(0)
+        actions+=re.sub(r'<svg\b[^>]*>.*?</svg>',project_arrow('photo'),photos,flags=re.S)
     action_group=f'<div class="project-actions">{actions}</div>' if actions else ''
     return cover+f'<div class="project-copy">{meta}<h3 id="project-{i}">{escape(p["name"])}</h3><p class="project-summary">{escape(p["summary"])}</p><p class="project-context">{context}</p>{action_group}</div></article>'
 
