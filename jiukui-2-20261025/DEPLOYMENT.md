@@ -1,5 +1,7 @@
 # 生产发布记录
 
+> 最新生产：2026-10-26 右上斜箭头、纯展示自动循环影片与手机菜单过渡。部署dpl_6LTVPgnbHhFzNNYZLgHhdtxp85jf，运行代码a2b2e47f2128876e2b3e8ea34f0ba39c6fe8cf23，正式域名jiukui.vercel.app已生效。较早发布记录保留供追溯。
+
 > 最新生产：2026-10-25 iPhone Safari精选预览修复，部署dpl_6mNaoqSA6iX1s298E9PJXy4sUkuY，运行代码fbf1bfb0597a302fc85d65ae9e00481a5def73c6；jiukui.vercel.app已指向新部署。下文首次发布保留为历史记录。
 
 2026-10-25，用户明确要求“部署”，授权把当前修改版发布到既有正式站。
@@ -24,3 +26,7 @@
 ## iPhone Safari修复上线核验
 
 通过WebKit复现原缩窄问题后，修复首件精选的手机对齐和明确宽度，恢复4:3。已发布正式站，READY且正式域名别名生效。WebKit与Chrome在375/393/430/1440共8项线上检查全部通过；线上HTML/CSS与本地修复文件规范化换行后一致。393px视口预览宽度由约221px恢复327px，桌面样式保持。记录位于evidence/mobile-preview-fix/live-checks.json与published-files.json。尚未由用户在其实际iPhone刷新验收。
+
+## 2026-10-26 线上展示交互验证
+
+WebKit/Chrome × 手机393px/桌面1440px × 普通/减少动态偏好，共8组线上检查全部通过。三段真实影片可见即自动静音循环，无播放暂停UI、点击不会暂停，已退出键盘焦点。六个体验入口为右上斜箭头，站内照片入口与Hero入口保留各自方向。菜单300ms旋转/淡出中间状态、X终态、Esc关闭和焦点返回均验证；减少动态时直接切换。未出现脚本错误或横向溢出。正式HTML/CSS/JS与本地文件规范化换行后完全一致，见evidence/showcase-interactions/live-checks.json、published-files.json与截图。不是用户物理iPhone验收，不声称能绕过浏览器系统级媒体限制。

@@ -1,0 +1,602 @@
+[
+  {
+    "engine": "webkit",
+    "width": 393,
+    "reducedMotion": "no-preference",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.1009505,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3900022
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0516701,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3363048
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0239156,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3279452
+        }
+      }
+    ],
+    "menu": {
+      "closed": "matrix(1, 0, 0, 1, 0, -6)",
+      "middle": "matrix(0.979622, 0.200849, -0.200849, 0.979622, 0, -4.455118)",
+      "open": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "visible": true,
+      "expanded": "true",
+      "middleOpacity": "0",
+      "closedAgain": "matrix(1, 0, 0, 1, 0, -6)",
+      "focusRestored": true,
+      "pass": true
+    },
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "width": 393,
+    "reducedMotion": "reduce",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.1052186,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.4039136
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0396607,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3306525
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0307863,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.333687
+        }
+      }
+    ],
+    "menu": {
+      "closed": "matrix(1, 0, 0, 1, 0, -6)",
+      "middle": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "open": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "visible": true,
+      "expanded": "true",
+      "middleOpacity": "0",
+      "closedAgain": "matrix(1, 0, 0, 1, 0, -6)",
+      "focusRestored": true,
+      "pass": true
+    },
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "reducedMotion": "no-preference",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0307983,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3200506
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0964448,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3846458
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 1.0869348,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 1.3796128
+        }
+      }
+    ],
+    "menu": null,
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "reducedMotion": "reduce",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.1086287,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3904466
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.0544288,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.3548267
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.5448077,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.8516109
+        }
+      }
+    ],
+    "menu": null,
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "width": 393,
+    "reducedMotion": "no-preference",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.021699,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.309906
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.02103,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.311437
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.025113,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.297063
+        }
+      }
+    ],
+    "menu": {
+      "closed": "matrix(1, 0, 0, 1, 0, -6)",
+      "middle": "matrix(0.999548, 0.0300504, -0.0300504, 0.999548, 0, -5.7704)",
+      "open": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "visible": true,
+      "expanded": "true",
+      "middleOpacity": "0",
+      "closedAgain": "matrix(1, 0, 0, 1, 0, -6)",
+      "focusRestored": true,
+      "pass": true
+    },
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "width": 393,
+    "reducedMotion": "reduce",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.018402,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.294224
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.023253,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.308202
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.025957,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.30474
+        }
+      }
+    ],
+    "menu": {
+      "closed": "matrix(1, 0, 0, 1, 0, -6)",
+      "middle": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "open": "matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0)",
+      "visible": true,
+      "expanded": "true",
+      "middleOpacity": "0",
+      "closedAgain": "matrix(1, 0, 0, 1, 0, -6)",
+      "focusRestored": true,
+      "pass": true
+    },
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "reducedMotion": "no-preference",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.013886,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.312748
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.020373,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.304214
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 1.23183,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 1.516936
+        }
+      }
+    ],
+    "menu": null,
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "reducedMotion": "reduce",
+    "videos": [
+      {
+        "name": "Pouch Pet 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.020506,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.307053
+        }
+      },
+      {
+        "name": "Puff 桌面運行影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.022229,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.328722
+        }
+      },
+      {
+        "name": "模型影片",
+        "started": true,
+        "muted": true,
+        "loop": true,
+        "inline": true,
+        "controls": false,
+        "role": null,
+        "tabIndex": -1,
+        "time": 0.374725,
+        "pointerEvents": "none",
+        "pass": true,
+        "afterTap": {
+          "paused": false,
+          "time": 0.645867
+        }
+      }
+    ],
+    "menu": null,
+    "arrows": [
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal",
+      "#diagonal"
+    ],
+    "errors": [],
+    "overflow": false,
+    "pass": true
+  }
+]
