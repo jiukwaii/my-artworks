@@ -1,6 +1,6 @@
 # Jiukui — Personal Website 2.0
 
-已于2026-10-25按用户授权部署到 **https://jiukui.vercel.app/**。运行代码提交c7e7d12（体验与模型照片统一16px细线箭头，保留纯展示影片、菜单过渡和iPhone预览修复），生产与核验记录见DEPLOYMENT.md。基线为同一正式站此前版本，不是更早的本地cottage/hero版本。
+已于2026-10-25按用户授权部署到 **https://jiukui.vercel.app/**。运行代码提交2b3cb1d（网页标题恢复「玖葵 Jiukui」，保留细线箭头、纯展示影片、菜单过渡和iPhone预览修复），生产与核验记录见DEPLOYMENT.md。基线为同一正式站此前版本，不是更早的本地cottage/hero版本。
 
 ## 运行与维护
 

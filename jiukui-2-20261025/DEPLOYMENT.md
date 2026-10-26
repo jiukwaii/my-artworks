@@ -1,5 +1,7 @@
 # 生产发布记录
 
+> 最新生产：2026-10-26 网页、分享标题及结构化WebPage名称恢复「玖葵 Jiukui」。部署dpl_iM9FRE87LSxTPYhtTGXgu7P6BCS7，运行代码2b3cb1daca2dd9b8470bb7ada7122624a1f90232。正式域名HTTP200，title/og:title/twitter:title均已核对，线上HTML与本地完全一致；静态检查通过，126份原始素材保持不变。见evidence/name-only-title/live-check.json。
+
 > 最新生产：2026-10-26 统一16px细线作品箭头，部署dpl_763bSqLbWmCvb3Z79dQE1qV2pXvQ，运行代码c7e7d128afef2acd424a2c22a42eda195186998f。六个体验入口右上斜箭头，模型照片横箭头。正式域名Chrome/WebKit的393px与1440px四项样式、悬停、溢出、照片打开及焦点检查通过；HTML/CSS/JS与发布文件一致。本地影片/菜单八项回归通过，126份原始二进制素材保持不变。截图与结果见evidence/arrow-family；本轮没有物理iPhone检查。
 
 > 最新生产：2026-10-26 参考箭头字形纠正，部署dpl_HoN12mxoJo2M2VCiZnAq2Y45Cdnu，运行代码5ec6a6c6f9142bdd306da823becfe2c62f6c2594。正式域名已生效；后续为历史发布记录。
