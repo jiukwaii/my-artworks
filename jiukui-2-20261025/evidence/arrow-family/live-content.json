@@ -1,0 +1,14 @@
+[
+  {
+    "file": "index.html",
+    "matches": true
+  },
+  {
+    "file": "assets/brand.css",
+    "matches": true
+  },
+  {
+    "file": "assets/site.js",
+    "matches": true
+  }
+]

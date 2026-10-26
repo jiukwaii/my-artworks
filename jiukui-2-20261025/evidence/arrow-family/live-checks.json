@@ -1,0 +1,118 @@
+[
+  {
+    "engine": "webkit",
+    "width": 393,
+    "external": 6,
+    "photo": 1,
+    "overflow": false,
+    "styles": [
+      {
+        "kind": "external",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      },
+      {
+        "kind": "photo",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      }
+    ],
+    "photoOpens": true,
+    "focusRestored": true,
+    "errors": [],
+    "pass": true
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "external": 6,
+    "photo": 1,
+    "overflow": false,
+    "styles": [
+      {
+        "kind": "external",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      },
+      {
+        "kind": "photo",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      }
+    ],
+    "photoOpens": true,
+    "focusRestored": true,
+    "errors": [],
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "width": 393,
+    "external": 6,
+    "photo": 1,
+    "overflow": false,
+    "styles": [
+      {
+        "kind": "external",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      },
+      {
+        "kind": "photo",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      }
+    ],
+    "photoOpens": true,
+    "focusRestored": true,
+    "errors": [],
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "external": 6,
+    "photo": 1,
+    "overflow": false,
+    "styles": [
+      {
+        "kind": "external",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      },
+      {
+        "kind": "photo",
+        "width": "16px",
+        "height": "16px",
+        "stroke": "1.3px",
+        "fill": "none",
+        "gap": "10px"
+      }
+    ],
+    "photoOpens": true,
+    "focusRestored": true,
+    "errors": [],
+    "pass": true
+  }
+]
