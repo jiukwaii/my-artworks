@@ -33,7 +33,8 @@ def card(i):
     actions=''
     if i!=1:
         old=re.search(r'<a class="project-link".*?</a>',original,re.S)
-        if old: actions+=old.group(0).replace('href="#arrow"', 'href="#diagonal"')
+        if old:
+            actions+=re.sub(r'<svg\b[^>]*>.*?</svg>','<span class="project-arrow" aria-hidden="true">↗</span>',old.group(0),flags=re.S)
     if i==6: actions+=re.search(r'<div class="model-photos">.*?</div>',original,re.S).group(0)
     action_group=f'<div class="project-actions">{actions}</div>' if actions else ''
     return cover+f'<div class="project-copy">{meta}<h3 id="project-{i}">{escape(p["name"])}</h3><p class="project-summary">{escape(p["summary"])}</p><p class="project-context">{context}</p>{action_group}</div></article>'

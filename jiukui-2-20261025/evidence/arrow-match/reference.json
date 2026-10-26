@@ -1,0 +1,29 @@
+{
+  "link": {
+    "fontFamily": "\"Space Grotesk\", \"Noto Sans SC\", sans-serif",
+    "fontSize": "12px",
+    "fontWeight": "800",
+    "lineHeight": "19.8px",
+    "letterSpacing": "0.96px",
+    "gap": "normal",
+    "display": "block",
+    "borderBottom": "0px none rgb(255, 253, 248)",
+    "textDecorationLine": "none",
+    "transition": "all",
+    "transform": "none"
+  },
+  "arrow": {
+    "fontFamily": "\"Space Grotesk\", \"Noto Sans SC\", sans-serif",
+    "fontSize": "12px",
+    "fontWeight": "800",
+    "lineHeight": "19.8px",
+    "letterSpacing": "0.96px",
+    "gap": "normal",
+    "display": "inline-block",
+    "borderBottom": "0px none rgb(255, 253, 248)",
+    "textDecorationLine": "none",
+    "transition": "transform 0.26s cubic-bezier(0.22, 1, 0.36, 1)",
+    "transform": "none"
+  },
+  "html": "访问网站 <span>↗</span>"
+}

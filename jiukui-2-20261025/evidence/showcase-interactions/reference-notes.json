@@ -1,6 +1,6 @@
 {
   "arrow_reference": "https://youxiaopeng.com/",
-  "arrow_observation": "Project destination links use a top-right arrow; implementation reuses Jiukui existing diagonal SVG.",
+  "arrow_observation": "Corrected to the actual U+2197 text glyph rendered in Noto Sans SC 800, 12px, margin-left 8px; hover translate(6px,-3px) in 260ms. Prior SVG matched direction only.",
   "menu_reference": "https://jiukwaii.github.io/my-artworks/index.html",
   "menu_observation": "Three horizontal lines; top and bottom rotate into an X, middle fades; 300ms ease.",
   "video_policy_source": "https://webkit.org/blog/6784/new-video-policies-for-ios/",

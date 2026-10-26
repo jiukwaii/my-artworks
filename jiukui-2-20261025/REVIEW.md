@@ -83,3 +83,7 @@
 WebKit/Chrome × 393/1440px × 普通/减少动态，8组本地检查全部通过：24次影片自动启动/静音循环属性/点击不停播、纯展示语义、六个体验箭头、菜单中间过渡与开合/焦点、无横向溢出或脚本错误。记录evidence/showcase-interactions/local-checks.json。未声称真机Safari或系统级禁止播放也能绕过；媒体策略来源见reference-notes.json。
 
 本轮已部署至正式域名，另8组相同条件线上回归全部通过；HTML/CSS/JS与本地发布文件一致。最终线上验证见evidence/showcase-interactions/live-checks.json。
+
+## 参考箭头字形纠正
+
+上一轮仅匹配方向，SVG大小与粗细不一致。通过实际DOM、CSS与Chrome平台字体确认参考箭头是Noto Sans SC 800的文本↗，这次匹配字形/12px/800/8px间距/.08em/260ms hover(6,-3)。WebKit/Chrome × 393/1440共4项本地检查通过，六个入口不再含SVG，hover终点一致，无溢出或脚本错误。测试内关闭平滑滚动仅为固定鼠标位置，不改变网站滚动。对照见evidence/arrow-match；字体来自Google Fonts单字形子集，许可已附。

@@ -20,7 +20,7 @@ const live=target.startsWith('https:'),out=path.join(root,'evidence/showcase-int
    start.afterTap=end;row.videos.push(start);
    if(width===393&&reducedMotion==='no-preference')await p.screenshot({path:path.join(out,`${live?'live':'local'}-${engine}-video-${i}.png`)});
   }
-  row.arrows=await p.locator('.project-actions .project-link use').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href')));
+  row.arrows=await p.locator('.project-actions .project-link .project-arrow').evaluateAll(nodes=>nodes.map(n=>n.textContent));
   if(width<700){
    await p.evaluate(()=>scrollTo({top:0,behavior:'instant'}));const button=p.locator('.nav-toggle'),line=p.locator('.menu-stroke').first();
    const closed=await line.evaluate(e=>getComputedStyle(e).transform);await button.click();
@@ -34,7 +34,7 @@ const live=target.startsWith('https:'),out=path.join(root,'evidence/showcase-int
    if(reducedMotion==='no-preference'){await button.click();await p.waitForTimeout(320);await p.screenshot({path:path.join(out,`${live?'live':'local'}-${engine}-menu-open.png`)});await p.locator('nav a[href="#work"]').click()}
   }
   row.errors=errors;row.overflow=await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
-  row.pass=!errors.length&&!row.overflow&&row.videos.length===3&&row.videos.every(v=>v.pass)&&row.arrows.length===6&&row.arrows.every(a=>a==='#diagonal')&&(!row.menu||row.menu.pass);
+  row.pass=!errors.length&&!row.overflow&&row.videos.length===3&&row.videos.every(v=>v.pass)&&row.arrows.length===6&&row.arrows.every(a=>a==='↗')&&(!row.menu||row.menu.pass);
   results.push(row);console.log(`${engine} ${width} ${reducedMotion}: ${row.pass?'PASS':'FAIL'}`);await browser.close();
  }
  fs.writeFileSync(path.join(out,`${live?'live':'local'}-checks.json`),JSON.stringify(results,null,2));
