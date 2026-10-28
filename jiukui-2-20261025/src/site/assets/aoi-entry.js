@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-aoi-copy]').forEach(button=>button.addEventListener('click',async()=>{const status=button.closest('article').querySelector('.aoi-copy-status');try{await navigator.clipboard.writeText(button.dataset.aoiCopy);status.textContent='已複製連結，可以傳到電腦開啟。';}catch{status.textContent='遊戲連結：'+button.dataset.aoiCopy;}}));

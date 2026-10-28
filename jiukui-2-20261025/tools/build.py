@@ -57,7 +57,8 @@ def head(path,title,description):
     keep=[s for s in keep if not any(x in s for x in ['canonical','alternate','name="description"','name="robots"','property="og:','name="twitter:'])]
     keep=[re.sub(r'\?v=[^" ]+','',s) for s in keep]
     scripts='' if 'projects/' in path else ''.join(re.sub(r'\?v=[^" ]+','',s) for s in re.findall(r'<script src=.*?</script>',old))
-    return '<head>'+''.join(keep)+meta+'<link rel="stylesheet" href="assets/brand.css">'+scripts+'</head>'
+    aoi='<link rel="stylesheet" href="assets/aoi-entry.css"><script src="assets/aoi-entry.js" defer></script>' if not path else ''
+    return '<head>'+''.join(keep)+meta+'<link rel="stylesheet" href="assets/brand.css">'+scripts+aoi+'</head>'
 
 class LocalPaths(HTMLParser):
     """Make local asset and navigation paths portable at any depth."""
@@ -84,7 +85,7 @@ def emit(html,path):
     parser=LocalPaths(prefix); parser.feed(html)
     html=''.join(parser.out)
     # Content hashes prevent stale assets without requiring a bundler.
-    for name in ['hero.css','site.css','book-effects.css','book-prototype.css','brand.css','site.js','book-interactions.js','book-prototype.js']:
+    for name in ['hero.css','site.css','book-effects.css','book-prototype.css','brand.css','aoi-entry.css','aoi-entry.js','site.js','book-interactions.js','book-prototype.js']:
         file=SITE/'assets'/name
         html=html.replace('assets/'+name+'"','assets/'+name+'?v='+sha256(file.read_bytes()).hexdigest()[:12]+'"')
     dest=SITE/path/'index.html'; dest.parent.mkdir(parents=True,exist_ok=True); dest.write_text(html,encoding='utf8')
@@ -112,4 +113,4 @@ if __name__=='__main__':
     sitemap='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+BASE+p+'</loc></url>' for p in paths)+'</urlset>'
     (SITE/'sitemap.xml').write_text(sitemap,encoding='utf8')
     (SITE/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+BASE+'sitemap.xml\n',encoding='utf8')
-    print('Built Traditional Chinese homepage; 10 projects, 12 illustrations retained. Added a fourth selected work with direct Windows download.')
+    print('Built Traditional Chinese homepage; 10 projects, 12 illustrations retained. Added a fourth selected work with direct desktop browser play.')

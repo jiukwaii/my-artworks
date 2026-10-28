@@ -1,0 +1,14 @@
+Last Day Postman 1.0.0 rebuilt buildings and coastal vegetation
+
+New geometry authored locally with Blender 4.5.14 through project scripts:
+greenhouse, postal_room, coastal_tree, coastal_shrub, coastal_rock.
+Editable .blend sources and reproducible authoring script are included.
+No external model generator or paid-provider jobs were invoked for these assets.
+
+Materials reuse project wood_grain.png and Poly Haven sandstone_diff.png.
+See Poly-Haven-Sandstone.txt and earlier project asset notices for those sources.
+Original character meshes, animation and other building assets remain governed
+by the inherited project provenance records. This file does not replace them.
+
+Native source reopen and clean GLB reimport were verified in
+reports/native-assets.json. Runtime appearance is documented separately.

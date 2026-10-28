@@ -1,0 +1,13 @@
+Last Day Postman 1.1.0, architecture refinement part 1
+
+Locally authored, editable Blender assets:
+postal_room_refined, greenhouse_refined, entry_fittings.
+Source retains individual parts and bevel modifiers. Export copies are joined
+by material to reduce runtime draw calls. No generator service was used.
+Existing project wood-grain and Poly Haven sandstone textures are reused.
+See inherited provenance records for texture and supporting building sources.
+
+Original character, animation, audio and story assets are preserved.
+New geometry source reopen/reimport checks and neutral source renders are
+recorded in reports/native-architecture.json and reports/native-architecture/.
+Runtime camera/material appearance is checked separately in actual game runs.

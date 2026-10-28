@@ -173,6 +173,8 @@
     "version": "2.2.0",
     "download_url": "https://github.com/jiukwaii/aoi-summer-letter-releases/releases/download/v2.2.0/Aoi-SummerLetter-Setup-2.2.0.exe",
     "release_url": "https://github.com/jiukwaii/aoi-summer-letter-releases/releases/tag/v2.2.0",
-    "bytes": 479370641
+    "bytes": 479370641,
+    "play_url": "/play/aoi/",
+    "web_version": "2.2.2"
   }
 }

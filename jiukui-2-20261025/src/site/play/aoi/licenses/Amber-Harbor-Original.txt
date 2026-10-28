@@ -1,0 +1,6 @@
+Amber Harbor first-letter environment, geometry and material maps
+Original assets authored for PROJECT AOI / 梁嘉伟, 2026.
+Produced locally using Blender, Python, deterministic material synthesis and vertex ambient-occlusion baking.
+No new external AI generation, paid services or stock models were used for this kit.
+The reference design sheets are concept art, not gameplay screenshots.
+Existing characters and assets retain their original licenses in this folder.

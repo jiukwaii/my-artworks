@@ -1,0 +1,6 @@
+Poly Haven: Sandstone Cracks
+https://polyhaven.com/a/sandstone_cracks
+License: CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+Original 1K diffuse, OpenGL normal and roughness maps downloaded from official CDN.
+Unmodified source images included in game/assets/surface; source URLs and SHA256 in source_assets/texture_sources.json.

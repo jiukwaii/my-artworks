@@ -1,0 +1,16 @@
+葵·夏日送信 / 第四版新增内容
+
+自行车、信件纸件、照片框、纸风标、录音机、杯子、风铃：
+在本项目中通过Blender本地建模，原生源文件source_assets/summer/summer_assets.blend。
+各模型与编辑源的生成脚本位于tools/author_assets.py。
+未调用外部付费生成提供商，没有下载新的第三方模型。
+
+声音片段summer_memory.wav由本项目既有音频重新编排，来源见
+game/assets/summer/audio_provenance.json；沿用既有音频的许可条件。
+车铃bicycle_bell.wav与雨声rain.wav为本地数学/随机过程合成，脚本tools/setup_audio.py。
+片段是故事预制音轨，不是用户麦克风录音，也不是自由录音编辑功能。
+
+地图和新增界面图形由本地代码绘制。
+角色、既有建筑/道具、字体、材质和音频来源保持各原有许可文件说明。
+新增作品为本项目创作，交付梁嘉伟在葵IP游戏项目中使用、修改与继续制作。
+没有把不明来源资产重新标注为CC0或任意第三方开放许可。

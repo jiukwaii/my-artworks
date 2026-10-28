@@ -1,0 +1,11 @@
+Three building replacements: florist, nursery, harbor waiting pavilion.
+References: project-authored florist image from the previous asset workflow.
+New multiview image sheets: built-in image_gen, prompts and exact inputs retained.
+3D generation: Tencent Hunyuan official website, V3.1, 50k setting.
+Actual downloaded GLBs, hashes, input views, processing reports and Blender files
+are retained under source_assets/hunyuan/. No paid API or purchased credits used.
+Generated texture colors retained. Normalization, tiny-fragment cleanup, nursery
+mesh reduction, original stone foundation retention and Godot automatic LOD used.
+Project-authored typography and existing Noto Sans TC font notice remain applicable.
+Provider terms: https://rule.tencent.com/rule/202501080004
+This record establishes source and processing provenance, not a new license grant.

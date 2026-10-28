@@ -1,0 +1,4 @@
+Restored foreground derives from the locally authored Blender source and material maps of LastDayPostman Polish 0.3.0.
+Original assets authored for PROJECT AOI / 梁嘉伟.
+Current background, characters and audio retain the supplied asset licenses.
+No new paid generation or stock purchases were used for this build.

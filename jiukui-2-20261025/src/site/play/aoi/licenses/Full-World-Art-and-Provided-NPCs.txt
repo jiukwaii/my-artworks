@@ -1,0 +1,14 @@
+Full world environment library, 2026-10-19
+Original Blender geometry authored in this workspace for this game:
+source_assets/full_world/full_world.blend
+Source generators: tools/build_full_art.py, tools/make_world_signs.py
+Uses the pre-existing project texture/font library; its upstream notices remain
+applicable. No newly purchased assets or cloud generation credits were used.
+
+NPC sources provided by the user at C:/Users/user/Downloads/npc.
+Five characters, each supplied with Idle and Walking FBX animations.
+Original sources and SHA256 are retained under source_assets/npc_mixamo/.
+Runtime GLBs are derived copies with normalization and animation preparation.
+Original face/color maps retained; no AI regeneration or repainting was done.
+This record establishes supplied-file provenance, not a new license grant.
+The upstream character/animation terms remain applicable to these supplied files.
