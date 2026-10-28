@@ -16,7 +16,7 @@ const OUT=path.join(ROOT,'evidence','qa');fs.mkdirSync(OUT,{recursive:true});
   await page.waitForTimeout(150);
   const data=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,projects:document.querySelectorAll('.project-card').length,selected:document.querySelectorAll('.selected-grid>.project-card').length,artworks:document.querySelectorAll('.artwork').length,broken:[...document.images].filter(i=>i.id!=='viewer-image'&&i.getAttribute('src')&&(!i.complete||!i.naturalWidth)).map(i=>i.src),overflow:[...document.querySelectorAll('main *')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&getComputedStyle(e).position!=='absolute'&&(r.right>innerWidth+2||r.left< -2)}).slice(0,12).map(e=>({tag:e.tagName,cls:e.className.baseVal??e.className})),duplicates:[...document.querySelectorAll('[id]')].map(e=>e.id).filter((v,i,a)=>a.indexOf(v)!==i)}));
   data.locale=locale||'zh';data.errors=errors;data.failed=failed;results.push(data);
-  check(`${data.locale}-${width} integrity`,data.projects===9&&data.selected===3&&data.artworks===12&&!data.broken.length&&!errors.length&&!failed.length&&!data.duplicates.length&&data.scrollWidth<=width);
+  check(`${data.locale}-${width} integrity`,data.projects===10&&data.selected===4&&data.artworks===12&&!data.broken.length&&!errors.length&&!failed.length&&!data.duplicates.length&&data.scrollWidth<=width);
   await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(OUT,`${locale?'en':'zh'}-${width}-hero.png`)});
   for(const id of ['work','illustration','experiments','about','contact']){
    if(width===1440||width===390){await page.evaluate(id=>scrollTo(0,document.getElementById(id).getBoundingClientRect().top+scrollY-document.querySelector('.site-header').offsetHeight-20),id);await page.screenshot({path:path.join(OUT,`${locale?'en':'zh'}-${width}-${id}.png`)})}
@@ -44,7 +44,7 @@ const OUT=path.join(ROOT,'evidence','qa');fs.mkdirSync(OUT,{recursive:true});
  check('Pet is display only',await vids.first().evaluate(v=>!v.hasAttribute('role')&&v.tabIndex<0&&!v.controls));
  await p.close();
  // No-script reading, artwork links, and case navigation remain available.
- const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const n=await context.newPage();await n.goto(BASE);check('No-JS all work visible',await n.locator('.project-card').count()===9&&await n.locator('nav').isVisible());await context.close();
+ const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const n=await context.newPage();await n.goto(BASE);check('No-JS all work visible',await n.locator('.project-card').count()===10&&await n.locator('nav').isVisible());await context.close();
  await browser.close();
  fs.writeFileSync(path.join(OUT,'browser.json'),JSON.stringify({results,checks},null,2));console.log(JSON.stringify({checks:checks.length,passed:checks.filter(c=>c.pass).length,failed:checks.filter(c=>!c.pass),layouts:results},null,2));if(checks.some(c=>!c.pass))process.exitCode=1;
 })().catch(e=>{console.error(e);process.exit(1)});

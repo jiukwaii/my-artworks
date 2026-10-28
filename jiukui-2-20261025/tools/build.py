@@ -5,6 +5,7 @@ from html.parser import HTMLParser
 from urllib.parse import urlsplit
 from hashlib import sha256
 import re, json
+from aoi_card import game_card
 
 ROOT=Path(__file__).resolve().parents[1]
 SITE=ROOT/'src/site'
@@ -91,7 +92,7 @@ def emit(html,path):
 def homepage():
     path=''
     body=LIVE[LIVE.index('<body'):]
-    work='<section class="works chapter" id="work" aria-labelledby="work-title">'+section_title('work-title','精選作品')+'<p class="section-intro">三件作品，看看角色、陪伴與日常想法如何成形。</p><div class="project-grid selected-grid">'+''.join(card(i) for i in (0,1,2))+'</div></section>'
+    work='<section class="works chapter" id="work" aria-labelledby="work-title">'+section_title('work-title','精選作品')+'<p class="section-intro">遊戲、陪伴與日常想法，都在這裡慢慢成形。</p><div class="project-grid selected-grid">'+(card(0)+card(1)+card(2)+game_card(DATA['aoi_game']))+'</div></section>'
     body=re.sub(r'<section class="works chapter".*?</section>',lambda _:work,body,count=1,flags=re.S)
     extra='<section class="experiments chapter" id="experiments" aria-labelledby="experiments-title">'+section_title('experiments-title','更多創作與嘗試')+'<h3 class="collection-title">日常小工具</h3><p class="section-intro">把反覆遇到的小困擾，做成可以試用的網頁。</p><div class="project-grid supporting-grid">'+''.join(card(i) for i in (5,4))+'</div><h3 class="collection-title">角色與實體探索</h3><div class="project-grid supporting-grid">'+''.join(card(i) for i in (3,6))+'</div><h3 class="collection-title">早期遊戲</h3><p class="section-intro">2025 年的兩次練習，保留開始、挑戰、失敗與再試一次。</p><div class="project-grid supporting-grid">'+''.join(card(i) for i in (7,8))+'</div></section>'
     body=body.replace('<section class="gallery"',extra+'<section class="gallery"',1)
@@ -111,4 +112,4 @@ if __name__=='__main__':
     sitemap='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>'+BASE+p+'</loc></url>' for p in paths)+'</urlset>'
     (SITE/'sitemap.xml').write_text(sitemap,encoding='utf8')
     (SITE/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+BASE+'sitemap.xml\n',encoding='utf8')
-    print('Built Traditional Chinese homepage; 9 projects, 12 illustrations retained. No case-study or GitHub actions.')
+    print('Built Traditional Chinese homepage; 10 projects, 12 illustrations retained. Added a fourth selected work with direct Windows download.')

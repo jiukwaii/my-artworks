@@ -24,3 +24,8 @@
 .nav-toggle[aria-expanded="true"] .menu-stroke:nth-child(3){transform:rotate(-45deg)}
 [data-exhibit-video]{pointer-events:none;cursor:default!important;user-select:none;-webkit-user-select:none}
 @media(prefers-reduced-motion:reduce){.nav-toggle .menu-stroke{transition:none}}
+
+/* A separate 3D game card; original nine project mappings remain unchanged. */
+.selected-grid .aoi-game-card .project-cover{aspect-ratio:16/9}.aoi-game-card .project-cover img{display:block;width:100%;height:100%;object-fit:contain}
+
+.aoi-platform{font-size:13px;line-height:1.8;color:var(--secondary);margin:0 0 20px}.aoi-game-card .project-cover{display:flex;align-items:center;justify-content:center}
