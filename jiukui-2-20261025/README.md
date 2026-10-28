@@ -1,3 +1,5 @@
+> 2026-10-28 最新：葵・夏日送信已作为精选第四件上线，采用一横幅、两并排、一横幅布局。共10件作品与12幅插画；首页直接下载Windows安装包，独立介绍页暂不发布。详情见AOI_INTEGRATION.md与DEPLOYMENT.md。
+
 # Jiukui — Personal Website 2.0
 
 已于2026-10-25按用户授权部署到 **https://jiukui.vercel.app/**。运行代码提交2b3cb1d（网页标题恢复「玖葵 Jiukui」，保留细线箭头、纯展示影片、菜单过渡和iPhone预览修复），生产与核验记录见DEPLOYMENT.md。基线为同一正式站此前版本，不是更早的本地cottage/hero版本。

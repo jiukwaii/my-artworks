@@ -1,3 +1,13 @@
+## 2026-10-28 AOI首页下载接入（最新）
+
+已发布到https://jiukui.vercel.app/。用户最后要求采用「一张通栏→两张并排→一张通栏」：葵的送信日记→Pouch Pet/葵的开口信→葵・夏日送信，3D游戏为精选第四件。首页直接下载Windows 2.2.0，不发布独立介绍页；/games/aoi/为404，草稿仅保留于游戏工作区。
+
+生产部署dpl_Hrm6bRmsHodstWHV5GqWND8Kbwjq（READY），正式域名别名已核对；预览dpl_5w4C8GZ8a6Xc9mV8jqTGLjdZgDzA。运行代码f84ad6135fc90e55e61af692336def533775eca9，分支codex/aoi-portfolio-download-20261028，没有合并main。回退基线dpl_iM9FRE87LSxTPYhtTGXgu7P6BCS7。
+
+本地、预览和正式域名Chrome 1440/768/390/320全部通过。原9卡片与Hero HTML未变，10项目与12插画可达，126份原有二进制素材哈希不变。手机菜单、插画查看/焦点返回、实机图片实际可见及真实下载启动检查通过；测试在收到正确安装包文件名后取消下载，未冒充本轮完整下载安装。游戏安装包本身的完整下载/安装检查已有独立交付证据。
+
+线上HTML/CSS规范化换行后与本地一致，实机PNG字节哈希一致。未修改游戏代码、场景、存档或旧站根文件。没有物理手机验收。证据：游戏工作区reports/portfolio-aoi-integration/publication.json与home-production。后续为历史记录。
+
 # 生产发布记录
 
 > 最新生产：2026-10-26 网页、分享标题及结构化WebPage名称恢复「玖葵 Jiukui」。部署dpl_iM9FRE87LSxTPYhtTGXgu7P6BCS7，运行代码2b3cb1daca2dd9b8470bb7ada7122624a1f90232。正式域名HTTP200，title/og:title/twitter:title均已核对，线上HTML与本地完全一致；静态检查通过，126份原始素材保持不变。见evidence/name-only-title/live-check.json。
